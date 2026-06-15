@@ -52,15 +52,11 @@ rollback/
 scripts/
 workspace/
 
-# 專案但獨立倉庫 Submodule（各自管理）
-Lobster_Semantic_Super_Retrieval_System/
-Zeni_Creative_Advertising/
+# 專案但獨立倉庫 Submodule（由 .gitmodules 管理，請勿在此重複忽略）
+# Lobster_Semantic_Super_Retrieval_System/
+# Zeni_Creative_Advertising/
 
 # 暫存工作區
 workspace/tmp/
 */tmp/
 */.tmp/
-
-# 獨立倉庫 Submodule（各自管理）
-Lobster_Semantic_Super_Retrieval_System/
-Zeni_Creative_Advertising/

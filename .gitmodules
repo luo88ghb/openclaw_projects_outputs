@@ -1,0 +1,6 @@
+[submodule "Lobster_Semantic_Super_Retrieval_System"]
+	path = Lobster_Semantic_Super_Retrieval_System
+	url = https://github.com/luo88ghb/Lobster-Semantic-Super-Retrieval-System.git
+[submodule "Zeni_Creative_Advertising"]
+	path = Zeni_Creative_Advertising
+	url = https://github.com/luo88ghb/Zeni_Creative_Advertising.git
