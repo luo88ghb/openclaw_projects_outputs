@@ -1,0 +1,52 @@
+{
+  "round": 1,
+  "maxRounds": 10,
+  "phase": "idle",
+  "scores": {
+    "designer": 0,
+    "xiaxia": 0
+  },
+  "players": {
+    "designer": {
+      "status": "offline",
+      "lastSeen": null
+    },
+    "xiaxia": {
+      "status": "offline",
+      "lastSeen": null
+    }
+  },
+  "currentQuestion": null,
+  "currentAnswer": null,
+  "currentStandardAnswer": null,
+  "questioner": null,
+  "answerer": null,
+  "questions": [],
+  "timeLeft": 0,
+  "gameOver": false,
+  "lastUpdated": "2026-05-21T02:41:43.661Z",
+  "history": [],
+  "manualMode": false,
+  "zeniMessage": {
+    "time": "2026-05-21T02:41:43.661Z",
+    "message": "🐢 傑尼主控系統就緒！已成功連線至 Gateway (127.0.0.1)。",
+    "errorType": "info",
+    "actions": []
+  },
+  "zeniActions": [],
+  "zeniLog": [
+    {
+      "time": "2026-05-21T02:41:43.661Z",
+      "message": "🐢 傑尼主控系統就緒！已成功連線至 Gateway (127.0.0.1)。",
+      "errorType": "info",
+      "actions": []
+    }
+  ],
+  "connectionStatus": {
+    "mode": "cloud",
+    "model": "ollama/minimax-m2.7:cloud",
+    "lastError": null,
+    "rateLimitAt": null,
+    "retryIn": null
+  }
+}

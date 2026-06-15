@@ -1,0 +1,58 @@
+======================================================================
+Gemma 4 E4B Q4_K_M 測試報告
+生成時間：2026-05-12 01:32:08
+======================================================================
+
+
+【測試 1】圖片測試-螢幕擷取畫面 2025-11-14 223208.png
+--------------------------------------------------
+  類型：image
+  Tokens：28
+  耗時：7.57s
+  速度：3.70 tokens/s
+  時間戳：2026-05-12T01:09:20.359763
+  輸出預覽：1.  **Analyze the Request:** The user provided an image (or text mimickingan image) and requested an Optical Character Recognition (OCR) transcriptiotranscription of its content. The explicit instruction is: "請OCR這張圖片的內容文字，不用解釋" (Please OCR the content text of this image, no explanatexplanation needed).2.  **Examine the Input Text/Image:** The input is structured text (likelyrepresenting a promotional graphic):*   *Line 1:* TickGiveaway 用戶可獲得*   *Line 2:* EaseUS Video Downloader*   *Line 3:* 一年期...
+
+
+【測試 2】圖片測試-螢幕擷取畫面 2025-10-26 131202.png
+--------------------------------------------------
+  類型：image
+  Tokens：48
+  耗時：12.65s
+  速度：3.79 tokens/s
+  時間戳：2026-05-12T01:11:22.060438
+  輸出預覽：1.  **Analyze the Request:** The user has provided an image (which I cannotcannot see, but the text context implies an image was attached) and has expexplicitly asked me to perform OCR (Optical Character Recognition) on the iimage content. The output must *only* be the extracted text, with no explanexplanation or surrounding commentary.2.  **Examine the Provided Content:** The user has provided several paragraparagraphs of text *before* the request, and then a final line with the imaimage and a ...
+
+
+【測試 3】圖片測試-螢幕擷取畫面 2025-10-23 001357.png
+--------------------------------------------------
+  類型：image
+  Tokens：24
+  耗時：6.13s
+  速度：3.92 tokens/s
+  時間戳：2026-05-12T01:14:17.905042
+  輸出預覽：1.  **Analyze the Request:** The user provided an image and requested an OCOCR (Optical Character Recognition) transcription of all the text content wwithin the image. Crucially, the user added the constraint: "不用說明解釋"(No explanations/descriptions needed).2.  **Examine the Image (OCR Pass):** I will systematically read all the vivisible text elements from the image.*   Large text (top): DeepSeek*   Large text (middle): OCR*   Smaller text/logo area (bottom):*   Text: 本地部署 + 客观测评*   [The checkmar...
+
+
+【測試 4】圖片測試-螢幕擷取畫面 2025-11-02 114414.png
+--------------------------------------------------
+  類型：image
+  Tokens：32
+  耗時：10.23s
+  速度：3.13 tokens/s
+  時間戳：2026-05-12T01:17:37.798863
+  輸出預覽：1.  **Analyze the Request:** The user wants me to perform Optical CharacterCharacter Recognition (OCR) on the provided image. Crucially, the user explexplicitly states: "不需要說明和解釋" (No explanation or interpretation neeneeded). The output must be the plain text content.2.  **Examine the Image:** The image is a financial/stock market analysis ggraphic, presenting several points.3.  **Transcribe the Text (Section by Section):***   *Header:* 台股驚漲 遇到這5警訊 就要逃！ (Taiwan stock market surprisurprising rise...
+
+
+【測試 5】圖片測試-螢幕擷取畫面 2025-10-17 120514.png
+--------------------------------------------------
+  類型：image
+  Tokens：83
+  耗時：30.44s
+  速度：2.73 tokens/s
+  時間戳：2026-05-12T01:26:53.880088
+  輸出預覽：1.  **Analyze the Request:** The user wants a detailed description of the pprovided image, specifically covering four points:*   Main objects (主要物件)*   Scene description (場景描述)*   Color and composition (顏色和構圖)*   Any text (任何文字)2.  **Examine the Image (Initial Impression & Core Subjects):***   **Subjects:** A young couple (a woman and a man).*   **Setting:** Outdoors, against a wall/archway covered in vibrant grgreen foliage and light pink flowers.*   **Mood/Tone:** Romantic, fresh, natural, bri...
+
+======================================================================
+報告結束
+======================================================================

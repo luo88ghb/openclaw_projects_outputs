@@ -1,0 +1,395 @@
+:root {
+  --bg: #0b1120;
+  --card: #111c33;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #fbbf24;
+  --accent2: #10b981;
+  --border: #1e293b;
+  --odd-row: #141f38;
+  --even-row: #0f192b;
+  --finished: #64748b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+header {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #0f1b35 0%, #162544 100%);
+  border-bottom: 2px solid var(--accent);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+header p {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+#hero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.2rem;
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+/* 進階預測卡 */
+.predictions-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+#prediction-stage-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.stage-tab {
+  background: var(--bg);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.35rem 0.6rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.stage-tab.active,
+.stage-tab:hover {
+  background: var(--accent);
+  color: #0b1120;
+  border-color: var(--accent);
+}
+
+#prediction-content {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 120px;
+}
+
+#prediction-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+#prediction-actions button {
+  background: var(--accent2);
+  color: #0b1120;
+  border: none;
+  border-radius: 6px;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+#prediction-actions button:hover {
+  opacity: 0.9;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.filters input,
+.filters select {
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.filters input {
+  flex: 1 1 220px;
+}
+
+.filters select {
+  min-width: 130px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 0.75rem 0.6rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: #162544;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* 單雙數行顏色 */
+#match-tbody tr.odd {
+  background: var(--odd-row);
+}
+
+#match-tbody tr.even {
+  background: var(--even-row);
+}
+
+#match-tbody tr.odd:hover,
+#match-tbody tr.even:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* 已賽場次字體顏色 */
+#match-tbody tr.finished td {
+  color: var(--finished);
+}
+
+#match-tbody tr.finished .score {
+  color: var(--finished);
+}
+
+#match-tbody tr.finished .team-name {
+  color: var(--finished);
+}
+
+.score {
+  font-weight: bold;
+  color: var(--accent2);
+}
+
+.score.live {
+  color: #ef4444;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.team-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 500;
+}
+
+.team-flag {
+  font-size: 1.2rem;
+}
+
+.prediction {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.prediction-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.prediction-bar .bar {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--accent2);
+  min-width: 4px;
+}
+
+.prediction-bar .bar.home {
+  background: #3b82f6;
+}
+
+.prediction-bar .bar.draw {
+  background: var(--muted);
+}
+
+.prediction-bar .bar.away {
+  background: #ef4444;
+}
+
+#standings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.group-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.group-card h3 {
+  margin-top: 0;
+  color: var(--accent);
+}
+
+.group-card table {
+  font-size: 0.9rem;
+}
+
+/* 預測內容樣式 */
+.prediction-stage-title {
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+.prediction-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.prediction-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+}
+
+.prediction-team {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.prediction-prob {
+  font-weight: 600;
+  color: var(--accent2);
+}
+
+.prediction-bracket {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.bracket-match {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem;
+}
+
+.bracket-team {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+}
+
+.bracket-team.winner {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid var(--accent2);
+}
+
+.bracket-vs {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.3rem;
+  }
+
+  th,
+  td {
+    padding: 0.5rem 0.3rem;
+    font-size: 0.85rem;
+  }
+
+  #prediction-stage-tabs {
+    gap: 0.3rem;
+  }
+
+  .stage-tab {
+    padding: 0.3rem 0.45rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* 列印樣式 */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  header,
+  .filters,
+  #prediction-actions,
+  footer {
+    display: none;
+  }
+
+  #hero,
+  .predictions-card {
+    page-break-inside: avoid;
+  }
+}

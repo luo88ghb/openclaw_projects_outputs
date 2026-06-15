@@ -1,0 +1,251 @@
+{
+  "1": {
+    "inputs": {
+      "unet_name": "[ Qwen ]\\qwen_image_edit_2511_fp8mixed.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader"
+  },
+  "2": {
+    "inputs": {
+      "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader"
+  },
+  "3": {
+    "inputs": {
+      "vae_name": "qwen_image_vae.safetensors"
+    },
+    "class_type": "VAELoader"
+  },
+  "4": {
+    "inputs": {
+      "lora_name": "[ Qwen ]\\Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+      "strength_model": 1.0,
+      "model": ["1", 0]
+    },
+    "class_type": "LoraLoaderModelOnly"
+  },
+  "5": {
+    "inputs": {
+      "lora_name": "[ Qwen ]\\2511-AnyPose-base-000006250.safetensors",
+      "strength_model": 0.7,
+      "model": ["4", 0]
+    },
+    "class_type": "LoraLoaderModelOnly"
+  },
+  "6": {
+    "inputs": {
+      "lora_name": "[ Qwen ]\\2511-AnyPose-helper-00006000.safetensors",
+      "strength_model": 0.7,
+      "model": ["5", 0]
+    },
+    "class_type": "LoraLoaderModelOnly"
+  },
+  "101": {
+    "inputs": {
+      "image": "zeni_subj.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage"
+  },
+  "102": {
+    "inputs": {
+      "image": "zeni_pose.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage"
+  },
+  "10": {
+    "inputs": {
+      "text": "图1 background placeholder"
+    },
+    "class_type": "CR Text"
+  },
+  "11": {
+    "inputs": {
+      "text": "core control instruction placeholder"
+    },
+    "class_type": "CR Text"
+  },
+  "12": {
+    "inputs": {
+      "text": "target background placeholder"
+    },
+    "class_type": "CR Text"
+  },
+  "13": {
+    "inputs": {
+      "text1": ["11", 0],
+      "text2": ["12", 0],
+      "separator": ","
+    },
+    "class_type": "CR Text Concatenate"
+  },
+  "14": {
+    "inputs": {
+      "aspect_ratio": "original",
+      "proportional_width": 1,
+      "proportional_height": 1,
+      "fit": "letterbox",
+      "method": "lanczos",
+      "round_to_multiple": "16",
+      "scale_to_side": "longest",
+      "scale_to_length": 1024,
+      "background_color": "#000000",
+      "image": ["101", 0]
+    },
+    "class_type": "LayerUtility: ImageScaleByAspectRatio V2"
+  },
+  "15": {
+    "inputs": {
+      "aspect_ratio": "custom",
+      "proportional_width": 1,
+      "proportional_height": 1,
+      "fit": "letterbox",
+      "method": "lanczos",
+      "round_to_multiple": "16",
+      "scale_to_side": "longest",
+      "scale_to_length": 1024,
+      "background_color": "#000000",
+      "image": ["102", 0]
+    },
+    "class_type": "LayerUtility: ImageScaleByAspectRatio V2"
+  },
+  "16": {
+    "inputs": {
+      "to_ref": true,
+      "ref_main_image": false,
+      "ref_longest_edge": 1024,
+      "ref_crop": "pad",
+      "ref_upscale": "lanczos",
+      "to_vl": true,
+      "vl_resize": true,
+      "vl_target_size": 384,
+      "vl_crop": "center",
+      "vl_upscale": "bicubic",
+      "image": ["14", 0]
+    },
+    "class_type": "QwenEditConfigPreparer"
+  },
+  "17": {
+    "inputs": {
+      "to_ref": true,
+      "ref_main_image": true,
+      "ref_longest_edge": ["32", 0],
+      "ref_crop": "pad",
+      "ref_upscale": "lanczos",
+      "to_vl": true,
+      "vl_resize": true,
+      "vl_target_size": 384,
+      "vl_crop": "center",
+      "vl_upscale": "bicubic",
+      "image": ["15", 0],
+      "configs": ["16", 0]
+    },
+    "class_type": "QwenEditConfigPreparer"
+  },
+  "18": {
+    "inputs": {
+      "prompt": ["13", 0],
+      "return_full_refs_cond": true,
+      "instruction": "Describe the key features of the input image (color, shape, size, texture, objects, background), then explain how the user's text instruction should alter or modify the image. Generate a new image that meets the user's requirements while maintaining consistency with the original input where appropriate.",
+      "clip": ["2", 0],
+      "vae": ["3", 0],
+      "configs": ["17", 0]
+    },
+    "class_type": "TextEncodeQwenImageEditPlusCustom_lrzjason"
+  },
+  "19": {
+    "inputs": {
+      "conditioning": ["18", 0]
+    },
+    "class_type": "ConditioningZeroOut"
+  },
+  "20": {
+    "inputs": {
+      "reference_latents_method": "index_timestep_zero",
+      "conditioning": ["18", 0]
+    },
+    "class_type": "FluxKontextMultiReferenceLatentMethod"
+  },
+  "21": {
+    "inputs": {
+      "reference_latents_method": "index_timestep_zero",
+      "conditioning": ["19", 0]
+    },
+    "class_type": "FluxKontextMultiReferenceLatentMethod"
+  },
+  "22": {
+    "inputs": {
+      "custom_output": ["18", 2]
+    },
+    "class_type": "QwenEditOutputExtractor"
+  },
+  "23": {
+    "inputs": {
+      "shift": 3.1,
+      "model": ["6", 0]
+    },
+    "class_type": "ModelSamplingAuraFlow"
+  },
+  "24": {
+    "inputs": {
+      "strength": 1.0,
+      "model": ["23", 0]
+    },
+    "class_type": "CFGNorm"
+  },
+  "25": {
+    "inputs": {
+      "seed": 324610548817304,
+      "steps": 4,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0,
+      "model": ["24", 0],
+      "positive": ["20", 0],
+      "negative": ["21", 0],
+      "latent_image": ["18", 1]
+    },
+    "class_type": "KSampler"
+  },
+  "26": {
+    "inputs": {
+      "samples": ["25", 0],
+      "vae": ["3", 0]
+    },
+    "class_type": "VAEDecode"
+  },
+  "27": {
+    "inputs": {
+      "image": ["26", 0],
+      "pad_info": ["22", 0]
+    },
+    "class_type": "CropWithPadInfo"
+  },
+  "28": {
+    "inputs": {
+      "filename_prefix": "Zeni_Jojo_Result",
+      "images": ["27", 0]
+    },
+    "class_type": "SaveImage"
+  },
+  "30": {
+    "inputs": {
+      "image": ["14", 0]
+    },
+    "class_type": "GetImageSize"
+  },
+  "32": {
+    "inputs": {
+      "mode": true,
+      "a": ["30", 0],
+      "b": ["30", 1]
+    },
+    "class_type": "ImpactMinMax"
+  }
+}

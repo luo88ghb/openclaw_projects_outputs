@@ -1,0 +1,55 @@
+/*
+ * Patch 1: 在 game 物件初始化後立即設定 manualMode 為 false
+ * 找到 game 物件定義附近，在其屬性後加入 manualMode: false
+ */
+game, manualMode: false,
+
+/*
+ * Patch 2: 在 startDesignerAsking 的 catch 區塊加入手動模式回退
+ * 原本：
+ game.currentQuestion = '（系統錯誤）';
+ * 改為：
+ */
+        } catch (err) {
+            console.log('[Game] Error: ' + err.message);
+            game.currentQuestion = '（系統自動功能失敗，請手動輸入題目）';
+            game.phase = PHASE.DESIGNER_ASKING;
+            game.manualMode = true;
+            saveState();
+            broadcastSSE();
+        }
+
+/*
+ * Patch 3: 新增手動端點（放在其他 API 路由的同一個區塊）
+ * 在 app.use(express.static('public')); 之後加入：
+ */
+// 手動模式：提交題目
+app.post('/api/manual-question', (req, res) => {
+    const { question } = req.body;
+    if (typeof question !== 'string' || question.trim() === '') {
+        return res.status(400).json({ error: 'missing or empty question' });
+    }
+    game.currentQuestion = question;
+    game.questioner = 'designer';
+    game.answerer = 'xiaxia';
+    game.phase = PHASE.XIAXIA_ANSWERING;
+    game.currentAnswer = null;
+    game.manualMode = false;
+    saveState();
+    broadcastSSE();
+    res.json({ status: 'ok' });
+});
+
+// 手動模式：提交答案
+app.post('/api/manual-answer', (req, res) => {
+    const { answer } = req.body;
+    if (typeof answer !== 'string') {
+        return res.status(400).json({ error: 'missing answer' });
+    }
+    game.currentAnswer = answer;
+    game.phase = PHASE.JUDGE_PENDING;
+    game.timeLeft = 0;
+    saveState();
+    broadcastSSE();
+    res.json({ status: 'ok' });
+});

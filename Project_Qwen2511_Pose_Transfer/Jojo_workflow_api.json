@@ -1,0 +1,251 @@
+{
+  "1": {
+    "inputs": {
+      "unet_name": "[ Qwen ]\\qwen_image_edit_2511_fp8mixed.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader"
+  },
+  "2": {
+    "inputs": {
+      "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader"
+  },
+  "3": {
+    "inputs": {
+      "vae_name": "qwen_image_vae.safetensors"
+    },
+    "class_type": "VAELoader"
+  },
+  "4": {
+    "inputs": {
+      "lora_name": "[ Qwen ]\\Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+      "strength_model": 1.0,
+      "model": ["1", 0]
+    },
+    "class_type": "LoraLoaderModelOnly"
+  },
+  "5": {
+    "inputs": {
+      "lora_name": "[ Qwen ]\\2511-AnyPose-base-000006250.safetensors",
+      "strength_model": 0.7,
+      "model": ["4", 0]
+    },
+    "class_type": "LoraLoaderModelOnly"
+  },
+  "6": {
+    "inputs": {
+      "lora_name": "[ Qwen ]\\2511-AnyPose-helper-00006000.safetensors",
+      "strength_model": 0.7,
+      "model": ["5", 0]
+    },
+    "class_type": "LoraLoaderModelOnly"
+  },
+  "101": {
+    "inputs": {
+      "image": "zeni_subj.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage"
+  },
+  "102": {
+    "inputs": {
+      "image": "zeni_pose.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage"
+  },
+  "10": {
+    "inputs": {
+      "text": "图1背景：街道两旁是日式商业街，店铺招牌多为中文与日文混合，黄色遮阳篷下是玻璃橱窗，店内灯光明亮。人行道铺有灰色地砖，有行人穿梭，远处可见红绿灯与电线杆。街道上方悬挂着广告牌与指示牌，建筑外墙为浅色，有绿植点缀。整体氛围是都市街头的日常繁忙，光线明亮，略带午后阳光感。"
+    },
+    "class_type": "CR Text"
+  },
+  "11": {
+    "inputs": {
+      "text": "让图像1中的人物摆出与图像2中人物完全相同的姿势。绝对不能更改图像1中人物的风格和衣服，发型，脸部。新的姿势应与我们要复制的姿势像素级精确一致。手臂、头部和腿的位置应与我们要复制的姿势相同。调整视角和拍摄角度，使其与图像2完全一致。头部倾斜和视线姿势应与图像2中的人物匹配。保留图2背景"
+    },
+    "class_type": "CR Text"
+  },
+  "12": {
+    "inputs": {
+      "text": "图2背景为柔和的橄榄绿色调，墙面平整无纹理，营造出简约而宁静的视觉空间。光线均匀柔和，无明显阴影或强烈反差，凸显出整体环境的沉静与高级感。色调统一，无杂乱元素，突出主体人物的视觉焦点，同时赋予画面一种现代、克制的时尚氛围。整体背景设计服务于主题表达，无多余装饰，强调纯净与高级质感。"
+    },
+    "class_type": "CR Text"
+  },
+  "13": {
+    "inputs": {
+      "text1": ["11", 0],
+      "text2": ["12", 0],
+      "separator": ","
+    },
+    "class_type": "CR Text Concatenate"
+  },
+  "14": {
+    "inputs": {
+      "aspect_ratio": "original",
+      "proportional_width": 1,
+      "proportional_height": 1,
+      "fit": "letterbox",
+      "method": "lanczos",
+      "round_to_multiple": "16",
+      "scale_to_side": "longest",
+      "scale_to_length": 1024,
+      "background_color": "#000000",
+      "image": ["101", 0]
+    },
+    "class_type": "LayerUtility: ImageScaleByAspectRatio V2"
+  },
+  "15": {
+    "inputs": {
+      "aspect_ratio": "custom",
+      "proportional_width": 1,
+      "proportional_height": 1,
+      "fit": "letterbox",
+      "method": "lanczos",
+      "round_to_multiple": "16",
+      "scale_to_side": "longest",
+      "scale_to_length": 1024,
+      "background_color": "#000000",
+      "image": ["102", 0]
+    },
+    "class_type": "LayerUtility: ImageScaleByAspectRatio V2"
+  },
+  "16": {
+    "inputs": {
+      "to_ref": true,
+      "ref_main_image": false,
+      "ref_longest_edge": 1024,
+      "ref_crop": "pad",
+      "ref_upscale": "lanczos",
+      "to_vl": true,
+      "vl_resize": true,
+      "vl_target_size": 384,
+      "vl_crop": "center",
+      "vl_upscale": "bicubic",
+      "image": ["14", 0]
+    },
+    "class_type": "QwenEditConfigPreparer"
+  },
+  "17": {
+    "inputs": {
+      "to_ref": true,
+      "ref_main_image": true,
+      "ref_longest_edge": ["32", 0],
+      "ref_crop": "pad",
+      "ref_upscale": "lanczos",
+      "to_vl": true,
+      "vl_resize": true,
+      "vl_target_size": 384,
+      "vl_crop": "center",
+      "vl_upscale": "bicubic",
+      "image": ["15", 0],
+      "configs": ["16", 0]
+    },
+    "class_type": "QwenEditConfigPreparer"
+  },
+  "18": {
+    "inputs": {
+      "prompt": ["13", 0],
+      "return_full_refs_cond": true,
+      "instruction": "Describe the key features of the input image (color, shape, size, texture, objects, background), then explain how the user's text instruction should alter or modify the image. Generate a new image that meets the user's requirements while maintaining consistency with the original input where appropriate.",
+      "clip": ["2", 0],
+      "vae": ["3", 0],
+      "configs": ["17", 0]
+    },
+    "class_type": "TextEncodeQwenImageEditPlusCustom_lrzjason"
+  },
+  "19": {
+    "inputs": {
+      "conditioning": ["18", 0]
+    },
+    "class_type": "ConditioningZeroOut"
+  },
+  "20": {
+    "inputs": {
+      "reference_latents_method": "index_timestep_zero",
+      "conditioning": ["18", 0]
+    },
+    "class_type": "FluxKontextMultiReferenceLatentMethod"
+  },
+  "21": {
+    "inputs": {
+      "reference_latents_method": "index_timestep_zero",
+      "conditioning": ["19", 0]
+    },
+    "class_type": "FluxKontextMultiReferenceLatentMethod"
+  },
+  "22": {
+    "inputs": {
+      "custom_output": ["18", 2]
+    },
+    "class_type": "QwenEditOutputExtractor"
+  },
+  "23": {
+    "inputs": {
+      "shift": 3.1,
+      "model": ["6", 0]
+    },
+    "class_type": "ModelSamplingAuraFlow"
+  },
+  "24": {
+    "inputs": {
+      "strength": 1.0,
+      "model": ["23", 0]
+    },
+    "class_type": "CFGNorm"
+  },
+  "25": {
+    "inputs": {
+      "seed": 324610548817304,
+      "steps": 4,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0,
+      "model": ["24", 0],
+      "positive": ["20", 0],
+      "negative": ["21", 0],
+      "latent_image": ["18", 1]
+    },
+    "class_type": "KSampler"
+  },
+  "26": {
+    "inputs": {
+      "samples": ["25", 0],
+      "vae": ["3", 0]
+    },
+    "class_type": "VAEDecode"
+  },
+  "27": {
+    "inputs": {
+      "image": ["26", 0],
+      "pad_info": ["22", 0]
+    },
+    "class_type": "CropWithPadInfo"
+  },
+  "28": {
+    "inputs": {
+      "filename_prefix": "Zeni_Jojo_Result",
+      "images": ["27", 0]
+    },
+    "class_type": "SaveImage"
+  },
+  "30": {
+    "inputs": {
+      "image": ["14", 0]
+    },
+    "class_type": "GetImageSize"
+  },
+  "32": {
+    "inputs": {
+      "mode": true,
+      "a": ["30", 0],
+      "b": ["30", 1]
+    },
+    "class_type": "ImpactMinMax"
+  }
+}

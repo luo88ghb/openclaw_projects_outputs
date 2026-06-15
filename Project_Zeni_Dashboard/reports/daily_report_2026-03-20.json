@@ -1,0 +1,92 @@
+{
+  "date": "2026-03-20",
+  "daily": {
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "estimated_cost_usd": 0.0,
+    "estimated_cost_twd": 0.0
+  },
+  "monthly": {
+    "total_tokens": 0,
+    "total_cost_usd": 0.0,
+    "total_cost_twd": 0.0
+  },
+  "free_tier": {
+    "limit": 10000,
+    "used": 0,
+    "remaining": 10000,
+    "reset_date": "2026-03-27"
+  },
+  "models": [
+    {
+      "model": "gpt-oss:120b-cloud",
+      "description": "GPT-OSS 120B (Cloud Free)",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "cost_usd": 0.0,
+      "cost_twd": 0.0
+    },
+    {
+      "model": "ollama/qwen359b:latest",
+      "description": "Qwen3.5 9B (Local)",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "cost_usd": 0.0,
+      "cost_twd": 0.0
+    },
+    {
+      "model": "ollama/qwen3.5:9b",
+      "description": "Qwen3.5 9B (Local)",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "cost_usd": 0.0,
+      "cost_twd": 0.0
+    },
+    {
+      "model": "kimi-k2.5:cloud",
+      "description": "Kimi K2.5 (Cloud)",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "cost_usd": 0.0,
+      "cost_twd": 0.0
+    },
+    {
+      "model": "minimax-m2.5:cloud",
+      "description": "MiniMax M2.5 (Cloud)",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "cost_usd": 0.0,
+      "cost_twd": 0.0
+    }
+  ],
+  "ollama_status": {
+    "status": "✅ Running",
+    "models_loaded": 9,
+    "models": [
+      "erwan2/DeepSeek-Janus-Pro-7B:latest",
+      "gemma3:12b",
+      "gemma3:latest",
+      "gpt-oss:120b-cloud",
+      "qwen359b:latest",
+      "qwen3.5:9b",
+      "qwen3-vl:latest",
+      "deepseek-r1:14b",
+      "orieg/gemma3-tools:12b"
+    ]
+  },
+  "system_resources": {
+    "cpu_percent": 15.1,
+    "memory_used_gb": 36.25806427001953,
+    "memory_total_gb": 79.86985397338867,
+    "memory_percent": 45.4,
+    "disk_used_gb": 1094.1475715637207,
+    "disk_total_gb": 1907.0175743103027,
+    "disk_percent": 57.4
+  }
+}

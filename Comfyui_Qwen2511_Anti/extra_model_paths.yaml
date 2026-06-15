@@ -1,0 +1,16 @@
+# ComfyUI 額外模型路徑設定檔 (extra_model_paths.yaml)
+# 說明：請將此檔案複製到 ComfyUI 主程式目錄（如 D:\AI\ComfyUI_windows_portable\ComfyUI\）
+# 這樣您的 ComfyUI 後端就能讀取該路徑下的模型了。
+
+anti_config:
+  base_path: D:\AI\ComfyUI_windows_portable\ComfyUI
+  checkpoints: models\checkpoints
+  clip: models\text_encoders
+  clip_vision: models\clip_vision
+  configs: models\configs
+  controlnet: models\controlnet
+  diffusion_models: models\diffusion_models
+  embeddings: models\embeddings
+  loras: models\loras
+  upscale_models: models\upscale_models
+  vae: models\vae

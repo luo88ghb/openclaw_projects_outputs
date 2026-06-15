@@ -1,0 +1,47 @@
+{
+  "nodes": [
+    {
+      "id": "101",
+      "type": "LoadImage",
+      "properties": { "image": "source_image" }
+    },
+    {
+      "id": "102",
+      "type": "LoadImage",
+      "properties": { "image": "pose_image" }
+    },
+    {
+      "id": "103",
+      "type": "IPAdapterFaceID_Global",
+      "inputs": {
+        "image": "102",
+        "face_id_embedding": "101",
+        "weight": 0.8
+      }
+    },
+    {
+      "id": "104",
+      "type": "KSampler",
+      "inputs": {
+        "seed": 0,
+        "steps": 20,
+        "cfg": 7.0,
+        "denoise": 0.6,
+        "model": "103",
+        "positive": "global_prompt",
+        "negative": "negative_prompt"
+      }
+    },
+    {
+      "id": "105",
+      "type": "VAE_Decode",
+      "inputs": { "samples": "104" }
+    }
+  ],
+  "links": [
+    ["102", "103", 0, 0],
+    ["101", "103", 0, 1],
+    ["103", "104", 0, 0],
+    ["104", "105", 0, 0]
+  ]
+}

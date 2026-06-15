@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 vs 🦐 推論猜謎對決</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #aaa;
+            font-size: 0.95em;
+        }
+
+        /* Players Grid */
+        .players-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .player-card {
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .player-card.active {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+
+        .player-card.designer {
+            border-color: #f472b6;
+        }
+
+        .player-card.xiaxia {
+            border-color: #4ade80;
+        }
+
+        .player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .player-name {
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+
+        .designer .player-name {
+            color: #f472b6;
+        }
+
+        .xiaxia .player-name {
+            color: #4ade80;
+        }
+
+        .player-status {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-waiting {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+
+        .status-thinking {
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            color: #000;
+            animation: pulse 1.5s infinite;
+        }
+
+        .status-asking {
+            background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+            color: #fff;
+            animation: pulse 1.5s infinite;
+        }
+
+        .status-offline {
+            background: rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            align-items: center;
+        }
+
+        .offline-detail {
+            font-size: 0.65em;
+            opacity: 0.7;
+            font-family: monospace;
+            text-transform: none;
+        }
+
+        .status-waiting-action {
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+            color: #fff;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .score-display {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .score-display .score {
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        .designer .score {
+            color: #f472b6;
+        }
+
+        .xiaxia .score {
+            color: #4ade80;
+        }
+
+        .score-display .label {
+            color: #888;
+            font-size: 0.85em;
+        }
+
+        .vs-divider {
+            text-align: center;
+            font-size: 2em;
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        /* Game Info Bar */
+        .game-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .info-box .value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+
+        .info-box .label {
+            color: #888;
+            font-size: 0.8em;
+            margin-top: 3px;
+        }
+
+        /* Phase Display */
+        .phase-section {
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .phase-idle {
+            background: rgba(255, 255, 255, 0.1);
+            color: #888;
+        }
+
+        .phase-designer_asking {
+            background: rgba(244, 114, 182, 0.2);
+            color: #f472b6;
+        }
+
+        .phase-xiaxia_answering {
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+        }
+
+        .phase-judge_pending {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+
+        .phase-xiaxia_asking {
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+        }
+
+        .phase-designer_answering {
+            background: rgba(244, 114, 182, 0.2);
+            color: #f472b6;
+        }
+
+        .phase-game_over {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+
+        /* Timer */
+        .timer-section {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .timer {
+            font-size: 3em;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            color: #4ade80;
+        }
+
+        .timer.warning {
+            color: #fbbf24;
+        }
+
+        .timer.danger {
+            color: #ef4444;
+            animation: blink 0.5s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .timer-label {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        /* Question & Answer Box */
+        .qa-section {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .qa-section h3 {
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .question-box {
+            color: #fbbf24;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.2em;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .answer-box {
+            border-left: 4px solid #8b5cf6;
+            padding-left: 15px;
+        }
+
+        .answer-text {
+            font-size: 1.1em;
+            color: #a78bfa;
+            white-space: pre-wrap;
+        }
+
+        .answer-waiting {
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Judge Section */
+        .judge-section {
+            background: rgba(251, 191, 36, 0.15);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 2px solid #fbbf24;
+        }
+
+        .judge-section h3 {
+            color: #fbbf24;
+            margin-bottom: 15px;
+        }
+
+        .judge-question {
+            color: #ccc;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .judge-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .judge-btn {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: bold;
+        }
+
+        .judge-btn.correct {
+            background: #4ade80;
+            color: #000;
+        }
+
+        .judge-btn.wrong {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        .judge-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Winner Display */
+        .winner-section {
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .winner-section.designer-wins {
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.3), rgba(236, 72, 153, 0.2));
+            border: 3px solid #f472b6;
+        }
+
+        .winner-section.xiaxia-wins {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.3), rgba(34, 197, 94, 0.2));
+            border: 3px solid #4ade80;
+        }
+
+        .winner-section.tie {
+            background: rgba(255, 255, 255, 0.1);
+            border: 3px solid #888;
+        }
+
+        .winner-section h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .winner-section .final-score {
+            font-size: 1.5em;
+            color: #fbbf24;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 15px 25px;
+            font-size: 1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            color: #000;
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #fff;
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #fff;
+        }
+
+        /* History */
+        .history-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .history-section h3 {
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .history-item {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .history-round {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .history-question {
+            color: #fbbf24;
+            margin-bottom: 8px;
+        }
+
+        .history-answer {
+            color: #a78bfa;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+        }
+
+        .history-result {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+        }
+
+        .verdict-correct {
+            color: #4ade80;
+        }
+
+        .verdict-wrong {
+            color: #ef4444;
+        }
+
+        .verdict-timeout {
+            color: #fbbf24;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+        }
+
+        .loading::after {
+            content: '';
+            animation: dots 1.5s infinite;
+        }
+
+        @keyframes dots {
+
+            0%,
+            20% {
+                content: '.';
+            }
+
+            40% {
+                content: '..';
+            }
+
+            60%,
+            100% {
+                content: '...';
+            }
+        }
+
+        /* Zeni Status Bar */
+        .zeni-status-bar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85em;
+            flex-wrap: wrap;
+        }
+
+        .zeni-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+
+        .connection-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .connection-cloud {
+            background: rgba(59, 130, 246, 0.25);
+            border: 1px solid #3b82f6;
+            color: #93c5fd;
+        }
+
+        .connection-local {
+            background: rgba(251, 191, 36, 0.25);
+            border: 1px solid #fbbf24;
+            color: #fde68a;
+            animation: pulse 1.5s infinite;
+        }
+
+        .connection-degraded {
+            background: rgba(239, 68, 68, 0.25);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+            animation: blink 1s infinite;
+        }
+
+        .model-tag {
+            color: #888;
+            font-size: 0.75em;
+            font-family: monospace;
+        }
+
+        .zeni-status-bar .spacer { flex: 1; }
+
+        /* Zeni Alert Panel */
+        .zeni-alert-panel {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #fbbf24;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .zeni-alert-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #f59e0b, #ef4444, #f59e0b);
+            background-size: 200% 100%;
+            animation: shimmer 2s linear infinite;
+        }
+
+        .zeni-alert-panel.error {
+            border-color: #ef4444;
+        }
+
+        .zeni-alert-panel.error::before {
+            background: linear-gradient(90deg, #ef4444, #fbbf24, #ef4444);
+            background-size: 200% 100%;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .zeni-alert-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .zeni-alert-header .zeni-icon {
+            font-size: 1.5em;
+            animation: pulse 1s infinite;
+        }
+
+        .zeni-alert-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+
+        .zeni-alert-message {
+            color: #e5e7eb;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+        }
+
+        .zeni-action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .zeni-action-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: all 0.2s;
+            min-width: 100px;
+        }
+
+        .zeni-action-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+
+        .zeni-btn-manual {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: #fff;
+        }
+
+        .zeni-btn-pause {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #fff;
+        }
+
+        .zeni-btn-stop {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #fff;
+        }
+
+        .zeni-btn-wait {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+        }
+
+        .zeni-btn-switch-cloud {
+            background: linear-gradient(135deg, #06b6d4, #0284c7);
+            color: #fff;
+        }
+
+        /* Zeni Log */
+        .zeni-log-section {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .zeni-log-section h3 {
+            color: #fbbf24;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .zeni-log-entry {
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.82em;
+            color: #aaa;
+            line-height: 1.4;
+        }
+
+        .zeni-log-entry .log-time {
+            color: #555;
+            font-family: monospace;
+            margin-right: 8px;
+        }
+
+        .zeni-log-entry.log-rate_limit { color: #fbbf24; }
+        .zeni-log-entry.log-connection { color: #ef4444; }
+        .zeni-log-entry.log-info { color: #93c5fd; }
+
+        /* Retry countdown */
+        .retry-countdown {
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid #10b981;
+            border-radius: 10px;
+            color: #6ee7b7;
+            font-family: monospace;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .players-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .game-info {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .judge-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 傑尼監控狀態列 -->
+    <div class="zeni-status-bar" id="zeni-status-bar">
+        <div class="zeni-badge">🐢 傑尼主控系統</div>
+        <div class="connection-indicator connection-cloud" id="connection-indicator">
+            ☁️ 雲端模式
+        </div>
+        
+        <!-- 核心組件燈號 -->
+        <div style="display: flex; gap: 10px; margin-left: 15px;">
+            <div id="light-gateway" class="player-status status-waiting" style="padding: 2px 8px; font-size: 0.7em;">🌐 Gateway</div>
+            <div id="light-designer" class="player-status status-waiting" style="padding: 2px 8px; font-size: 0.7em;">🤖 迪尼</div>
+            <div id="light-xiaxia"   class="player-status status-waiting" style="padding: 2px 8px; font-size: 0.7em;">🦐 蝦蝦</div>
+        </div>
+
+        <div class="spacer"></div>
+        <span class="model-tag" id="active-model-tag">minimax-m2.7:cloud</span>
+        <span style="color: #555; font-size: 0.75em; margin-left: 10px;" id="zeni-last-update">--</span>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🎨 vs 🦐 推論猜謎對決</h1>
+            <div class="subtitle">裁判長：🐢 傑尼 | 10 回合決定勝負</div>
+        </header>
+
+        <!-- Players -->
+        <div class="players-grid">
+            <div class="player-card designer" id="designer-card">
+                <div class="player-header">
+                    <span class="player-name">🎨 迪尼</span>
+                    <span class="player-status" id="designer-status">離線</span>
+                </div>
+                <div class="score-display">
+                    <div class="score" id="designer-score">0</div>
+                    <div class="label">分數</div>
+                </div>
+            </div>
+
+            <div class="vs-divider">⚖️</div>
+
+            <div class="player-card xiaxia" id="xiaxia-card">
+                <div class="player-header">
+                    <span class="player-name">🦐 蝦蝦</span>
+                    <span class="player-status" id="xiaxia-status">離線</span>
+                </div>
+                <div class="score-display">
+                    <div class="score" id="xiaxia-score">0</div>
+                    <div class="label">分數</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Info -->
+        <div class="game-info">
+            <div class="info-box">
+                <div class="value" id="round-display">1</div>
+                <div class="label">回合</div>
+            </div>
+            <div class="info-box">
+                <div class="value" id="phase-display">等待開始</div>
+                <div class="label">階段</div>
+            </div>
+            <div class="info-box">
+                <div class="value" id="history-count">0</div>
+                <div class="label">已完成</div>
+            </div>
+            <div class="info-box">
+                <div class="value" id="remaining">10</div>
+                <div class="label">剩餘</div>
+            </div>
+        </div>
+
+        <!-- Phase Display -->
+        <div class="phase-section phase-idle" id="phase-section">
+            <span id="phase-text">⚪ 等待開始</span>
+        </div>
+
+        <!-- Timer -->
+        <div class="timer-section" id="timer-section" style="display: none;">
+            <div class="timer" id="timer-display">3:00</div>
+            <div class="timer-label">答題剩餘時間</div>
+        </div>
+
+        <!-- Question & Answer -->
+        <div class="qa-section" id="qa-section">
+            <div class="question-box">
+                <h3>📋 當前題目</h3>
+                <div class="question-text" id="question-text">等待題目...</div>
+            </div>
+            <div class="answer-box">
+                <h3>💬 回答</h3>
+                <div class="answer-text" id="answer-text"><span class="answer-waiting">等待回答...</span></div>
+            </div>
+        </div>
+
+        <!-- 傑尼警告決策面板（動態顯示）-->
+        <div class="zeni-alert-panel" id="zeni-alert-panel" style="display:none;">
+            <div class="zeni-alert-header">
+                <span class="zeni-icon">🐢</span>
+                <span class="zeni-alert-title">傑尼指揮官 - 系統通知</span>
+                <span class="retry-countdown" id="retry-countdown" style="display:none;">⏳ 60s</span>
+            </div>
+            <div class="zeni-alert-message" id="zeni-alert-message">等待中...</div>
+            <div class="zeni-action-buttons" id="zeni-action-buttons"></div>
+        </div>
+
+        <!-- 傑尼日誌面板 -->
+        <div class="zeni-log-section" id="zeni-log-section" style="display:none;">
+            <h3>📋 傑尼監控日誌</h3>
+            <div id="zeni-log-list"></div>
+        </div>
+
+        <!-- Judge Section (Removed: Auto-judged by Zeni) -->
+
+        <!-- Winner -->
+        <div class="winner-section" id="winner-section" style="display: none;">
+            <h2 id="winner-title"></h2>
+            <div class="final-score" id="winner-score"></div>
+        </div>
+
+        <!-- Manual Mode Input -->
+        <div id="manual-section" style="display: none; padding: 15px; background: rgba(255,255,255,0.08); border-radius: 15px; margin-bottom: 20px;">
+            <h3 style="color: #fbbf24; margin-bottom: 10px;">⚠️ 手動模式</h3>
+            <p style="color: #aaa; font-size: 0.9em; margin-bottom: 15px;">系統自動功能失敗，請手動輸入：</p>
+            
+            <div id="manual-question-input" style="display: none;">
+                <label style="display: block; color: #f472b6; margin-bottom: 5px;">🎨 迪尼的題目：</label>
+                <textarea id="question-text" style="width: 100%; min-height: 80px; background: rgba(0,0,0,0.3); color: #fff; border: 1px solid #666; border-radius: 8px; padding: 10px; resize: vertical;"></textarea>
+                <button class="btn" style="margin-top: 10px; background: linear-gradient(135deg, #f472b6, #ec4899);" onclick="submitManualQuestion()">📤 提交題目</button>
+            </div>
+            
+            <div id="manual-answer-input" style="display: none;">
+                <label style="display: block; color: #4ade80; margin-bottom: 5px;">🦐 蝦蝦的答案：</label>
+                <textarea id="answer-text" style="width: 100%; min-height: 60px; background: rgba(0,0,0,0.3); color: #fff; border: 1px solid #666; border-radius: 8px; padding: 10px; resize: vertical;"></textarea>
+                <button class="btn" style="margin-top: 10px; background: linear-gradient(135deg, #4ade80, #22c55e);" onclick="submitManualAnswer()">📤 提交答案</button>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="btn btn-start" id="btn-start" onclick="startGame()">🎮 開始遊戲</button>
+            <button class="btn btn-reset" onclick="resetGame()">🔄 重置遊戲</button>
+        </div>
+
+        <!-- History -->
+        <div class="history-section">
+            <h3>📜 答題歷史</h3>
+            <div id="history-list">
+                <div class="loading">等待遊戲開始</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let gameState = null;
+        let eventSource = null;
+
+        // Phase display text mapping
+        const PHASE_TEXT = {
+            'idle': '⚪ 等待開始',
+            'designer_asking': '🎨 迪尼構思題目中...',
+            'xiaxia_answering': '🦐 蝦蝦回答中...',
+            'judge_pending': '⚖️ 等待裁決',
+            'xiaxia_asking': '🦐 蝦蝦構思題目中...',
+            'designer_answering': '🎨 迪尼回答中...',
+            'game_over': '🏆 比賽結束',
+            'paused_by_zeni': '⏸️ 傑尼暫停中'
+        };
+
+        const PHASE_CLASS = {
+            'idle': 'phase-idle',
+            'designer_asking': 'phase-designer_asking',
+            'xiaxia_answering': 'phase-xiaxia_answering',
+            'judge_pending': 'phase-judge_pending',
+            'xiaxia_asking': 'phase-xiaxia_asking',
+            'designer_answering': 'phase-designer_answering',
+            'game_over': 'phase-game_over',
+            'paused_by_zeni': 'phase-judge_pending'
+        };
+
+        const STATUS_TEXT = {
+            'offline': '離線',
+            'waiting': '待命',
+            'thinking': '思考中',
+            'asking': '構思中',
+            'waiting-action': '等待中',
+            'rate_limited': '⚠️ 受限',
+            'error': '❌ 錯誤'
+        };
+
+        const ZENI_ACTION_LABELS = {
+            'manual': { label: '📝 手動模式', cls: 'zeni-btn-manual' },
+            'pause':  { label: '⏸️ 暫停', cls: 'zeni-btn-pause' },
+            'stop':   { label: '🛑 停止比賽', cls: 'zeni-btn-stop' },
+            'wait':   { label: '⏳ 等待重試 (60s)', cls: 'zeni-btn-wait' },
+            'switch_cloud': { label: '☁️ 切回雲端', cls: 'zeni-btn-switch-cloud' }
+        };
+
+        function connectSSE() {
+            if (eventSource) eventSource.close();
+
+            eventSource = new EventSource('/api/stream');
+
+            eventSource.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    gameState = data.game;
+                    updateUI(gameState, data.timeLeft);
+                } catch (e) {
+                    console.log('Parse error:', e);
+                }
+            };
+
+            eventSource.onerror = () => {
+                console.log('SSE connection lost, retrying...');
+                eventSource.close();
+                setTimeout(connectSSE, 3000);
+            };
+        }
+
+        function updateUI(game, timeLeft) {
+            if (!game) return;
+
+            // Update scores
+            document.getElementById('designer-score').textContent = game.scores.designer;
+            document.getElementById('xiaxia-score').textContent = game.scores.xiaxia;
+
+            // Update round info
+            document.getElementById('round-display').textContent = game.round;
+            document.getElementById('history-count').textContent = game.history.length;
+            document.getElementById('remaining').textContent = Math.max(0, game.maxRounds - game.history.length);
+
+            // Update phase
+            updatePhase(game.phase);
+
+            // Update player statuses
+            updatePlayerStatus('designer', game.players.designer, game.questioner);
+            updatePlayerStatus('xiaxia', game.players.xiaxia, game.questioner);
+
+            // Update question & answer
+            updateQA(game);
+
+            // Update timer
+            updateTimer(timeLeft || game.timeLeft, game.phase);
+
+            // Update history
+            updateHistory(game.history);
+
+            // Update buttons
+            updateButtons(game);
+
+            // Check winner
+            showWinner(game);
+            
+            // Update manual mode
+            updateManualMode(game);
+
+            // Update Zeni panel
+            updateZeniPanel(game);
+
+            // Update connection status bar
+            updateConnectionBar(game.connectionStatus);
+        }
+
+        function updateManualMode(game) {
+            const manualSection = document.getElementById('manual-section');
+            const questionInput = document.getElementById('manual-question-input');
+            const answerInput = document.getElementById('manual-answer-input');
+            
+            if (game.manualMode) {
+                manualSection.style.display = 'block';
+                
+                // 根據 currentQuestion 狀態顯示不同輸入
+                if (game.currentQuestion && game.currentQuestion.includes('手動輸入題目')) {
+                    questionInput.style.display = 'block';
+                    answerInput.style.display = 'none';
+                } else if (game.currentAnswer && game.currentAnswer.includes('手動輸入答案')) {
+                    questionInput.style.display = 'none';
+                    answerInput.style.display = 'block';
+                } else {
+                    questionInput.style.display = 'none';
+                    answerInput.style.display = 'none';
+                }
+            } else {
+                manualSection.style.display = 'none';
+            }
+        }
+
+        function updatePhase(phase) {
+            const section = document.getElementById('phase-section');
+            const text = document.getElementById('phase-text');
+
+            section.className = 'phase-section ' + (PHASE_CLASS[phase] || 'phase-idle');
+            text.textContent = PHASE_TEXT[phase] || phase;
+        }
+
+        function updatePlayerStatus(player, status, questioner) {
+            const statusEl = document.getElementById(player + '-status');
+            const cardEl = document.getElementById(player + '-card');
+            const lightEl = document.getElementById('light-' + player);
+
+            // Determine if this player is active
+            const isActive = (gameState && gameState.phase && (
+                gameState.phase.includes(player)
+            ));
+
+            cardEl.classList.toggle('active', !!isActive);
+
+            // Set status display
+            let displayStatus = STATUS_TEXT[status.status] || status.status;
+            let statusClass = 'player-status status-' + status.status;
+
+            // 如果是離線狀態且有錯誤詳情
+            if (status.status === 'offline' && gameState.zeniMessage && gameState.zeniMessage.errorType === 'connection') {
+                const errorMatch = gameState.zeniMessage.message.match(/連線失敗: ([^\s\n]+)/);
+                const errorCode = errorMatch ? errorMatch[1] : '';
+                statusEl.innerHTML = `${displayStatus} <span class="offline-detail">${errorCode}</span>`;
+            } else {
+                statusEl.textContent = displayStatus;
+            }
+
+            statusEl.className = statusClass;
+            
+            // 更新狀態列燈號
+            if (lightEl) {
+                if (status.status === 'offline' || status.status === 'error') {
+                    lightEl.className = 'player-status status-offline';
+                } else if (status.status === 'thinking' || status.status === 'asking') {
+                    lightEl.className = 'player-status status-thinking';
+                } else {
+                    lightEl.className = 'player-status status-waiting';
+                }
+            }
+        }
+
+        function updateQA(game) {
+            const questionText = document.getElementById('question-text');
+            const answerText = document.getElementById('answer-text');
+
+            if (game.currentQuestion) {
+                questionText.textContent = game.currentQuestion;
+            } else {
+                questionText.textContent = '等待題目...';
+            }
+
+            if (game.currentAnswer) {
+                answerText.innerHTML = game.currentAnswer;
+            } else {
+                answerText.innerHTML = '<span class="answer-waiting">等待回答...</span>';
+            }
+        }
+
+        function updateTimer(seconds, phase) {
+            const section = document.getElementById('timer-section');
+            const display = document.getElementById('timer-display');
+
+            if (phase === 'xiaxia_answering' || phase === 'designer_answering') {
+                section.style.display = 'block';
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                display.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+                display.classList.remove('warning', 'danger');
+                if (seconds <= 30) {
+                    display.classList.add('danger');
+                } else if (seconds <= 60) {
+                    display.classList.add('warning');
+                }
+            } else {
+                section.style.display = 'none';
+            }
+        }
+
+        // updateJudgeSection removed since Zeni handles it
+
+        function updateHistory(history) {
+            const list = document.getElementById('history-list');
+
+            if (!history || history.length === 0) {
+                list.innerHTML = '<div class="loading">還沒有答題記錄</div>';
+                return;
+            }
+
+            list.innerHTML = history.map(item => {
+                const qEmoji = item.questioner === 'designer' ? '🎨' : '🦐';
+                const aEmoji = item.answerer === 'designer' ? '🎨' : '🦐';
+                const qName = item.questioner === 'designer' ? '迪尼' : '蝦蝦';
+                const aName = item.answerer === 'designer' ? '迪尼' : '蝦蝦';
+
+                let verdict, verdictClass;
+                if (item.result === 'correct') {
+                    verdict = '✅ 正確';
+                    verdictClass = 'verdict-correct';
+                } else if (item.result === 'timeout') {
+                    verdict = '⏰ 超時';
+                    verdictClass = 'verdict-timeout';
+                } else {
+                    verdict = '❌ 錯誤';
+                    verdictClass = 'verdict-wrong';
+                }
+
+                return `
+                    <div class="history-item">
+                        <div class="history-round">
+                            <span>第 ${item.round} 回合</span>
+                            <span>${qEmoji} ${qName} → ${aEmoji} ${aName}</span>
+                        </div>
+                        <div class="history-question">${item.question}</div>
+                        <div class="history-answer">
+                            <strong style="color: #4ade80;">標準答案：</strong>${item.standardAnswer || '（無記錄）'}<br><br>
+                            <strong>玩家回答：</strong>${item.answer}
+                        </div>
+                        <div class="history-result">
+                            <span></span>
+                            <span class="${verdictClass}">傑尼裁決：${verdict}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateButtons(game) {
+            const startBtn = document.getElementById('btn-start');
+            startBtn.disabled = game.phase !== 'idle';
+        }
+
+        // 傑尼監控面板更新
+        function updateZeniPanel(game) {
+            const alertPanel = document.getElementById('zeni-alert-panel');
+            const logSection = document.getElementById('zeni-log-section');
+            const alertMsg = document.getElementById('zeni-alert-message');
+            const actionBtns = document.getElementById('zeni-action-buttons');
+            const countdown = document.getElementById('retry-countdown');
+
+            // 顯示 Zeni 訊息面板
+            if (game.zeniMessage && game.zeniMessage.message) {
+                alertPanel.style.display = 'block';
+                alertMsg.textContent = game.zeniMessage.message;
+
+                // 設定樣式
+                alertPanel.className = 'zeni-alert-panel';
+                if (game.zeniMessage.errorType === 'rate_limit' || game.zeniMessage.errorType === 'connection') {
+                    alertPanel.classList.add('error');
+                }
+
+                // 重試倒計時
+                if (game.connectionStatus && game.connectionStatus.retryIn !== null && game.connectionStatus.retryIn > 0) {
+                    countdown.style.display = 'inline-block';
+                    countdown.textContent = `⏳ ${game.connectionStatus.retryIn}s`;
+                } else {
+                    countdown.style.display = 'none';
+                }
+
+                // 動作按鈕
+                if (game.zeniActions && game.zeniActions.length > 0) {
+                    actionBtns.innerHTML = game.zeniActions.map(action => {
+                        const cfg = ZENI_ACTION_LABELS[action] || { label: action, cls: '' };
+                        return `<button class="zeni-action-btn ${cfg.cls}" onclick="zeniAction('${action}')">${cfg.label}</button>`;
+                    }).join('');
+                } else {
+                    actionBtns.innerHTML = '';
+                }
+            } else {
+                // 無訊息時隱藏面板
+                alertPanel.style.display = 'none';
+            }
+
+            // 顯示 Zeni 日誌
+            if (game.zeniLog && game.zeniLog.length > 0) {
+                logSection.style.display = 'block';
+                const logList = document.getElementById('zeni-log-list');
+                logList.innerHTML = [...game.zeniLog].reverse().map(entry => {
+                    const t = new Date(entry.time).toLocaleTimeString('zh-TW');
+                    return `<div class="zeni-log-entry log-${entry.errorType}">
+                        <span class="log-time">${t}</span>${entry.message}
+                    </div>`;
+                }).join('');
+            } else {
+                logSection.style.display = 'none';
+            }
+        }
+
+        // 更新頂部連線狀態列
+        function updateConnectionBar(status) {
+            if (!status) return;
+            const indicator = document.getElementById('connection-indicator');
+            const modelTag = document.getElementById('active-model-tag');
+            const lastUpdate = document.getElementById('zeni-last-update');
+            const gwLight = document.getElementById('light-gateway');
+
+            indicator.className = 'connection-indicator';
+            if (status.mode === 'local') {
+                indicator.classList.add('connection-local');
+                indicator.textContent = '🖥️ 本地備援模式';
+            } else if (status.mode === 'degraded') {
+                indicator.classList.add('connection-degraded');
+                indicator.textContent = '⚠️ 網路連線中斷';
+                if (gwLight) gwLight.className = 'player-status status-offline';
+            } else {
+                indicator.classList.add('connection-cloud');
+                indicator.textContent = '☁️ 雲端模式';
+                if (gwLight) gwLight.className = 'player-status status-waiting-action';
+            }
+
+            const modelName = (status.model || '').replace('ollama/', '');
+            modelTag.textContent = modelName;
+            lastUpdate.textContent = '更新：' + new Date().toLocaleTimeString('zh-TW');
+        }
+
+        function showWinner(game) {
+            const section = document.getElementById('winner-section');
+
+            if (game.gameOver) {
+                section.style.display = 'block';
+                section.className = 'winner-section';
+
+                if (game.scores.designer > game.scores.xiaxia) {
+                    section.classList.add('designer-wins');
+                    document.getElementById('winner-title').textContent = '🎨 迪尼 獲勝！';
+                } else if (game.scores.xiaxia > game.scores.designer) {
+                    section.classList.add('xiaxia-wins');
+                    document.getElementById('winner-title').textContent = '🦐 蝦蝦 獲勝！';
+                } else {
+                    section.classList.add('tie');
+                    document.getElementById('winner-title').textContent = '🤝 比賽平手！';
+                }
+
+                document.getElementById('winner-score').textContent =
+                    `最終比分：🎨 ${game.scores.designer} - ${game.scores.xiaxia} 🦐`;
+            } else {
+                section.style.display = 'none';
+            }
+        }
+
+        // API calls
+        async function startGame() {
+            const res = await fetch('/api/start', { method: 'POST' });
+            const data = await res.json();
+            if (data.error) alert('錯誤：' + data.error);
+        }
+
+        async function submitManualQuestion() {
+            const question = document.getElementById('question-text').value.trim();
+            if (!question) {
+                alert('請輸入題目！');
+                return;
+            }
+            const res = await fetch('/api/manual-question', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question })
+            });
+            const data = await res.json();
+            if (data.status === 'ok') {
+                document.getElementById('question-text').value = '';
+                alert('✅ 題目已提交！');
+            } else {
+                alert('錯誤：' + data.error);
+            }
+        }
+
+        async function submitManualAnswer() {
+            const answer = document.getElementById('answer-text').value.trim();
+            if (!answer) {
+                alert('請輸入答案！');
+                return;
+            }
+            const res = await fetch('/api/manual-answer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ answer })
+            });
+            const data = await res.json();
+            if (data.status === 'ok') {
+                document.getElementById('answer-text').value = '';
+                alert('✅ 答案已提交！請裁判裁決。');
+            } else {
+                alert('錯誤：' + data.error);
+            }
+        }
+
+        // judgeAnswer and nextTurn removed since server handles it automatically
+
+        async function resetGame() {
+            if (!confirm('確定要重置遊戲嗎？所有分數和記錄都會清除。')) return;
+
+            const res = await fetch('/api/init', { method: 'POST' });
+            const data = await res.json();
+            if (data.status === 'ok') {
+                document.getElementById('winner-section').style.display = 'none';
+                document.getElementById('zeni-alert-panel').style.display = 'none';
+            }
+        }
+
+        // 傑尼決策：用戶點擊動作按鈕
+        async function zeniAction(action) {
+            const btns = document.querySelectorAll('.zeni-action-btn');
+            btns.forEach(b => b.disabled = true);
+
+            try {
+                const res = await fetch('/api/zeni-action', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action })
+                });
+                const data = await res.json();
+                console.log('[Zeni Action]', action, data);
+            } catch (e) {
+                console.error('Zeni action failed:', e);
+                btns.forEach(b => b.disabled = false);
+            }
+        }
+
+        // Initialize
+        async function init() {
+            await fetch('/api/init', { method: 'POST' });
+            connectSSE();
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

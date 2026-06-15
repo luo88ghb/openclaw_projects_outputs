@@ -1,0 +1,28 @@
+======================================================================
+Gemma 4 E4B Q4_K_M 測試報告
+生成時間：2026-05-11 22:53:51
+======================================================================
+
+
+【測試 1】圖片測試-螢幕擷取畫面 2025-10-01 002510.png
+--------------------------------------------------
+  類型：image
+  Tokens：0
+  耗時：0.63s
+  速度：0.00 tokens/s
+  時間戳：2026-05-11T22:43:30.368944
+  輸出預覽：...
+
+
+【測試 2】自訂測試
+--------------------------------------------------
+  類型：task
+  Tokens：160
+  耗時：129.92s
+  速度：1.23 tokens/s
+  時間戳：2026-05-11T22:53:36.589367
+  輸出預覽：Thinking...Here's a thinking process to construct the detailed answer about phone battbattery management systems (BMS):1.  **Understand the Goal:** The request asks for a detailed explanation ofof the *architecture* (架構), *function* (作用), and *technologies* (技術能量) involved in a mobile phone's battery management system (BMS).2.  **Define BMS (The Core Function):** What does the BMS do? It's not justjust the battery itself; it's the intelligence that monitors, controls, andand optimizes the batter...
+
+======================================================================
+報告結束
+======================================================================

@@ -1,0 +1,66 @@
+# === OpenClaw Projects Outputs - Ignore Rules ===
+# 快取與暫存檔案
+.npm/
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.tmp
+*.temp
+*.log
+*.cache
+
+# 環境與敏感檔案
+.env
+.env.local
+.env.*
+*.key
+*.pem
+*.secret
+
+# IDE 與系統檔案
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# 備份與壓縮檔（專案內的備份）
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# 大型模型與生成檔案（GitHub 不適合上傳大模型）
+*.ckpt
+*.safetensors
+*.pth
+*.bin
+*.onnx
+*.h5
+
+# 非專案之系統/通用資料（應歸於 workspace 主倉庫管理）
+bot-monitor-py/
+data_files/
+erina-mano */
+memory-architecture.html
+news_search_data/
+research_logs/
+rollback/
+scripts/
+workspace/
+
+# 專案但獨立倉庫 Submodule（各自管理）
+Lobster_Semantic_Super_Retrieval_System/
+Zeni_Creative_Advertising/
+
+# 暫存工作區
+workspace/tmp/
+*/tmp/
+*/.tmp/
+
+# 獨立倉庫 Submodule（各自管理）
+Lobster_Semantic_Super_Retrieval_System/
+Zeni_Creative_Advertising/

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>視覺氛圍劇本比賽狀態</title>
+  <style>
+    body {font-family: "Microsoft JhengHei", sans-serif; margin:2em; background:#f9f9f9;}
+    h1 {color:#2c3e50;}
+    .score {font-size:1.2rem; margin-top:1rem;}
+    .log {background:#fff; padding:1em; border:1px solid #ddd; max-height:400px; overflow:auto;}
+    .winner {color:#e74c3c; font-weight:bold;}
+  </style>
+</head>
+<body>
+  <h1>視覺氛圍劇本比賽 – 監控介面</h1>
+  <div class="score" id="scoreboard">載入分數中…</div>
+  <h2>即時日誌</h2>
+  <div class="log" id="log"></div>
+  <script>
+    const sbUrl = '/api/scoreboard';
+    const logEl = document.getElementById('log');
+    const sbEl = document.getElementById('scoreboard');
+
+    async function fetchScore() {
+      try {
+        const res = await fetch(sbUrl);
+        const data = await res.json();
+        sbEl.textContent = `迪尼: ${data.cumulative.dini} | 蝦蝦: ${data.cumulative.xixia}`;
+      } catch (e) { sbEl.textContent = '取得分數失敗'; }
+    }
+    async function pollLog() {
+      try {
+        const res = await fetch('/api/log');
+        const txt = await res.text();
+        logEl.innerHTML = txt.replace(/\n/g, '<br/>');
+      } catch (e) { logEl.textContent = '取得日誌失敗'; }
+    }
+    setInterval(fetchScore, 3000);
+    setInterval(pollLog, 3000);
+    fetchScore(); pollLog();
+  </script>
+</body>
+</html>

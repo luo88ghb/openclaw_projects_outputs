@@ -1,0 +1,21 @@
+{
+  "round": 3,
+  "question_index": 3,
+  "order": [
+    { "player_id": "dini", "first": true },
+    { "player_id": "xixia", "first": false }
+  ],
+  "requirements": {
+    "must_include": [
+      "季節",
+      "時間點（hh:mm）",
+      "地點（室內/戶外、具體場景）",
+      "具體人物",
+      "食物溫度感",
+      "鏡頭運動描述（可選）",
+      "音效／配樂氛圍（可選）"
+    ],
+    "max_chars": 600
+  },
+  "time_limit_seconds": 180
+}

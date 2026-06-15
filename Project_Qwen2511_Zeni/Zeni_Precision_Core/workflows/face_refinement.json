@@ -1,0 +1,56 @@
+{
+  "nodes": [
+    {
+      "id": "201",
+      "type": "LoadImage",
+      "properties": { "image": "intermediate_image" }
+    },
+    {
+      "id": "202",
+      "type": "SAM_FaceDetector",
+      "inputs": { "image": "201" },
+      "properties": { "detection_threshold": 0.5 }
+    },
+    {
+      "id": "203",
+      "type": "KJNodes_MaskBlur",
+      "inputs": { "mask": "202" },
+      "properties": { "blur_radius": 5 }
+    },
+    {
+      "id": "204",
+      "type": "IPAdapterFaceID_PlusV2_Local",
+      "inputs": {
+        "image": "201",
+        "mask": "203",
+        "face_id_embedding": "source_embedding"
+      }
+    },
+    {
+      "id": "205",
+      "type": "Inpaint_KSampler",
+      "inputs": {
+        "seed": 0,
+        "steps": 15,
+        "cfg": 8.0,
+        "denoise": 0.4,
+        "model": "204",
+        "mask": "203"
+      }
+    },
+    {
+      "id": "206",
+      "type": "VAE_Decode",
+      "inputs": { "samples": "205" }
+    }
+  ],
+  "links": [
+    ["201", "202", 0, 0],
+    ["202", "203", 0, 0],
+    ["201", "204", 0, 0],
+    ["203", "204", 0, 1],
+    ["204", "205", 0, 0],
+    ["203", "205", 0, 1],
+    ["205", "206", 0, 0]
+  ]
+}

@@ -1,0 +1,1347 @@
+/**
+ * 推論猜謎對決 - 遊戲引擎 v4.0
+ * 
+ * 遊戲流程：
+ * 1. 🐢 傑尼 (主控/裁判) 派遣任務
+ * 2. 🎨 迪尼出題 → 🦐 蝦蝦回答
+ * 3. 傑尼裁決 → 更新分數 → 換邊
+ * 4. 🦐 蝦蝦出題 → 🎨 迪尼回答
+ * 5. 重複直到 10 回合結束
+ *
+ * 傑尼韌性連線：
+ * - 首選: Cloud (minimax-m2.7:cloud)
+ * - 備援: Local (gemma4:e2b) 不受網路限制
+ * - 連線受限時傑尼主動提示用戶做決策
+ */
+
+const express = require('express');
+const cors = require('cors');
+const { spawn } = require('child_process');
+const fs = require('fs');
+const http = require('http');
+
+const app = express();
+const PORT = 3001;
+
+// Detect if running in Docker
+const isDocker = fs.existsSync('/.dockerenv');
+
+// Gateway 設定
+let GATEWAY_HOST = process.env.GATEWAY_HOST || (isDocker ? 'host.docker.internal' : '127.0.0.1');
+const GATEWAY_PORT = process.env.GATEWAY_PORT || '18789';
+
+// Token 讀取函數
+function getGatewayToken() {
+    // 優先使用環境變數
+    if (process.env.OPENCLAW_TOKEN) {
+        console.log('[Game] 使用環境變數中的 OPENCLAW_TOKEN');
+        return process.env.OPENCLAW_TOKEN;
+    }
+    
+    // 嘗試從 OpenClaw 配置讀取
+    // 支援 Docker (Linux) 和 Windows 環境的路徑
+    const configPaths = [
+        // Windows 配置文件（主要）
+        'C:\\Users\\danny\\.openclaw\\openclaw.json',
+        process.env.USERPROFILE + '\\.openclaw\\openclaw.json',
+        // Docker/Linux 環境
+        '/.openclaw/openclaw.json',
+        '/workspace/.openclaw/openclaw.json'
+    ];
+    
+    for (const configPath of configPaths) {
+        try {
+            if (fs.existsSync(configPath)) {
+                const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+                console.log(`[Game] 找到配置文件：${configPath}`);
+                
+                // 檢查巢狀結構：gateway.auth.token
+                if (config.gateway?.auth?.token) {
+                    console.log('[Game] 從 gateway.auth.token 讀取到 Token');
+                    return config.gateway.auth.token;
+                }
+                
+                // 檢查常見的 token 欄位名稱（扁平結構）
+                const tokenFields = ['gatewayToken', 'token', 'apiKey', 'OPENCLAW_TOKEN', 'gateway.token'];
+                for (const field of tokenFields) {
+                    if (config[field]) {
+                        console.log(`[Game] 從 ${field} 欄位讀取到 Token`);
+                        return config[field];
+                    }
+                }
+                
+                // 如果配置文件存在但找不到 token 欄位，顯示預覽（不含敏感資料）
+                const availableFields = Object.keys(config).filter(k => !k.includes('token') && !k.includes('key') && !k.includes('secret'));
+                console.log(`[Game] 配置檔案存在但未找到標準 Token 欄位，可用的非敏感欄位：${availableFields.join(', ')}`);
+            }
+        } catch (e) {
+            console.log(`[Game] 嘗試讀取 ${configPath} 失敗：${e.message}`);
+        }
+    }
+    
+    // 最後使用預設值
+    console.log('[Game] ⚠️ 無法找到有效 Token，使用預設值');
+    return 'b2b74e244db78d9dc7f3711476f78236f367279cf968124e';
+}
+const GATEWAY_TOKEN = getGatewayToken();
+console.log(`[Game] Gateway 設定：${GATEWAY_HOST}:${GATEWAY_PORT}`);
+
+// ============= Model Configuration =============
+// 雙重備援模型設定
+const MODEL_CONFIG = {
+    cloud: 'ollama/minimax-m2.7:cloud',  // 首選：雲端高性能
+    local: 'ollama/gemma4:e2b',          // 備援：本地模型，不受網路限制
+};
+
+// 目前使用的模型（動態切換）
+let activeModel = MODEL_CONFIG.cloud;
+let connectionMode = 'cloud'; // 'cloud' | 'local' | 'degraded'
+let rateLimitHitAt = null;   // 最後一次遇到 Rate Limit 的時間
+let rateLimitCooldown = 60;  // 冷卻時間（秒），超過後自動嘗試切換回雲端
+let retryTimer = null;       // 等待重試的 Timer
+
+/**
+ * 核心診斷：測試 Gateway 是否連線成功
+ */
+async function testGateway(host) {
+    return new Promise((resolve) => {
+        const options = {
+            hostname: host,
+            port: GATEWAY_PORT,
+            path: '/api/v1/',
+            method: 'GET',
+            timeout: 2500,
+            headers: { 'Authorization': 'Bearer ' + GATEWAY_TOKEN }
+        };
+        const req = http.request(options, (res) => {
+            // 200 (OK), 404 (Not Found but reachable), 401/403 (Auth needed but reachable)
+            resolve(res.statusCode < 500); 
+        });
+        req.on('error', (err) => {
+            // console.log(`[Diagnostic] Failed to reach ${host}: ${err.message}`);
+            resolve(false);
+        });
+        req.on('timeout', () => { req.destroy(); resolve(false); });
+        req.end();
+    });
+}
+
+/**
+ * 自動尋找正確的 Gateway 地址
+ */
+async function autoDetectGateway() {
+    // 優先順序：環境變數 > host.docker.internal > 預設網關常見 IP > 127.0.0.1
+    const candidates = [
+        process.env.GATEWAY_HOST,
+        'host.docker.internal',
+        '172.17.0.1',
+        '192.168.65.2', // Docker Desktop for Windows common gateway
+        '127.0.0.1'
+    ].filter(Boolean);
+
+    console.log(`[🐢 傑尼] 開始連線自檢回報...`);
+    
+    for (const host of candidates) {
+        console.log(`[🐢 傑尼] 測試連線 ${host}:${GATEWAY_PORT}...`);
+        if (await testGateway(host)) {
+            GATEWAY_HOST = host;
+            console.log(`[🐢 傑尼] ✅ 成功連線至 Gateway: ${host}`);
+            updateConnectionStatus('cloud');
+            return true;
+        }
+    }
+    
+    console.log(`[🐢 傑尼] ❌ 所有候選地址均連線失敗。傑尼將進入降級模式。`);
+    updateConnectionStatus('degraded', 'NETWORK_DISCONNECTED');
+    return false;
+}
+
+console.log(`[Game] Running on ${isDocker ? 'Docker' : 'Windows'}, Initial Host: ${GATEWAY_HOST}`);
+console.log(`[Game] 🐢 傑尼主控模式啟動。首選模型: ${MODEL_CONFIG.cloud}`);
+
+app.use(cors());
+app.use(express.json());
+app.use(express.static('public'));
+
+// Player workspace paths
+const PLAYERS = {
+    'designer': {
+        name: '迪尼',
+        emoji: '🎨',
+        cwd: '/workspace/.openclaw/agents/agent-designer-lab'
+    },
+    'xiaxia': {
+        name: '蝦蝦',
+        emoji: '🦐',
+        cwd: '/workspace/.openclaw/agents/agent-xiaxia'
+    }
+};
+
+// Game phases enum
+const PHASE = {
+    IDLE: 'idle',                       // 等待開始
+    DESIGNER_ASKING: 'designer_asking',  // 迪尼構思題目中
+    XIAXIA_ANSWERING: 'xiaxia_answering',// 蝦蝦回答中
+    JUDGE_PENDING: 'judge_pending',      // 等待裁決
+    XIAXIA_ASKING: 'xiaxia_asking',      // 蝦蝦構思題目中
+    DESIGNER_ANSWERING: 'designer_answering', // 迪尼回答中
+    GAME_OVER: 'game_over',             // 比賽結束
+    PAUSED_BY_ZENI: 'paused_by_zeni',   // 傑尼暫停 - 等待用戶決策
+};
+
+// Game State
+let game = {
+    round: 1,
+    maxRounds: 10,
+    phase: PHASE.IDLE,
+    scores: {
+        designer: 0,
+        xiaxia: 0
+    },
+    players: {
+        designer: { status: 'offline', lastSeen: null },
+        xiaxia: { status: 'offline', lastSeen: null }
+    },
+    currentQuestion: null,
+    currentAnswer: null,
+    questioner: null,
+    answerer: null,
+    questions: [],
+    timeLeft: 0,
+    gameOver: false,
+    lastUpdated: new Date().toISOString(),
+    history: [],
+    manualMode: false,
+    // 傑尼監控系統
+    zeniMessage: null,          // 傑尼當前訊息
+    zeniActions: [],            // 傑尼提供的決策選項
+    zeniLog: [],                // 傑尼完整監控日誌
+    connectionStatus: {
+        mode: 'cloud',          // 'cloud' | 'local' | 'degraded'
+        model: MODEL_CONFIG.cloud,
+        lastError: null,
+        rateLimitAt: null,
+        retryIn: null           // 倒數幾秒後自動重試
+    }
+};
+
+// Timer
+let gameTimer = null;
+let clients = [];
+let isProcessing = false;
+let pausedPhaseBeforeZeni = null; // 傑尼暫停前的狀態，用於恢復
+
+// ============= Helper Functions =============
+
+function saveState() {
+    game.lastUpdated = new Date().toISOString();
+    try {
+        fs.writeFileSync('game-state.json', JSON.stringify(game, null, 2));
+    } catch (e) {
+        console.log('[Game] Warning: Could not save state file');
+    }
+}
+
+function broadcastSSE() {
+    const data = JSON.stringify({ game, timeLeft: game.timeLeft });
+    clients.forEach(client => {
+        try {
+            client.write(`data: ${data}\n\n`);
+        } catch (e) {
+            clients = clients.filter(c => c !== client);
+        }
+    });
+}
+
+function resetTimer(seconds) {
+    game.timeLeft = seconds;
+    if (gameTimer) clearInterval(gameTimer);
+    
+    gameTimer = setInterval(() => {
+        game.timeLeft--;
+        broadcastSSE();
+        
+        if (game.timeLeft <= 0) {
+            clearInterval(gameTimer);
+            handleTimeout();
+        }
+    }, 1000);
+}
+
+function handleTimeout() {
+    console.log('[Game] Timer expired!');
+    
+    if (game.phase === PHASE.XIAXIA_ANSWERING || game.phase === PHASE.DESIGNER_ANSWERING) {
+        // 答題超時 - 給分給問答的人
+        const questioner = game.questioner;
+        game.scores[questioner]++;
+        
+        game.history.push({
+            round: game.round,
+            questioner: game.questioner,
+            answerer: game.answerer,
+            question: game.currentQuestion,
+            answer: '（超時未回答）',
+            result: 'timeout',
+            pointsTo: questioner
+        });
+        
+        console.log(`[Game] ${PLAYERS[questioner].emoji} ${PLAYERS[questioner].name} scores! (timeout)`);
+        
+        // 進入裁決階段
+        game.phase = PHASE.JUDGE_PENDING;
+        game.currentAnswer = '（超時未回答）';
+        saveState();
+        broadcastSSE();
+    }
+}
+
+function updatePlayerStatus(player, status) {
+    if (PLAYERS[player]) {
+        game.players[player] = {
+            status: status,
+            lastSeen: new Date().toISOString()
+        };
+        broadcastSSE();
+    }
+}
+
+// ============= 傑尼主控系統 =============
+
+/**
+ * 傑尼警告系統：向用戶發出警告並提供決策選項
+ * @param {string} message - 傑尼的警告訊息
+ * @param {string} errorType - 'rate_limit' | 'timeout' | 'connection' | 'info'
+ * @param {string[]} actions - 可選的用戶動作
+ */
+function zeniAlert(message, errorType = 'info', actions = ['manual', 'pause', 'stop', 'wait']) {
+    const logEntry = {
+        time: new Date().toISOString(),
+        message,
+        errorType,
+        actions
+    };
+    
+    console.log(`[🐢 傑尼] ${errorType.toUpperCase()}: ${message}`);
+    
+    game.zeniMessage = { ...logEntry };
+    game.zeniActions = actions;
+    game.zeniLog.push(logEntry);
+    
+    // 最多保留 50 則日誌
+    if (game.zeniLog.length > 50) game.zeniLog.shift();
+    
+    saveState();
+    broadcastSSE();
+}
+
+/**
+ * 更新連線狀態
+ */
+function updateConnectionStatus(mode, error = null, retryIn = null) {
+    connectionMode = mode;
+    activeModel = mode === 'local' ? MODEL_CONFIG.local : MODEL_CONFIG.cloud;
+    
+    game.connectionStatus = {
+        mode,
+        model: activeModel,
+        lastError: error,
+        rateLimitAt: rateLimitHitAt ? rateLimitHitAt.toISOString() : null,
+        retryIn
+    };
+    
+    console.log(`[🐢 傑尼] 連線模式切換：${mode}，使用模型：${activeModel}`);
+    broadcastSSE();
+}
+
+/**
+ * 傑尼偵測到 Rate Limit，切換至本地模型並暫停遊戲
+ */
+function handleRateLimit(player) {
+    rateLimitHitAt = new Date();
+    
+    // 切換至本地模型
+    updateConnectionStatus('local', 'rate_limit_429');
+    
+    // 暫停遊戲，等待用戶決策
+    pausedPhaseBeforeZeni = game.phase;
+    game.phase = PHASE.PAUSED_BY_ZENI;
+    
+    const playerName = player ? `${PLAYERS[player].emoji} ${PLAYERS[player].name}` : '代理人';
+    
+    zeniAlert(
+        `⚠️ 偵測到外部 API 連線受限 (Rate Limit 429)！${playerName} 目前無法取得雲端 AI 資源。傑尼已切換至本地備援模型 (gemma4:e2b)。請選擇如何繼續：`,
+        'rate_limit',
+        ['manual', 'pause', 'stop', 'wait']
+    );
+    
+    isProcessing = false;
+}
+
+/**
+ * 啟動等待重試計時器（傑尼自動等待再試）
+ */
+function startRetryCountdown(seconds, onComplete) {
+    let remaining = seconds;
+    
+    if (retryTimer) clearInterval(retryTimer);
+    
+    retryTimer = setInterval(() => {
+        remaining--;
+        game.connectionStatus.retryIn = remaining;
+        broadcastSSE();
+        
+        if (remaining <= 0) {
+            clearInterval(retryTimer);
+            retryTimer = null;
+            game.connectionStatus.retryIn = null;
+            zeniAlert('⏱️ 等待時間結束，傑尼正在嘗試恢復雲端連線...', 'info', []);
+            
+            // 嘗試切回雲端
+            updateConnectionStatus('cloud');
+            onComplete();
+        }
+    }, 1000);
+}
+
+// Spawn subagent via OpenClaw Gateway API
+/**
+ * 升級版子代理人啟動函數
+ * - 具備重試機制（最多 3 次）
+ * - 自動偵測 429 Rate Limit
+ * - 失敗時觸發傑尼警告系統
+ */
+function spawnSubagentTask(task, player, timeoutMs = 180000, retryCount = 0) {
+    return new Promise((resolve, reject) => {
+        const label = `${player}-game-${Date.now()}`;
+        const modelToUse = activeModel; // 使用當前動態模型
+        
+        console.log(`[🐢 傑尼] 派遣 ${PLAYERS[player].emoji} ${PLAYERS[player].name}... (模型: ${modelToUse}, 第 ${retryCount + 1} 次嘗試)`);
+        updatePlayerStatus(player, 'thinking');
+        
+        // 更新連線狀態顯示
+        game.connectionStatus.model = modelToUse;
+        game.connectionStatus.mode = connectionMode;
+        broadcastSSE();
+        
+        // POST data for sessions API
+        const postData = {
+            task: task,
+            label: label,
+            runtime: 'subagent',
+            mode: 'run',
+            cwd: PLAYERS[player].cwd,
+            model: modelToUse
+        };
+        
+        const nodeCode = `
+            const http = require('http');
+            const data = ${JSON.stringify(postData)};
+            
+            const options = {
+                hostname: '${GATEWAY_HOST}',
+                port: ${GATEWAY_PORT},
+                path: '/api/v1/agents',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ${GATEWAY_TOKEN}'
+                }
+            };
+            
+            const req = http.request(options, (res) => {
+                let body = '';
+                // 先捕捉 HTTP 狀態碼
+                if (res.statusCode === 429) {
+                    console.log('RATE_LIMIT_429');
+                    process.exit(2);
+                    return;
+                }
+                if (res.statusCode >= 500) {
+                    console.log('SERVER_ERROR:' + res.statusCode);
+                    process.exit(3);
+                    return;
+                }
+                res.on('data', chunk => body += chunk);
+                res.on('end', () => {
+                    try {
+                        const parsed = JSON.parse(body);
+                        if (parsed.sessionKey) {
+                            console.log('CHILD_SESSION:' + parsed.sessionKey);
+                        }
+                        process.exit(0);
+                    } catch (e) {
+                        console.log('PARSE_ERROR:' + body.substring(0, 200));
+                        process.exit(1);
+                    }
+                });
+            });
+            
+            req.on('error', (e) => {
+                console.log('SPAWN_ERROR:' + e.message);
+                process.exit(1);
+            });
+            
+            req.setTimeout(${Math.min(timeoutMs, 60000)}, () => {
+                console.log('SPAWN_TIMEOUT');
+                req.destroy();
+                process.exit(1);
+            });
+            
+            req.write(JSON.stringify(data));
+            req.end();
+        `;
+        
+        // 寫入暫存任務檔案以執行，避開 Windows 命令列引號問題
+        const tempFile = `temp_task_${player}_${Date.now()}.js`;
+        try {
+            fs.writeFileSync(tempFile, nodeCode);
+        } catch (err) {
+            console.error(`[Game] Failed to write temp file: ${err.message}`);
+            return reject(err);
+        }
+        
+        const proc = spawn('node', [tempFile], { 
+            cwd: process.cwd(), 
+            timeout: timeoutMs + 5000 
+        });
+        
+        let output = '';
+        proc.stdout.on('data', (d) => { output += d.toString(); });
+        proc.stderr.on('data', (d) => { output += d.toString(); });
+        
+        proc.on('close', (code) => {
+            // 刪除暫存檔案
+            try { if (fs.existsSync(tempFile)) fs.unlinkSync(tempFile); } catch (e) {}
+
+            // 傑尼分析退出碼
+            if (code === 2 || output.includes('RATE_LIMIT_429')) {
+                // 429 Rate Limit
+                console.log(`[🐢 傑尼] 偵測到 429 Rate Limit！模型: ${modelToUse}`);
+                updatePlayerStatus(player, 'rate_limited');
+                
+                if (connectionMode === 'cloud') {
+                    // 雲端限制 → 切換本地模型重試一次
+                    console.log(`[🐢 傑尼] 切換至本地備援模型 ${MODEL_CONFIG.local} 重試...`);
+                    updateConnectionStatus('local', 'rate_limit_429');
+                    zeniAlert(
+                        `⚠️ 雲端 API 連線受限 (429)！傑尼已切換至本地備援模型 (gemma4:e2b) 重試...`,
+                        'rate_limit',
+                        []
+                    );
+                    // 重試（使用本地模型）
+                    spawnSubagentTask(task, player, timeoutMs, retryCount + 1)
+                        .then(resolve)
+                        .catch(reject);
+                } else {
+                    // 本地模型也受限 → 全面降級，提示用戶
+                    handleRateLimit(player);
+                    reject(new Error('RATE_LIMIT: 本地與雲端模型均受限'));
+                }
+                return;
+            }
+            
+            if (code === 3 || output.includes('SERVER_ERROR')) {
+                // 伺服器錯誤
+                console.log(`[🐢 傑尼] Gateway 伺服器錯誤！`);
+                updatePlayerStatus(player, 'error');
+                zeniAlert(
+                    `❌ Gateway 伺服器發生錯誤！請確認 OpenClaw 服務是否正常運作。`,
+                    'connection',
+                    ['manual', 'pause', 'stop']
+                );
+                game.phase = PHASE.PAUSED_BY_ZENI;
+                saveState();
+                reject(new Error('SERVER_ERROR: Gateway 錯誤'));
+                return;
+            }
+            
+            if (code !== 0 || output.includes('SPAWN_ERROR') || output.includes('SPAWN_TIMEOUT')) {
+                // 優化正則表達式，抓取完整的錯誤訊息（包含空格）
+                const errorMatch = output.match(/SPAWN_ERROR:(.+)/);
+                const errorDetail = errorMatch ? errorMatch[1].trim() : 'UNKNOWN_CONNECTION_ERROR';
+                
+                // 增強錯誤診斷：區分連線失敗和認證失敗
+                let errorType = 'connection';
+                let errorHint = '';
+                if (output.includes('ECONNREFUSED')) {
+                    errorType = 'connection_refused';
+                    errorHint = '（連線被拒絕，請確認 Gateway 是否啟動）';
+                } else if (output.includes('ETIMEDOUT') || output.includes('Timeout')) {
+                    errorType = 'timeout';
+                    errorHint = '（連線逾時）';
+                } else if (output.includes('ENOTFOUND') || output.includes('getaddrinfo')) {
+                    errorType = 'dns_error';
+                    errorHint = '（DNS 解析失敗）';
+                } else if (output.includes('401') || output.includes('403') || output.includes('Unauthorized')) {
+                    errorType = 'auth_failed';
+                    errorHint = '（認證失敗，Token 可能已過期，請更新 OPENCLAW_TOKEN）';
+                }
+                
+                updatePlayerStatus(player, 'offline');
+                console.log(`[🐢 傑尼] 子代理人啟動失敗 (代碼: ${code}, 原因: ${errorDetail})`);
+                
+                if (retryCount < 2) {
+                    console.log(`[🐢 傑尼] 嘗試重試 (${retryCount + 2}/3)...`);
+                    zeniAlert(`🔄 連線嘗試中... (${errorDetail}) 並正在重試 (${retryCount + 2}/3)...`, 'info', []);
+                    setTimeout(() => {
+                        spawnSubagentTask(task, player, timeoutMs, retryCount + 1)
+                            .then(resolve)
+                            .catch(reject);
+                    }, 3000 * (retryCount + 1));
+                } else {
+                    const hintText = errorHint ? ` ${errorHint}` : '';
+                    zeniAlert(
+                        `❌ 傑尼無法連線至 Gateway (${GATEWAY_HOST})。原因：${errorDetail}。${hintText}請檢查 Gateway 是否啟動，或更新 OPENCLAW_TOKEN 環境變數後再試。`,
+                        errorType,
+                        ['manual', 'pause', 'stop', 'wait']
+                    );
+                    pausedPhaseBeforeZeni = game.phase;
+                    game.phase = PHASE.PAUSED_BY_ZENI;
+                    saveState();
+                    isProcessing = false;
+                    reject(new Error(`連線失敗: ${errorDetail}`));
+                }
+                return;
+            }
+            
+            // 成功
+            updatePlayerStatus(player, 'waiting');
+            
+            // 若曾切換過本地模型，記錄恢復資訊
+            if (connectionMode === 'local' && modelToUse === MODEL_CONFIG.local) {
+                zeniAlert(`✅ 備援模型成功響應！如需切換回雲端模型，請按「等待重試」。`, 'info', ['switch_cloud']);
+            }
+            
+            const match = output.match(/CHILD_SESSION:([^\s\n]+)/);
+            if (match) {
+                console.log(`[🐢 傑尼] ${PLAYERS[player].emoji} 成功派遣：${match[1]}`);
+                resolve({ sessionKey: match[1], output });
+            } else {
+                resolve({ output });
+            }
+        });
+        
+        proc.on('error', (err) => {
+            updatePlayerStatus(player, 'offline');
+            reject(err);
+        });
+    });
+}
+
+// ============= Game Flow Functions =============
+
+async function startDesignerAsking() {
+    if (isProcessing || game.gameOver) return;
+    isProcessing = true;
+    
+    console.log('[Game] ===== ROUND ' + game.round + ' =====');
+    console.log('[Game] Phase: Designer (迪尼) Asking');
+    
+    // Phase 1: 迪尼構思題目
+    game.phase = PHASE.DESIGNER_ASKING;
+    game.questioner = 'designer';
+    game.answerer = 'xiaxia';
+    game.currentQuestion = null;
+    game.currentAnswer = null;
+    updatePlayerStatus('designer', 'asking');
+    saveState();
+    broadcastSSE();
+    
+    try {
+        const task = `你是 🎨 迪尼，正在參加「推論猜謎對決」！
+
+【遊戲規則】
+- 你和 🦐 蝦蝦輪流出題給對方回答
+- 答對得 1 分，答錯對方得 1 分
+- 比賽 10 回合後分數高的獲勝
+- 裁判 🐢 傑尼會裁決答案是否正確
+
+【本回合】
+輪到 🦐 蝦蝦 回答你的題目！
+
+請出一道創意推理題、謎語、或知識題給蝦蝦。
+題目要有挑戰性但不能太刁鑽。
+
+格式：
+【題目】
+...（你的題目）
+【答案】
+...（答案）`;
+
+        const result = await spawnSubagentTask(task, 'designer', 120000);
+        
+        // 從輸出中解析題目
+        const question = extractQuestion(result.output);
+        
+        if (question) {
+            game.currentQuestion = question;
+            saveState();
+            broadcastSSE();
+            
+            console.log('[Game] Question from 迪尼: ' + question.substring(0, 50) + '...');
+            
+            // 自動進入下一階段：蝦蝦回答
+            await delay(1000);
+            await startXiaxiaAnswering();
+        } else {
+            console.log('[Game] Failed to get question from 迪尼');
+            game.currentQuestion = '（迪尼未能出題）';
+            saveState();
+            broadcastSSE();
+        }
+        
+    } catch (err) {
+        console.log('[Game] Error: ' + err.message);
+        // 自動失敗，切換到手動模式
+        game.currentQuestion = '（系統自動功能失敗，請手動輸入題目）';
+        game.manualMode = true;
+        saveState();
+        broadcastSSE();
+    }
+    
+    isProcessing = false;
+}
+
+async function startXiaxiaAnswering() {
+    if (game.gameOver) return;
+    
+    console.log('[Game] Phase: Xiaxia (蝦蝦) Answering');
+    
+    game.phase = PHASE.XIAXIA_ANSWERING;
+    updatePlayerStatus('xiaxia', 'thinking');
+    resetTimer(180); // 3 分鐘答題時間
+    saveState();
+    broadcastSSE();
+    
+    try {
+        const task = `你是 🦐 蝦蝦，正在參加「推論猜謎對決」！
+
+【當前題目】(由 🎨 迪尼 提問)
+${game.currentQuestion}
+
+請回答這個問題。
+如果你知道答案就直接說，如果不知道就說「我不知道」。
+不要拒絕回答。`;
+
+        const result = await spawnSubagentTask(task, 'xiaxia', 180000);
+        
+        if (gameTimer) clearInterval(gameTimer);
+        
+        // 從輸出中解析答案
+        const answer = extractAnswer(result.output);
+        game.currentAnswer = answer;
+        
+        console.log('[Game] Answer from 蝦蝦: ' + answer.substring(0, 50) + '...');
+        
+        // 進入裁決階段
+        game.phase = PHASE.JUDGE_PENDING;
+        game.timeLeft = 0;
+        updatePlayerStatus('xiaxia', 'waiting');
+        saveState();
+        broadcastSSE();
+        
+        console.log('[Game] Ready for judge decision!');
+        
+    } catch (err) {
+        console.log('[Game] Error: ' + err.message);
+        if (gameTimer) clearInterval(gameTimer);
+        
+        // 自動失敗，切換到手動模式
+        game.currentAnswer = '（系統自動功能失敗，請手動輸入答案）';
+        game.manualMode = true;
+        game.phase = PHASE.JUDGE_PENDING;
+        game.timeLeft = 0;
+        updatePlayerStatus('xiaxia', 'waiting');
+        saveState();
+        broadcastSSE();
+    }
+}
+
+async function startXiaxiaAsking() {
+    if (isProcessing || game.gameOver) return;
+    isProcessing = true;
+    
+    console.log('[Game] Phase: Xiaxia (蝦蝦) Asking');
+    
+    // Phase 3: 蝦蝦構思題目
+    game.phase = PHASE.XIAXIA_ASKING;
+    game.questioner = 'xiaxia';
+    game.answerer = 'designer';
+    game.currentQuestion = null;
+    game.currentAnswer = null;
+    updatePlayerStatus('xiaxia', 'asking');
+    saveState();
+    broadcastSSE();
+    
+    try {
+        const task = `你是 🦐 蝦蝦，正在參加「推論猜謎對決」！
+
+【遊戲規則】
+- 你和 🎨 迪尼輪流出題給對方回答
+- 答對得 1 分，答錯對方得 1 分
+- 比賽 10 回合後分數高的獲勝
+- 裁判 🐢 傑尼會裁決答案是否正確
+
+【本回合】
+輪到 🎨 迪尼 回答你的題目！
+
+請出一道創意推理題、謎語、或知識題給迪尼。
+題目要有挑戰性但不能太刁鑽。
+
+格式：
+【題目】
+...（你的題目）
+【答案】
+...（答案）`;
+
+        const result = await spawnSubagentTask(task, 'xiaxia', 120000);
+        
+        // 從輸出中解析題目
+        const question = extractQuestion(result.output);
+        
+        if (question) {
+            game.currentQuestion = question;
+            saveState();
+            broadcastSSE();
+            
+            console.log('[Game] Question from 蝦蝦: ' + question.substring(0, 50) + '...');
+            
+            // 自動進入下一階段：迪尼回答
+            await delay(1000);
+            await startDesignerAnswering();
+        } else {
+            console.log('[Game] Failed to get question from 蝦蝦');
+            game.currentQuestion = '（蝦蝦未能出題）';
+            saveState();
+            broadcastSSE();
+        }
+        
+    } catch (err) {
+        console.log('[Game] Error: ' + err.message);
+        // 自動失敗，切換到手動模式
+        game.currentQuestion = '（系統自動功能失敗，請手動輸入題目）';
+        game.manualMode = true;
+        saveState();
+        broadcastSSE();
+    }
+    
+    isProcessing = false;
+}
+
+async function startDesignerAnswering() {
+    if (game.gameOver) return;
+    
+    console.log('[Game] Phase: Designer (迪尼) Answering');
+    
+    game.phase = PHASE.DESIGNER_ANSWERING;
+    updatePlayerStatus('designer', 'thinking');
+    resetTimer(180); // 3 分鐘答題時間
+    saveState();
+    broadcastSSE();
+    
+    try {
+        const task = `你是 🎨 迪尼，正在參加「推論猜謎對決」！
+
+【當前題目】(由 🦐 蝦蝦 提問)
+${game.currentQuestion}
+
+請回答這個問題。
+如果你知道答案就直接說，如果不知道就說「我不知道」。
+不要拒絕回答。`;
+
+        const result = await spawnSubagentTask(task, 'designer', 180000);
+        
+        if (gameTimer) clearInterval(gameTimer);
+        
+        // 從輸出中解析答案
+        const answer = extractAnswer(result.output);
+        game.currentAnswer = answer;
+        
+        console.log('[Game] Answer from 迪尼: ' + answer.substring(0, 50) + '...');
+        
+        // 進入裁決階段
+        game.phase = PHASE.JUDGE_PENDING;
+        game.timeLeft = 0;
+        updatePlayerStatus('designer', 'waiting');
+        saveState();
+        broadcastSSE();
+        
+        console.log('[Game] Ready for judge decision!');
+        
+    } catch (err) {
+        console.log('[Game] Error: ' + err.message);
+        if (gameTimer) clearInterval(gameTimer);
+        
+        // 自動失敗，切換到手動模式
+        game.currentAnswer = '（系統自動功能失敗，請手動輸入答案）';
+        game.manualMode = true;
+        game.phase = PHASE.JUDGE_PENDING;
+        game.timeLeft = 0;
+        updatePlayerStatus('designer', 'waiting');
+        saveState();
+        broadcastSSE();
+    }
+}
+
+// ============= Utility Functions =============
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function extractQuestion(output) {
+    // Try to extract question between 【題目】 and 【答案】
+    const patterns = [
+        /【題目】\s*\n?(.+?)(?=【答案】|$)/is,
+        /題目[:：]\s*\n?(.+?)(?=答案[:：]|$)/is,
+        /Q[:：]\s*\n?(.+?)(?=A[:：]|$)/is
+    ];
+    
+    for (const pattern of patterns) {
+        const match = output.match(pattern);
+        if (match && match[1]) {
+            let q = match[1].trim();
+            // Remove the answer part if it's there
+            q = q.replace(/【答案】.*$/is, '').trim();
+            if (q.length > 5) return q;
+        }
+    }
+    
+    // Fallback: return last substantial text block
+    const lines = output.split('\n')
+        .filter(l => l.trim().length > 10)
+        .slice(-5);
+    return lines.join('\n').trim() || null;
+}
+
+function extractAnswer(output) {
+    // Try to extract answer
+    const patterns = [
+        /【答案】\s*\n?(.+?)$/is,
+        /答案[:：]\s*\n?(.+?)$/is,
+        /A[:：]\s*\n?(.+?)$/is
+    ];
+    
+    for (const pattern of patterns) {
+        const match = output.match(pattern);
+        if (match && match[1]) {
+            return match[1].trim();
+        }
+    }
+    
+    // Fallback: return last line
+    const lines = output.split('\n').filter(l => l.trim());
+    return lines[lines.length - 1]?.trim() || '（無法解析）';
+}
+
+// ============= API Routes =============
+
+// SSE endpoint for real-time updates
+app.get('/api/stream', (req, res) => {
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    
+    // Send current state immediately
+    res.write(`data: ${JSON.stringify({ game, timeLeft: game.timeLeft })}\n\n`);
+    
+    clients.push(res);
+    req.on('close', () => {
+        clients = clients.filter(c => c !== res);
+    });
+});
+
+// Get current game state
+app.get('/api/state', (req, res) => {
+    res.json({ game, timeLeft: game.timeLeft });
+});
+
+// Initialize/reset game
+app.post('/api/init', (req, res) => {
+    if (gameTimer) clearInterval(gameTimer);
+    if (retryTimer) clearInterval(retryTimer);
+    
+    game = {
+        round: 1,
+        maxRounds: 10,
+        phase: PHASE.IDLE,
+        scores: { designer: 0, xiaxia: 0 },
+        players: {
+            designer: { status: 'waiting', lastSeen: new Date().toISOString() },
+            xiaxia: { status: 'waiting', lastSeen: new Date().toISOString() }
+        },
+        currentQuestion: null,
+        currentAnswer: null,
+        questioner: null,
+        answerer: null,
+        questions: [],
+        timeLeft: 0,
+        gameOver: false,
+        lastUpdated: new Date().toISOString(),
+        history: [],
+        manualMode: false,
+        // 傑尼監控系統初始化
+        zeniMessage: null,
+        zeniActions: [],
+        zeniLog: [],
+        connectionStatus: {
+            mode: 'cloud',
+            model: MODEL_CONFIG.cloud,
+            lastError: null,
+            rateLimitAt: null,
+            retryIn: null
+        }
+    };
+    
+    zeniAlert('🐢 傑尼主控系統就緒！等待開始遊戲...', 'info', []);
+    saveState();
+    broadcastSSE();
+    res.json({ status: 'ok', game });
+});
+
+// Start game - begins with 迪尼 asking
+app.post('/api/start', async (req, res) => {
+    if (game.gameOver) {
+        return res.json({ error: 'Game is over. Please reset first.' });
+    }
+    if (game.phase !== PHASE.IDLE) {
+        return res.json({ error: 'Game already in progress' });
+    }
+    
+    console.log('[Game] ===== GAME START =====');
+    
+    res.json({ status: 'ok', message: 'Game started! 迪尼 準備構思題目...' });
+    
+    // Start the game flow
+    await startDesignerAsking();
+});
+
+// Next turn (after judge decision)
+app.post('/api/next-turn', async (req, res) => {
+    if (game.gameOver) {
+        return res.json({ error: 'Game is over' });
+    }
+    if (game.phase !== PHASE.JUDGE_PENDING) {
+        return res.json({ error: 'Not ready for next turn' });
+    }
+    
+    // Record the question
+    game.questions.push({
+        round: game.round,
+        questioner: game.questioner,
+        answerer: game.answerer,
+        question: game.currentQuestion,
+        answer: game.currentAnswer
+    });
+    
+    // Update round
+    game.round++;
+    
+    // Check if game over
+    if (game.round > game.maxRounds) {
+        game.gameOver = true;
+        game.phase = PHASE.GAME_OVER;
+        console.log('[Game] ===== GAME OVER =====');
+        console.log(`[Game] Final Score: 迪尼 ${game.scores.designer} - ${game.scores.xiaxia} 蝦蝦`);
+        saveState();
+        broadcastSSE();
+        return res.json({ status: 'ok', gameOver: true });
+    }
+    
+    // Reset for next round
+    game.currentQuestion = null;
+    game.currentAnswer = null;
+    game.questioner = null;
+    game.answerer = null;
+    
+    console.log(`[Game] ===== ROUND ${game.round} =====`);
+    
+    // Next round: 蝦蝦 asks
+    res.json({ status: 'ok', round: game.round });
+    await startXiaxiaAsking();
+});
+
+// Judge decision
+app.post('/api/judge', (req, res) => {
+    const { correct, answererCorrect } = req.body;
+    
+    if (game.phase !== PHASE.JUDGE_PENDING) {
+        return res.json({ error: 'Not in judging phase' });
+    }
+    
+    // The answerer gets the point if correct
+    // questioner gets the point if answerer is wrong (timeout or wrong answer)
+    const answerer = game.answerer;
+    const questioner = game.questioner;
+    
+    let result, pointsTo;
+    
+    if (answererCorrect === true) {
+        // 答對了 - answerer 得分
+        game.scores[answerer]++;
+        result = 'correct';
+        pointsTo = answerer;
+    } else {
+        // 答錯了或超時 - questioner 得分
+        game.scores[questioner]++;
+        result = 'wrong';
+        pointsTo = questioner;
+    }
+    
+    // Record in history
+    game.history.push({
+        round: game.round,
+        questioner: questioner,
+        answerer: answerer,
+        question: game.currentQuestion,
+        answer: game.currentAnswer,
+        result: result,
+        pointsTo: pointsTo
+    });
+    
+    console.log(`[Game] Judge decision: ${result}! Point to ${PLAYERS[pointsTo].emoji} ${PLAYERS[pointsTo].name}`);
+    console.log(`[Game] Score: 迪尼 ${game.scores.designer} - ${game.scores.xiaxia} 蝦蝦`);
+    
+    // Check if this was the last question of round 10
+    if (game.round >= game.maxRounds && game.history.length >= game.maxRounds) {
+        game.gameOver = true;
+        game.phase = PHASE.GAME_OVER;
+        console.log('[Game] ===== GAME OVER =====');
+        console.log(`[Game] Final Score: 迪尼 ${game.scores.designer} - ${game.scores.xiaxia} 蝦蝦`);
+    }
+    
+    saveState();
+    broadcastSSE();
+    
+    res.json({ 
+        status: 'ok', 
+        result,
+        pointsTo,
+        scores: game.scores,
+        gameOver: game.gameOver
+    });
+});
+
+// Manual judge (羅哥 decides if correct or not)
+app.post('/api/judge-answer', (req, res) => {
+    const { correct } = req.body;
+    
+    if (game.phase !== PHASE.JUDGE_PENDING) {
+        return res.json({ error: 'Not in judging phase' });
+    }
+    
+    // correct=true means answerer got it right
+    // correct=false means answerer got it wrong
+    return res.json({ 
+        status: 'ok',
+        message: correct ? '答對了！' : '答錯了！',
+        ready: true
+    });
+});
+
+// Get player info
+app.get('/api/players', (req, res) => {
+    res.json({
+        players: PLAYERS,
+        status: game.players
+    });
+});
+
+// 手動模式：提交題目
+app.post('/api/manual-question', (req, res) => {
+    const { question } = req.body;
+    if (typeof question !== 'string' || question.trim() === '') {
+        return res.status(400).json({ error: 'missing or empty question' });
+    }
+    game.currentQuestion = question.trim();
+    game.manualMode = false;
+    // 若目前處於傑尼暫停狀態，恢復至候裁決階段
+    if (game.phase === PHASE.PAUSED_BY_ZENI) {
+        game.phase = PHASE.JUDGE_PENDING;
+        game.zeniMessage = null;
+        game.zeniActions = [];
+        pausedPhaseBeforeZeni = null;
+    }
+    saveState();
+    broadcastSSE();
+    res.json({ status: 'ok', message: '題目已提交' });
+});
+
+// 手動模式：提交答案
+app.post('/api/manual-answer', (req, res) => {
+    const { answer } = req.body;
+    if (typeof answer !== 'string' || answer.trim() === '') {
+        return res.status(400).json({ error: 'missing or empty answer' });
+    }
+    game.currentAnswer = answer.trim();
+    game.phase = PHASE.JUDGE_PENDING;
+    game.manualMode = false;
+    game.timeLeft = 0;
+    game.zeniMessage = null;
+    game.zeniActions = [];
+    pausedPhaseBeforeZeni = null;
+    saveState();
+    broadcastSSE();
+    res.json({ status: 'ok', message: '答案已提交' });
+});
+
+// ============= 傑尼決策端點 =============
+
+/**
+ * POST /api/zeni-action
+ * 用戶對傑尼的警告做出回應
+ * action: 'manual' | 'pause' | 'stop' | 'wait' | 'switch_cloud'
+ */
+app.post('/api/zeni-action', async (req, res) => {
+    const { action } = req.body;
+    
+    console.log(`[🐢 傑尼] 收到用戶指令: ${action}`);
+    
+    switch (action) {
+        case 'manual':
+            // 進入手動模式：用戶自行輸入題目或答案
+            game.manualMode = true;
+            game.phase = pausedPhaseBeforeZeni || PHASE.JUDGE_PENDING;
+            game.zeniMessage = null;
+            game.zeniActions = [];
+            pausedPhaseBeforeZeni = null;
+            isProcessing = false;
+            zeniAlert('📝 已進入手動模式。請你直接輸入下方的題目或答案。', 'info', []);
+            saveState();
+            broadcastSSE();
+            return res.json({ status: 'ok', mode: 'manual' });
+            
+        case 'pause':
+            // 暫停：保持目前狀態，等待用戶下一步指令
+            game.phase = PHASE.PAUSED_BY_ZENI;
+            game.zeniMessage = { 
+                time: new Date().toISOString(),
+                message: '⏸️ 遊戲已暫停。隨時可以選擇繼續、手動模式或停止。',
+                errorType: 'info',
+                actions: ['manual', 'stop', 'wait']
+            };
+            game.zeniActions = ['manual', 'stop', 'wait'];
+            isProcessing = false;
+            if (retryTimer) { clearInterval(retryTimer); retryTimer = null; }
+            saveState();
+            broadcastSSE();
+            return res.json({ status: 'ok', mode: 'paused' });
+            
+        case 'stop':
+            // 強制結束比賽
+            if (gameTimer) clearInterval(gameTimer);
+            if (retryTimer) clearInterval(retryTimer);
+            game.gameOver = true;
+            game.phase = PHASE.GAME_OVER;
+            game.zeniMessage = null;
+            game.zeniActions = [];
+            isProcessing = false;
+            zeniAlert(`🛑 傑尼宣佈比賽提前結束！最終比分：🎨 迪尼 ${game.scores.designer} vs 🦐 蝦蝦 ${game.scores.xiaxia}`, 'info', []);
+            saveState();
+            broadcastSSE();
+            return res.json({ status: 'ok', mode: 'stopped', scores: game.scores });
+            
+        case 'wait':
+            // 等待：傑尼計時 60 秒後自動重試
+            game.phase = PHASE.PAUSED_BY_ZENI;
+            const savedPhase = pausedPhaseBeforeZeni;
+            zeniAlert(`⏳ 傑尼開始等待 60 秒後自動重試連線...`, 'info', ['stop']);
+            saveState();
+            broadcastSSE();
+            
+            startRetryCountdown(60, async () => {
+                // 重試：恢復到暫停前的狀態並繼續
+                if (game.gameOver) return;
+                game.phase = savedPhase || PHASE.IDLE;
+                pausedPhaseBeforeZeni = null;
+                game.zeniMessage = null;
+                game.zeniActions = [];
+                saveState();
+                broadcastSSE();
+                
+                // 根據恢復的狀態繼續遊戲
+                if (savedPhase === PHASE.DESIGNER_ASKING) {
+                    await startDesignerAsking();
+                } else if (savedPhase === PHASE.XIAXIA_ASKING) {
+                    await startXiaxiaAsking();
+                } else if (savedPhase === PHASE.XIAXIA_ANSWERING) {
+                    await startXiaxiaAnswering();
+                } else if (savedPhase === PHASE.DESIGNER_ANSWERING) {
+                    await startDesignerAnswering();
+                }
+            });
+            
+            return res.json({ status: 'ok', mode: 'waiting', retryIn: 60 });
+            
+        case 'switch_cloud':
+            // 手動切換回雲端模型
+            updateConnectionStatus('cloud');
+            game.zeniMessage = null;
+            game.zeniActions = [];
+            zeniAlert(`☁️ 已切換回雲端模型 (${MODEL_CONFIG.cloud})。如果仍然受限，傑尼會自動切回本地模型。`, 'info', []);
+            saveState();
+            broadcastSSE();
+            return res.json({ status: 'ok', model: MODEL_CONFIG.cloud });
+            
+        default:
+            return res.status(400).json({ error: '未知指令: ' + action });
+    }
+});
+
+/**
+ * GET /api/connection-status
+ * 取得目前連線狀態
+ */
+app.get('/api/connection-status', (req, res) => {
+    res.json({
+        connectionMode,
+        activeModel,
+        rateLimitHitAt,
+        availableModels: MODEL_CONFIG
+    });
+});
+
+// ============= Start Server =============
+
+const server = app.listen(PORT, () => {
+    console.log('========================================');
+    console.log('   🐢 推論猜謎對決 - 遊戲引擎 v4.0');
+    console.log('========================================');
+    console.log(`✅ 伺服器已啟動：http://localhost:${PORT}`);
+    console.log(`📍 網頁界面：http://localhost:${PORT}/public/index.html`);
+    console.log();
+    console.log('👥 參賽選手：');
+    console.log('   🎨 迪尼 (Designer)');
+    console.log('   🦐 蝦蝦 (Xiaxia)');
+    console.log('   🐢 傑尼 (Zeni - 主控代理人/裁判)');
+    console.log();
+    console.log('🔗 模型設定：');
+    console.log(`   首選 (Cloud): ${MODEL_CONFIG.cloud}`);
+    console.log(`   備援 (Local): ${MODEL_CONFIG.local}`);
+    console.log();
+    console.log('API 端點：');
+    console.log('  GET  /api/state             - 遊戲狀態');
+    console.log('  GET  /api/stream            - SSE 即時串流');
+    console.log('  GET  /api/players           - 選手狀態');
+    console.log('  GET  /api/connection-status - 連線狀態');
+    console.log('  POST /api/init              - 初始化/重置遊戲');
+    console.log('  POST /api/start             - 開始遊戲');
+    console.log('  POST /api/judge             - 裁決');
+    console.log('  POST /api/next-turn         - 下一回合');
+    console.log('  POST /api/zeni-action       - 傑尼決策指令');
+    console.log('  POST /api/manual-question   - 手動輸入題目');
+    console.log('  POST /api/manual-answer     - 手動輸入答案');
+    console.log('========================================');
+});
+
+// Initialize state after server starts
+saveState();
+autoDetectGateway().then(success => {
+    if (success) {
+        zeniAlert(`🐢 傑尼主控系統就緒！已成功連線至 Gateway (${GATEWAY_HOST})。`, 'info', []);
+    } else {
+        zeniAlert(`🔴 警告：傑尼找不到 Gateway 服務！請檢查網路或 OpenClaw 伺服器。`, 'connection', ['wait']);
+    }
+});
+console.log('[🐢 傑尼] 引擎 v4.0 初始化完成');

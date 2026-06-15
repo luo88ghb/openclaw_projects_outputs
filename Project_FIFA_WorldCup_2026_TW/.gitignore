@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Runtime data
+*.log
+.env
+*.tmp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Node / npm
+node_modules/
+.npm/
+
+# Workspace historical artifacts
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.mp4
+*.mp3

@@ -1,0 +1,16 @@
+{
+  "game_name": "視覺氛圍劇本比賽",
+  "judge": { "name": "傑尼", "model": "ollama/gemma4:31b-cloud" },
+  "players": [
+    { "id": "dini", "name": "迪尼", "model": "ollama/glm-5:cloud", "role": "導演/攝影" },
+    { "id": "xixia", "name": "蝦蝦", "model": "ollama/kimi-k2.5:cloud", "role": "創意/文學" }
+  ],
+  "rounds": 3,
+  "questions_file": "questions.txt",
+  "time_limit_seconds": 180,
+  "max_chars": 600,
+  "char_over_penalty": 1,
+  "bonus": { "spatial_temporal_temp": 3, "camera_movement_audio": 2 },
+  "scoreboard_path": "visual_scoreboard.json",
+  "summary_path": "scene-six-summary.txt"
+}

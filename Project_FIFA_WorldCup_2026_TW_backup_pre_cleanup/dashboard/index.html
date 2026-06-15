@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 世界盃足球賽 台灣時間儀表板</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>🏆 2026 世界盃足球賽 台灣時間儀表板</h1>
+    <p>Asia/Taipei UTC+8｜104 場完整賽程｜轉播：Hami Video / ELTA.tv</p>
+  </header>
+
+  <main>
+    <section id="hero">
+      <div class="card next-match-card">
+        <h2>⏰ 下一場比賽</h2>
+        <div id="next-match">載入中...</div>
+      </div>
+      <div class="card predictions-card">
+        <h2>🔮 進階預測</h2>
+        <div id="prediction-stage-tabs">
+          <button class="stage-tab active" data-stage="小組賽">小組賽</button>
+          <button class="stage-tab" data-stage="32強">32強</button>
+          <button class="stage-tab" data-stage="16強">16強</button>
+          <button class="stage-tab" data-stage="8強">8強</button>
+          <button class="stage-tab" data-stage="4強">4強</button>
+          <button class="stage-tab" data-stage="冠亞季軍">冠亞季軍</button>
+        </div>
+        <div id="prediction-content">載入中...</div>
+        <div id="prediction-actions">
+          <button id="print-prediction">🖨️ 列印</button>
+          <button id="download-prediction">⬇️ 下載</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="filters">
+      <input type="text" id="search" placeholder="搜尋球隊、城市、組別..." />
+      <select id="stage-filter">
+        <option value="">全部階段</option>
+        <option value="小組賽">小組賽</option>
+        <option value="32強">32 強</option>
+        <option value="16強">16 強</option>
+        <option value="8強">8 強</option>
+        <option value="4強">4 強</option>
+        <option value="季軍戰">季軍戰</option>
+        <option value="決賽">決賽</option>
+      </select>
+      <select id="group-filter">
+        <option value="">全部組別</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+        <option value="E">E</option>
+        <option value="F">F</option>
+        <option value="G">G</option>
+        <option value="H">H</option>
+        <option value="I">I</option>
+        <option value="J">J</option>
+        <option value="K">K</option>
+        <option value="L">L</option>
+      </select>
+    </section>
+
+    <section>
+      <h2>📅 完整賽程</h2>
+      <div id="match-table-container">
+        <table id="match-table">
+          <thead>
+            <tr>
+              <th>場次</th>
+              <th>日期</th>
+              <th>台灣時間</th>
+              <th>階段</th>
+              <th>組別</th>
+              <th>主隊</th>
+              <th>比分</th>
+              <th>客隊</th>
+              <th>城市</th>
+              <th>預測</th>
+            </tr>
+          </thead>
+          <tbody id="match-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>📊 分組積分</h2>
+      <div id="standings"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>資料來源：FIFA 官方賽程換算台灣時間｜轉播平台：Hami Video / ELTA.tv</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

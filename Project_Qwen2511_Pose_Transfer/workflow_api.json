@@ -1,0 +1,85 @@
+{
+  "1": {
+    "inputs": {
+      "unet_name": "[ Qwen ]\\qwen-image-edit-2511-Q4_K_M.gguf"
+    },
+    "class_type": "GGUFLoader",
+    "_meta": {
+      "title": "GGUF 模型載入器"
+    }
+  },
+  "2": {
+    "inputs": {
+      "clip_name": "Qwen2.5-VL-7B-Instruct-UD-Q4_K_XL.gguf",
+      "type": "qwen2"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Qwen 文本編碼器"
+    }
+  },
+  "3": {
+    "inputs": {
+      "vae_name": "qwen_image_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Qwen 專用 VAE"
+    }
+  },
+  "4": {
+    "inputs": {
+      "upscale_by": 1,
+      "seed": 42,
+      "steps": 25,
+      "cfg": 3.5,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1,
+      "model": ["1", 0],
+      "positive": ["5", 0],
+      "negative": ["6", 0],
+      "latent_image": ["7", 0]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "核心採樣器"
+    }
+  },
+  "5": {
+    "inputs": {
+      "text": "Maintain identity of Image 1, use pose of Image 2.",
+      "clip": ["2", 0]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "6": {
+    "inputs": {
+      "text": "low quality, blurry, distorted",
+      "clip": ["2", 0]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "7": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage"
+  },
+  "8": {
+    "inputs": {
+      "samples": ["4", 0],
+      "vae": ["3", 0]
+    },
+    "class_type": "VAEDecode"
+  },
+  "9": {
+    "inputs": {
+      "filename_prefix": "Zeni_Output",
+      "images": ["8", 0]
+    },
+    "class_type": "SaveImage"
+  }
+}
