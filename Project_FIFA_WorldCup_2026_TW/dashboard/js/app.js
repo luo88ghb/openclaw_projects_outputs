@@ -29,7 +29,12 @@ async function loadData() {
 }
 
 function getTeam(name) {
-  return teams.find(t => t.name_zh === name || t.name_en === name) || {};
+  const found = teams.find(t => t.name_zh === name || t.name_en === name);
+  return found || { name_zh: name, name_en: name, flag: '' };
+}
+
+function flagSpan(team) {
+  return team && team.flag ? `<span class="team-flag">${team.flag}</span>` : '';
 }
 
 function taiwanDateTime(dateStr, timeStr) {
@@ -54,7 +59,8 @@ function isMatchFinished(m) {
 function isMatchLive(m) {
   const now = new Date();
   const kickoff = taiwanDateTime(m.date, m.time_taiwan);
-  const end = new Date(kickoff.getTime() + 2 * 60 * 60 * 1000); // 約 2 小時後結束
+  // 足球比賽正規 90 分鐘 + 中場休息 + 補時，約 2 小時後結束
+  const end = new Date(kickoff.getTime() + 2 * 60 * 60 * 1000);
   return now >= kickoff && now <= end && !isMatchFinished(m);
 }
 
@@ -75,9 +81,9 @@ function renderNextMatch() {
   container.innerHTML = `
     <div><strong>#${m.match_id} ${m.stage} ${m.group ? m.group + '組' : ''}</strong></div>
     <div style="font-size:1.4rem;margin:.5rem 0;">
-      <span class="team-name"><span class="team-flag">${home.flag || ''}</span>${m.home_team}</span>
+      <span class="team-name">${flagSpan(home)}${m.home_team}</span>
       vs
-      <span class="team-name"><span class="team-flag">${away.flag || ''}</span>${m.away_team}</span>
+      <span class="team-name">${flagSpan(away)}${m.away_team}</span>
     </div>
     <div>${formatDateTime(m.date, m.time_taiwan)}</div>
     <div style="color:var(--muted)">${m.city}</div>
@@ -293,6 +299,53 @@ function renderMatchList(teamsList) {
   `;
 }
 
+function formatPredictionCell(m) {
+  const home = getTeam(m.home_team);
+  const away = getTeam(m.away_team);
+
+  // 賽後：檢查預測是否命中勝方
+  if (isMatchFinished(m) && m.prediction) {
+    const predHome = m.prediction.home_score_pred;
+    const predAway = m.prediction.away_score_pred;
+    const actualHome = m.home_score;
+    const actualAway = m.away_score;
+
+    const predWinner = predHome > predAway ? 'home' : predAway > predHome ? 'away' : 'draw';
+    const actualWinner = actualHome > actualAway ? 'home' : actualAway > actualHome ? 'away' : 'draw';
+
+    if (predWinner === actualWinner) {
+      if (actualWinner === 'home') {
+        return `<span class="prediction-hit"><span class="team-flag">${home.flag}</span> 預測成功</span>`;
+      } else if (actualWinner === 'away') {
+        return `<span class="prediction-hit"><span class="team-flag">${away.flag}</span> 預測成功</span>`;
+      } else {
+        return `<span class="prediction-hit">🤝 預測成功（平局）</span>`;
+      }
+    } else {
+      if (actualWinner === 'home') {
+        return `<span class="prediction-miss">實際：<span class="team-flag">${home.flag}</span> ${home.name_zh} 勝</span>`;
+      } else if (actualWinner === 'away') {
+        return `<span class="prediction-miss">實際：<span class="team-flag">${away.flag}</span> ${away.name_zh} 勝</span>`;
+      } else {
+        return `<span class="prediction-miss">實際：平局</span>`;
+      }
+    }
+  }
+
+  // 賽前：顯示最高勝率隊伍
+  if (m.prediction) {
+    const probs = [
+      { key: 'home', label: home.flag + ' ' + home.name_zh, prob: m.prediction.home_win_prob || 0 },
+      { key: 'draw', label: '🤝 平局', prob: m.prediction.draw_prob || 0 },
+      { key: 'away', label: away.flag + ' ' + away.name_zh, prob: m.prediction.away_win_prob || 0 }
+    ];
+    const best = probs.reduce((a, b) => a.prob > b.prob ? a : b);
+    return `<span class="prediction">${best.label} ${best.prob}% 獲勝</span>`;
+  }
+
+  return '<span class="prediction-placeholder">—</span>';
+}
+
 function renderMatches() {
   const tbody = document.getElementById('match-tbody');
   const stageFilter = document.getElementById('stage-filter').value;
@@ -315,9 +368,7 @@ function renderMatches() {
     const score = finished || live
       ? `${m.home_score ?? 0} - ${m.away_score ?? 0}`
       : '-';
-    const pred = m.prediction
-      ? `${m.prediction.home_score_pred}-${m.prediction.away_score_pred}`
-      : '-';
+    const pred = formatPredictionCell(m);
     const home = getTeam(m.home_team);
     const away = getTeam(m.away_team);
     const rowClass = (index % 2 === 0 ? 'odd' : 'even') + (finished ? ' finished' : '') + (live ? ' live' : '');
@@ -329,9 +380,9 @@ function renderMatches() {
         <td>${m.time_taiwan}</td>
         <td>${m.stage}</td>
         <td>${m.group || '-'}</td>
-        <td><span class="team-name"><span class="team-flag">${home.flag || ''}</span>${m.home_team}</span></td>
+        <td><span class="team-name">${flagSpan(home)}${m.home_team}</span></td>
         <td class="score ${live ? 'live' : ''}">${score}</td>
-        <td><span class="team-name"><span class="team-flag">${away.flag || ''}</span>${m.away_team}</span></td>
+        <td><span class="team-name">${flagSpan(away)}${m.away_team}</span></td>
         <td>${m.city}</td>
         <td class="prediction">${pred}</td>
       </tr>

@@ -212,6 +212,31 @@ th {
   50% { opacity: 0.5; }
 }
 
+.match-status {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-finished {
+  background: #334155;
+  color: #94a3b8;
+}
+
+.status-live {
+  background: #450a0a;
+  color: #fecaca;
+  animation: pulse 1.5s infinite;
+}
+
+.status-scheduled {
+  background: #0f392b;
+  color: var(--accent2);
+}
+
 .team-name {
   display: inline-flex;
   align-items: center;
@@ -225,7 +250,25 @@ th {
 
 .prediction {
   font-size: 0.85rem;
-  color: var(--muted);
+  color: var(--accent2);
+  font-weight: 600;
+}
+
+.prediction-placeholder {
+  color: var(--finished);
+  font-weight: normal;
+}
+
+.prediction-hit {
+  font-size: 0.85rem;
+  color: var(--accent2);
+  font-weight: 700;
+}
+
+.prediction-miss {
+  font-size: 0.85rem;
+  color: #ef4444;
+  font-weight: 600;
 }
 
 .prediction-bar {
