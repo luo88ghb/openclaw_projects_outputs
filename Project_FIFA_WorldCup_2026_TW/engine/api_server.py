@@ -28,9 +28,10 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
         return self.rfile.read(length).decode("utf-8")
 
     def do_GET(self):
+        import urllib.parse
         try:
             if self.path.startswith("/api/predictions/"):
-                stage = self.path.split("/")[-1]
+                stage = urllib.parse.unquote(self.path.split("/")[-1])
                 path = PREDICTIONS_DIR / "predictions_db.json"
                 if not path.exists():
                     self._send_json({"error": "no predictions db"}, 404)

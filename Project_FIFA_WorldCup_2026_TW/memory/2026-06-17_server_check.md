@@ -39,5 +39,33 @@
 
 ## Git 提交
 
-- Commit: `cb0fcd0 (HEAD -> main)`
+- Commit: `cb0fcd0 (HEAD -> main)`  
 - 訊息: `fix: v2.1.1 補齊庫拉索 flag_img 並同步前端版本號與文件`
+
+## 追加修正與提交（2026-06-17 12:30 台北時間）
+
+### 問題
+- `engine/wiki_scraper.py` 的 `_extract_all_scores()` 原先接收純文字後再跑 `BeautifulSoup(text, "html.parser")`，導致 table parse 在純文字上無法運作，只剩 regex 路徑；
+- 僅能抓到少數帶有完整日期時間的比賽，很多已完成場次（例如 美國 4-1 巴拉圭、墨西哥 2-0 南非）抓不到比分。
+
+### 修正
+- `_extract_all_scores()` 改為接受 HTML 或純文字，若是 HTML 先經 `_wiki_text()` 轉為文字，再同時進行 regex 與 `itemprop="name"` table parse。
+- `parse_match_score()` 改為直接將原始 HTML 傳入 `_extract_all_scores(html)`，讓兩種解析都能運作。
+- 移除前端 `app.js` 中對 `http://localhost:8766/api/predictions/...` 的無用抓取，避免隱性錯誤。
+
+### 驗證
+- `python engine/wiki_scraper.py` 測試輸出：
+  - 美國 vs 巴拉圭 => `home_score: 4, away_score: 1`
+  - 墨西哥 vs 南非 => `home_score: 2, away_score: 0`
+  - 德國 vs 庫拉索 => `home_score: 7, away_score: 1`
+  - 西班牙 vs 維德角 => `home_score: 0, away_score: 0`
+- 全部皆正確對應維基百科賽果。
+
+### 影響
+- `scheduler.py` 在比賽開賽 +120 分鐘後抓取維基百科時，現在能正確辨識絕大多數已完成場次的比分，不再漏抓。
+- 前端不會再因為連不到 `localhost:8766` 而拋出隱性錯誤。
+
+### Git 提交
+
+- Commit: `1feff7e`
+- 訊息: `fix(wiki_scraper): parse HTML directly so table-extraction works; verify 4 finished matches`

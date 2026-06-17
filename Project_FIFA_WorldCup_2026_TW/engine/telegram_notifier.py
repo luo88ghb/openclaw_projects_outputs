@@ -18,9 +18,11 @@ def load_matches():
         return json.load(f)["matches"]
 
 
-def send_telegram(message: str) -> dict:
-    token = os.environ.get("TELEGRAM_BOT_TOKEN")
-    chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+def send_telegram(message: str, token: str = None, chat_id: str = None, parse_mode: str = "HTML") -> dict:
+    if token is None:
+        token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    if chat_id is None:
+        chat_id = os.environ.get("TELEGRAM_CHAT_ID")
     if not token or not chat_id:
         raise EnvironmentError("TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID must be set")
 
@@ -28,13 +30,18 @@ def send_telegram(message: str) -> dict:
     payload = {
         "chat_id": chat_id,
         "text": message,
-        "parse_mode": "HTML",
+        "parse_mode": parse_mode,
         "disable_web_page_preview": True
     }
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.loads(resp.read().decode("utf-8"))
+
+
+# 向後相容：預設使用環境變數的發送入口
+def send_telegram_default(message: str) -> dict:
+    return send_telegram(message)
 
 
 def notify_upcoming(minutes_ahead: int = 30):
@@ -101,8 +108,29 @@ def daily_briefing():
     print("Daily briefing sent.")
 
 
+def notify_match_result(m: dict):
+    """發送單場比賽的賽果與預測命中情況（由 scheduler 觸發時呼叫）。"""
+    pred = m.get("prediction")
+    hit_text = ""
+    if pred:
+        hit = pred.get("hit")
+        hit_text = (
+            f"\n🔮 賽前預測：{pred['home_score_pred']}-{pred['away_score_pred']} "
+            f"{'✅ 命中' if hit else '❌ 未命中'}"
+        ) if hit is not None else f"\n🔮 賽前預測：{pred['home_score_pred']}-{pred['away_score_pred']}"
+    msg = (
+        f"⚽ <b>2026 世界盃賽果更新</b>\n"
+        f"場次：#{m['match_id']} {m['stage']}{' ' + m['group'] + '組' if m['group'] else ''}\n"
+        f"對戰：{m['home_team']} {m['home_score']} - {m['away_score']} {m['away_team']}\n"
+        f"地點：{m['city']}"
+        f"{hit_text}"
+    )
+    send_telegram(msg)
+    print(f"Notified result for match {m['match_id']}")
+
+
 def notify_results():
-    """發送剛結束比賽的賽果與預測命中情況。"""
+    """發送近 3 小時內結束比賽的賽果與預測命中情況（備用手動腳本入口）。"""
     now = datetime.now()
     matches = load_matches()
     recent = []
@@ -118,20 +146,7 @@ def notify_results():
         return
 
     for m in recent:
-        pred = m.get("prediction")
-        hit_text = ""
-        if pred:
-            hit = pred.get("hit")
-            hit_text = f"\n🔮 賽前預測：{pred['home_score_pred']}-{pred['away_score_pred']} {'✅ 命中' if hit else '❌ 未命中'}" if hit is not None else f"\n🔮 賽前預測：{pred['home_score_pred']}-{pred['away_score_pred']}"
-        msg = (
-            f"⚽ <b>2026 世界盃賽果</b>\n"
-            f"場次：#{m['match_id']} {m['stage']}{' ' + m['group'] + '組' if m['group'] else ''}\n"
-            f"對戰：{m['home_team']} {m['home_score']} - {m['away_score']} {m['away_team']}\n"
-            f"地點：{m['city']}"
-            f"{hit_text}"
-        )
-        send_telegram(msg)
-        print(f"Notified result for match {m['match_id']}")
+        notify_match_result(m)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,424 @@
+{
+  "teams": [
+    {
+      "id": "MEX",
+      "name_zh": "墨西哥",
+      "name_en": "Mexico",
+      "confederation": "CONCACAF",
+      "group": "A",
+      "fifa_ranking": 15,
+      "pot": 1,
+      "flag": "🇲🇽"
+    },
+    {
+      "id": "RSA",
+      "name_zh": "南非",
+      "name_en": "South Africa",
+      "confederation": "CAF",
+      "group": "A",
+      "fifa_ranking": 58,
+      "pot": 4,
+      "flag": "🇿🇦"
+    },
+    {
+      "id": "KOR",
+      "name_zh": "南韓",
+      "name_en": "South Korea",
+      "confederation": "AFC",
+      "group": "A",
+      "fifa_ranking": 23,
+      "pot": 3,
+      "flag": "🇰🇷"
+    },
+    {
+      "id": "CAN",
+      "name_zh": "加拿大",
+      "name_en": "Canada",
+      "confederation": "CONCACAF",
+      "group": "B",
+      "fifa_ranking": 31,
+      "pot": 2,
+      "flag": "🇨🇦"
+    },
+    {
+      "id": "QAT",
+      "name_zh": "卡達",
+      "name_en": "Qatar",
+      "confederation": "AFC",
+      "group": "B",
+      "fifa_ranking": 58,
+      "pot": 3,
+      "flag": "🇶🇦"
+    },
+    {
+      "id": "SUI",
+      "name_zh": "瑞士",
+      "name_en": "Switzerland",
+      "confederation": "UEFA",
+      "group": "B",
+      "fifa_ranking": 19,
+      "pot": 1,
+      "flag": "🇨🇭"
+    },
+    {
+      "id": "BRA",
+      "name_zh": "巴西",
+      "name_en": "Brazil",
+      "confederation": "CONMEBOL",
+      "group": "C",
+      "fifa_ranking": 5,
+      "pot": 1,
+      "flag": "🇧🇷"
+    },
+    {
+      "id": "MAR",
+      "name_zh": "摩洛哥",
+      "name_en": "Morocco",
+      "confederation": "CAF",
+      "group": "C",
+      "fifa_ranking": 13,
+      "pot": 2,
+      "flag": "🇲🇦"
+    },
+    {
+      "id": "HAI",
+      "name_zh": "海地",
+      "name_en": "Haiti",
+      "confederation": "CONCACAF",
+      "group": "C",
+      "fifa_ranking": 85,
+      "pot": 4,
+      "flag": "🇭🇹"
+    },
+    {
+      "id": "SCO",
+      "name_zh": "蘇格蘭",
+      "name_en": "Scotland",
+      "confederation": "UEFA",
+      "group": "C",
+      "fifa_ranking": 44,
+      "pot": 3,
+      "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿"
+    },
+    {
+      "id": "USA",
+      "name_zh": "美國",
+      "name_en": "United States",
+      "confederation": "CONCACAF",
+      "group": "D",
+      "fifa_ranking": 11,
+      "pot": 1,
+      "flag": "🇺🇸"
+    },
+    {
+      "id": "PAR",
+      "name_zh": "巴拉圭",
+      "name_en": "Paraguay",
+      "confederation": "CONMEBOL",
+      "group": "D",
+      "fifa_ranking": 53,
+      "pot": 3,
+      "flag": "🇵🇾"
+    },
+    {
+      "id": "AUS",
+      "name_zh": "澳洲",
+      "name_en": "Australia",
+      "confederation": "AFC",
+      "group": "D",
+      "fifa_ranking": 24,
+      "pot": 2,
+      "flag": "🇦🇺"
+    },
+    {
+      "id": "GER",
+      "name_zh": "德國",
+      "name_en": "Germany",
+      "confederation": "UEFA",
+      "group": "E",
+      "fifa_ranking": 16,
+      "pot": 1,
+      "flag": "🇩🇪"
+    },
+    {
+      "id": "CIV",
+      "name_zh": "象牙海岸",
+      "name_en": "Ivory Coast",
+      "confederation": "CAF",
+      "group": "E",
+      "fifa_ranking": 50,
+      "pot": 3,
+      "flag": "🇨🇮"
+    },
+    {
+      "id": "ECU",
+      "name_zh": "厄瓜多",
+      "name_en": "Ecuador",
+      "confederation": "CONMEBOL",
+      "group": "E",
+      "fifa_ranking": 24,
+      "pot": 2,
+      "flag": "🇪🇨"
+    },
+    {
+      "id": "CUW",
+      "name_zh": "庫拉索",
+      "name_en": "Curacao",
+      "confederation": "CONCACAF",
+      "group": "E",
+      "fifa_ranking": 79,
+      "pot": 4,
+      "flag": "🇨🇼"
+    },
+    {
+      "id": "NED",
+      "name_zh": "荷蘭",
+      "name_en": "Netherlands",
+      "confederation": "UEFA",
+      "group": "F",
+      "fifa_ranking": 7,
+      "pot": 1,
+      "flag": "🇳🇱"
+    },
+    {
+      "id": "JPN",
+      "name_zh": "日本",
+      "name_en": "Japan",
+      "confederation": "AFC",
+      "group": "F",
+      "fifa_ranking": 18,
+      "pot": 2,
+      "flag": "🇯🇵"
+    },
+    {
+      "id": "TUN",
+      "name_zh": "突尼西亞",
+      "name_en": "Tunisia",
+      "confederation": "CAF",
+      "group": "F",
+      "fifa_ranking": 41,
+      "pot": 4,
+      "flag": "🇹🇳"
+    },
+    {
+      "id": "ESP",
+      "name_zh": "西班牙",
+      "name_en": "Spain",
+      "confederation": "UEFA",
+      "group": "H",
+      "fifa_ranking": 1,
+      "pot": 1,
+      "flag": "🇪🇸"
+    },
+    {
+      "id": "CPV",
+      "name_zh": "維德角",
+      "name_en": "Cape Verde",
+      "confederation": "CAF",
+      "group": "H",
+      "fifa_ranking": 65,
+      "pot": 4,
+      "flag": "🇨🇻"
+    },
+    {
+      "id": "KSA",
+      "name_zh": "沙烏地阿拉伯",
+      "name_en": "Saudi Arabia",
+      "confederation": "AFC",
+      "group": "H",
+      "fifa_ranking": 59,
+      "pot": 3,
+      "flag": "🇸🇦"
+    },
+    {
+      "id": "URU",
+      "name_zh": "烏拉圭",
+      "name_en": "Uruguay",
+      "confederation": "CONMEBOL",
+      "group": "H",
+      "fifa_ranking": 14,
+      "pot": 2,
+      "flag": "🇺🇾"
+    },
+    {
+      "id": "BEL",
+      "name_zh": "比利時",
+      "name_en": "Belgium",
+      "confederation": "UEFA",
+      "group": "G",
+      "fifa_ranking": 8,
+      "pot": 1,
+      "flag": "🇧🇪"
+    },
+    {
+      "id": "EGY",
+      "name_zh": "埃及",
+      "name_en": "Egypt",
+      "confederation": "CAF",
+      "group": "G",
+      "fifa_ranking": 36,
+      "pot": 2,
+      "flag": "🇪🇬"
+    },
+    {
+      "id": "IRN",
+      "name_zh": "伊朗",
+      "name_en": "Iran",
+      "confederation": "AFC",
+      "group": "G",
+      "fifa_ranking": 20,
+      "pot": 3,
+      "flag": "🇮🇷"
+    },
+    {
+      "id": "NZL",
+      "name_zh": "紐西蘭",
+      "name_en": "New Zealand",
+      "confederation": "OFC",
+      "group": "G",
+      "fifa_ranking": 94,
+      "pot": 4,
+      "flag": "🇳🇿"
+    },
+    {
+      "id": "FRA",
+      "name_zh": "法國",
+      "name_en": "France",
+      "confederation": "UEFA",
+      "group": "I",
+      "fifa_ranking": 2,
+      "pot": 1,
+      "flag": "🇫🇷"
+    },
+    {
+      "id": "SEN",
+      "name_zh": "塞內加爾",
+      "name_en": "Senegal",
+      "confederation": "CAF",
+      "group": "I",
+      "fifa_ranking": 17,
+      "pot": 2,
+      "flag": "🇸🇳"
+    },
+    {
+      "id": "NOR",
+      "name_zh": "挪威",
+      "name_en": "Norway",
+      "confederation": "UEFA",
+      "group": "I",
+      "fifa_ranking": 43,
+      "pot": 3,
+      "flag": "🇳🇴"
+    },
+    {
+      "id": "ARG",
+      "name_zh": "阿根廷",
+      "name_en": "Argentina",
+      "confederation": "CONMEBOL",
+      "group": "J",
+      "fifa_ranking": 1,
+      "pot": 1,
+      "flag": "🇦🇷"
+    },
+    {
+      "id": "ALG",
+      "name_zh": "阿爾及利亞",
+      "name_en": "Algeria",
+      "confederation": "CAF",
+      "group": "J",
+      "fifa_ranking": 57,
+      "pot": 2,
+      "flag": "🇩🇿"
+    },
+    {
+      "id": "AUT",
+      "name_zh": "奧地利",
+      "name_en": "Austria",
+      "confederation": "UEFA",
+      "group": "J",
+      "fifa_ranking": 22,
+      "pot": 3,
+      "flag": "🇦🇹"
+    },
+    {
+      "id": "JOR",
+      "name_zh": "約旦",
+      "name_en": "Jordan",
+      "confederation": "AFC",
+      "group": "J",
+      "fifa_ranking": 70,
+      "pot": 4,
+      "flag": "🇯🇴"
+    },
+    {
+      "id": "POR",
+      "name_zh": "葡萄牙",
+      "name_en": "Portugal",
+      "confederation": "UEFA",
+      "group": "K",
+      "fifa_ranking": 6,
+      "pot": 1,
+      "flag": "🇵🇹"
+    },
+    {
+      "id": "UZB",
+      "name_zh": "烏茲別克",
+      "name_en": "Uzbekistan",
+      "confederation": "AFC",
+      "group": "K",
+      "fifa_ranking": 60,
+      "pot": 3,
+      "flag": "🇺🇿"
+    },
+    {
+      "id": "COL",
+      "name_zh": "哥倫比亞",
+      "name_en": "Colombia",
+      "confederation": "CONMEBOL",
+      "group": "K",
+      "fifa_ranking": 9,
+      "pot": 2,
+      "flag": "🇨🇴"
+    },
+    {
+      "id": "ENG",
+      "name_zh": "英格蘭",
+      "name_en": "England",
+      "confederation": "UEFA",
+      "group": "L",
+      "fifa_ranking": 4,
+      "pot": 1,
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+    },
+    {
+      "id": "CRO",
+      "name_zh": "克羅埃西亞",
+      "name_en": "Croatia",
+      "confederation": "UEFA",
+      "group": "L",
+      "fifa_ranking": 10,
+      "pot": 2,
+      "flag": "🇭🇷"
+    },
+    {
+      "id": "GHA",
+      "name_zh": "迦納",
+      "name_en": "Ghana",
+      "confederation": "CAF",
+      "group": "L",
+      "fifa_ranking": 68,
+      "pot": 3,
+      "flag": "🇬🇭"
+    },
+    {
+      "id": "PAN",
+      "name_zh": "巴拿馬",
+      "name_en": "Panama",
+      "confederation": "CONCACAF",
+      "group": "L",
+      "fifa_ranking": 78,
+      "pot": 4,
+      "flag": "🇵🇦"
+    }
+  ]
+}

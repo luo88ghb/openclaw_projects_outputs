@@ -219,16 +219,6 @@ th {
   font-weight: 500;
 }
 
-.team-flag-img {
-  width: 1.5em;
-  height: 1em;
-  object-fit: cover;
-  border-radius: 2px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 0.35rem;
-}
-
 .team-flag {
   font-size: 1.2rem;
 }

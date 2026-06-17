@@ -1,0 +1,12 @@
+﻿A 4 type <class 'list'>
+B 4 type <class 'list'>
+C 4 type <class 'list'>
+D 4 type <class 'list'>
+E 4 type <class 'list'>
+F 4 type <class 'list'>
+G 4 type <class 'list'>
+H 4 type <class 'list'>
+I 4 type <class 'list'>
+J 4 type <class 'list'>
+K 4 type <class 'list'>
+L 4 type <class 'list'>

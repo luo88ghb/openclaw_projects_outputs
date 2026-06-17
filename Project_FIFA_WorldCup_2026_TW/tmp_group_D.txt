@@ -1,0 +1,492 @@
+A組"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#A組">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.1</span>
+					<span>A組</span>
+				</div>
+			</a>
+			
+			<ul id="toc-A組-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-B組"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#B組">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.2</span>
+					<span>B組</span>
+				</div>
+			</a>
+			
+			<ul id="toc-B組-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-C組"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#C組">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.3</span>
+					<span>C組</span>
+				</div>
+			</a>
+			
+			<ul id="toc-C組-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-D組"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#D組">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.4</span>
+					<span>D組</span>
+				</div>
+			</a>
+			
+			<ul id="toc-D組-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-E組"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#E組">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.5</span>
+					<span>E組</span>
+				</div>
+			</a>
+			
+			<ul id="toc-E組-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-F組"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#F組">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.6</span>
+					<span>F組</span>
+				</div>
+			</a>
+			
+			<ul id="toc-F組-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-G組"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#G組">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.7</span>
+					<span>G組</span>
+				</div>
+			</a>
+			
+			<ul id="toc-G組-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-H組"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#H組">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.8</span>
+					<span>H組</span>
+				</div>
+			</a>
+			
+			<ul id="toc-H組-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-I組"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#I組">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.9</span>
+					<span>I組</span>
+				</div>
+			</a>
+			
+			<ul id="toc-I組-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-J組"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#J組">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.10</span>
+					<span>J組</span>
+				</div>
+			</a>
+			
+			<ul id="toc-J組-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-K組"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#K組">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.11</span>
+					<span>K組</span>
+				</div>
+			</a>
+			
+			<ul id="toc-K組-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-L組"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#L組">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.12</span>
+					<span>L組</span>
+				</div>
+			</a>
+			
+			<ul id="toc-L組-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-各小組第三名隊伍"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#各小組第三名隊伍">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.13</span>
+					<span>各小組第三名隊伍</span>
+				</div>
+			</a>
+			
+			<ul id="toc-各小組第三名隊伍-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-淘汰賽"
+		class="vector-toc-list-item vector-toc-level-1">
+		<a class="vector-toc-link" href="#淘汰賽">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">8</span>
+				<span>淘汰賽</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-淘汰賽-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>切換 淘汰賽 子章節</span>
+			</button>
+		
+		<ul id="toc-淘汰賽-sublist" class="vector-toc-list">
+			<li id="toc-晉級圖"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#晉級圖">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">8.1</span>
+					<span>晉級圖</span>
+				</div>
+			</a>
+			
+			<ul id="toc-晉級圖-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-三十二強"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#三十二強">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">8.2</span>
+					<span>三十二強</span>
+				</div>
+			</a>
+			
+			<ul id="toc-三十二強-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-十六強"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#十六強">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">8.3</span>
+					<span>十六強</span>
+				</div>
+			</a>
+			
+			<ul id="toc-十六強-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-半準決賽"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#半準決賽">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">8.4</span>
+					<span>半準決賽</span>
+				</div>
+			</a>
+			
+			<ul id="toc-半準決賽-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-準決賽"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#準決賽">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">8.5</span>
+					<span>準決賽</span>
+				</div>
+			</a>
+			
+			<ul id="toc-準決賽-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-季軍戰"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#季軍戰">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">8.6</span>
+					<span>季軍戰</span>
+				</div>
+			</a>
+			
+			<ul id="toc-季軍戰-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-決賽"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#決賽">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">8.7</span>
+					<span>決賽</span>
+				</div>
+			</a>
+			
+			<ul id="toc-決賽-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-統計數據"
+		class="vector-toc-list-item vector-toc-level-1">
+		<a class="vector-toc-link" href="#統計數據">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">9</span>
+				<span>統計數據</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-統計數據-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>切換 統計數據 子章節</span>
+			</button>
+		
+		<ul id="toc-統計數據-sublist" class="vector-toc-list">
+			<li id="toc-射手榜"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#射手榜">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">9.1</span>
+					<span>射手榜</span>
+				</div>
+			</a>
+			
+			<ul id="toc-射手榜-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-助攻榜"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#助攻榜">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">9.2</span>
+					<span>助攻榜</span>
+				</div>
+			</a>
+			
+			<ul id="toc-助攻榜-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-市场营销"
+		class="vector-toc-list-item vector-toc-level-1">
+		<a class="vector-toc-link" href="#市场营销">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">10</span>
+				<span>市場行銷</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-市场营销-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>切換 市場行銷 子章節</span>
+			</button>
+		
+		<ul id="toc-市场营销-sublist" class="vector-toc-list">
+			<li id="toc-比賽用球"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#比賽用球">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">10.1</span>
+					<span>比賽用球</span>
+				</div>
+			</a>
+			
+			<ul id="toc-比賽用球-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-会徽与品牌形象"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#会徽与品牌形象">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">10.2</span>
+					<span>會徽與品牌形象</span>
+				</div>
+			</a>
+			
+			<ul id="toc-会徽与品牌形象-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-吉祥物"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#吉祥物">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">10.3</span>
+					<span>吉祥物</span>
+				</div>
+			</a>
+			
+			<ul id="toc-吉祥物-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-音乐专辑"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#音乐专辑">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">10.4</span>
+					<span>音樂專輯</span>
+				</div>
+			</a>
+			
+			<ul id="toc-音乐专辑-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-官方游戏"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#官方游戏">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">10.5</span>
+					<span>官方遊戲</span>
+				</div>
+			</a>
+			
+			<ul id="toc-官方游戏-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-赞助商"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#赞助商">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">10.6</span>
+					<span>贊助商</span>
+				</div>
+			</a>
+			
+			<ul id="toc-赞助商-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-争议"
+		class="vector-toc-list-item vector-toc-level-1">
+		<a class="vector-toc-link" href="#争议">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">11</span>
+				<span>爭議</span>
+			</div>
+		</a>
+		
+		<ul id="toc-争议-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-轉播媒體"
+		class="vector-toc-list-item vector-toc-level-1">
+		<a class="vector-toc-link" href="#轉播媒體">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">12</span>
+				<span>轉播媒體</span>
+			</div>
+		</a>
+		
+		<ul id="toc-轉播媒體-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-備註"
+		class="vector-toc-list-item vector-toc-level-1">
+		<a class="vector-toc-link" href="#備註">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">13</span>
+				<span>備註</span>
+			</div>
+		</a>
+		
+		<ul id="toc-備註-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-参考资料"
+		class="vector-toc-list-item vector-toc-level-1">
+		<a class="vector-toc-link" href="#参考资料">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">14</span>
+				<span>參考資料</span>
+			</div>
+		</a>
+		
+		<ul id="toc-参考资料-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-外部連結"
+		class="vector-toc-list-item vector-toc-level-1">
+		<a class="vector-toc-link" href="#外部連結">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">15</span>
+				<span>外部連結</span>
+			</div>
+		</a>
+		
+		<ul id="toc-外部連結-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+</ul>
+</div>
+
+					</div>
+		</nav>
+			</div>
+		</div>
+		<div class="mw-content-container">
+			<main id="content" class="mw-body">
+				<header class="mw-body-header vector-page-titlebar no-font-mode-scale">
+					<nav aria-label="目次" class="vector-toc-landmark">
+						
+<div id="vector-page-titlebar-toc" class="vector-dropdown vector-page-titlebar-toc vector-button-flush-left"  title="目次"  lang="zh-Hant-TW" dir="ltr">
+	<input type="checkbox" id="vector-page-titlebar-toc-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-titlebar-toc" class="vector-dropdown-checkbox "  aria-label="切換目次"  >
+	<label id="vector-page-titlebar-toc-label" for="vector-page-titlebar-toc-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-listBullet mw-ui-icon-wikimedia-listBullet"></span>
+
+<span class="vector-dropdown-label-text">切換目次</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+							<div id="vector-page-titlebar-toc-unpinned-container" class="vector-unpinned-container">
+			</div>
+		
+	</div>
+</div>
+
+					</nav>
+					<h1 id="firstHeading" class="firstHeading mw-first-heading" lang="zh-Hant-TW" dir="ltr"><span lang="zh-Hant-TW" dir="ltr"><span class="mw-page-title-main">2026年國際足總世界盃</span></span></h1>
+							
+<div id="p-lang-btn" class="vector-dropdown mw-portlet mw-portlet-lang"   lang="zh-Hant-TW" dir="ltr">
+	<input type="checkbox" id="p-lang-btn-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-lang-btn" class="vector-dropdown-checkbox mw-interlanguage-selector" aria-label="前往別種語言的條目。有 106 種語言可用"   >
+	<label id="p-lang-btn-label" for="p-lang-btn-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--action-progressive mw-portlet-lang-heading-106" aria-hidden="true"  ><span class="vector-icon mw-ui-icon-language-progressive mw-ui-icon-wikimedia-language-progressive"></span>
+
+<span class="vector-dropdown-label-text">106種語言</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+		<div class="vector-menu-content">
+			
+			<ul class="vector-menu-content-list">
+				
+				<li class="interlanguage-link interwiki-af mw-list-item"><a href="https://af.wikipedia.org/wiki/FIFA_Sokker-W%C3%AAreldbekertoernooi_in_2026" title="FIFA Sokker-Wêreldbekertoernooi in 2026 – 南非荷蘭文" lang="af" hreflang="af" data-title="FIFA Sokker-Wêreldbekertoernooi in 2026" data-language-autonym="Afrikaans" data-language-local-name="南非荷蘭文" class="interlanguage-link-target"><span>Afrikaans</span></a></li><li class="interlanguage-link interwiki-als mw-list-item"><a href="https://als.wikipedia.org/wiki/Fu%C3%9Fball-Weltmeisterschaft_2026" title="Fußball-Weltmeisterschaft 2026 – 德文（瑞士）" lang="gsw" hreflang="gsw" data-title="Fußball-Weltmeisterschaft 2026" data-language-autonym="Alemannisch" data-language-local-name="德文（瑞士）" class="interlanguage-link-target"><span>Alemannisch</span></a></li><li class="interlanguage-link interwiki-an mw-list-item"><a href="https://an.wikipedia.org/wiki/Copa_Mundial_de_F%C3%BAtbol_de_2026" title="Cop

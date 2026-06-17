@@ -1,0 +1,117 @@
+id="D組"><span id="D.E7.B5.84"></span>D組</h3><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=2026%E5%B9%B4%E5%9C%8B%E9%9A%9B%E8%B6%B3%E5%8D%94%E4%B8%96%E7%95%8C%E7%9B%83&amp;action=edit&amp;section=17" title="編輯章節：D組"><span>編輯</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r85100532" /><div role="note" class="hatnote navigation-not-searchable">主條目：<a href="/wiki/2026%E5%B9%B4%E5%9C%8B%E9%9A%9B%E8%B6%B3%E5%8D%94%E4%B8%96%E7%95%8C%E7%9B%83D%E7%B5%84" title="2026年國際足總世界盃D組">2026年國際足總世界盃D組</a></div>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r66786035" />
+<table class="wikitable" style="text-align:center;">
+<tbody><tr>
+<th scope="col" width="32">排名
+</th>
+<th scope="col" width="190">隊伍<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r84265675" /><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r84244141" /><div class="navbar plainlinks hlist navbar-mini" style="float:right"><ul class="navbar-brackets"><li class="nv-view"><a href="/wiki/Template:2026%E5%B9%B4%E5%9C%8B%E9%9A%9B%E8%B6%B3%E5%8D%94%E4%B8%96%E7%95%8C%E7%9B%83%E5%B0%8F%E7%B5%84%E7%A9%8D%E5%88%86%E6%A6%9C" title="Template:2026年國際足總世界盃小組積分榜"><abbr title="檢視該模板">閱</abbr></a></li><li class="nv-talk"><a href="/w/index.php?title=Template_talk:2026%E5%B9%B4%E5%9C%8B%E9%9A%9B%E8%B6%B3%E5%8D%94%E4%B8%96%E7%95%8C%E7%9B%83%E5%B0%8F%E7%B5%84%E7%A9%8D%E5%88%86%E6%A6%9C&amp;action=edit&amp;redlink=1" class="new" title="Template talk:2026年國際足總世界盃小組積分榜（頁面不存在）"><abbr title="討論該模板">論</abbr></a></li><li class="nv-edit"><a href="/wiki/Special:EditPage/Template:2026%E5%B9%B4%E5%9C%8B%E9%9A%9B%E8%B6%B3%E5%8D%94%E4%B8%96%E7%95%8C%E7%9B%83%E5%B0%8F%E7%B5%84%E7%A9%8D%E5%88%86%E6%A6%9C" title="Special:EditPage/Template:2026年國際足總世界盃小組積分榜"><abbr title="編輯該模板">編</abbr></a></li></ul></div>
+</th>
+<th scope="col" width="32"><abbr title="場數">賽</abbr>
+</th>
+<th scope="col" width="32"><abbr title="勝出">勝</abbr>
+</th>
+<th scope="col" width="32"><abbr title="打和">和</abbr>
+</th>
+<th scope="col" width="32"><abbr title="落敗">負</abbr>
+</th>
+<th scope="col" width="32"><abbr title="入球">得</abbr>
+</th>
+<th scope="col" width="32"><abbr title="失球">失</abbr>
+</th>
+<th scope="col" width="32"><abbr title="得失球差">差</abbr>
+</th>
+<th scope="col" width="32"><abbr title="積分">分</abbr>
+</th>
+<th scope="col">獲得資格
+</th></tr>
+<tr>
+<td style="text-align:center;font-weight:normal;background-color:#BBF3BB;color:black;">1
+</td>
+<th scope="row" style="text-align:left; white-space:nowrap;font-weight:normal;background-color:#BBF3BB;color:black;"><span class="flagicon"><span class="mw-image-border notpageimage" typeof="mw:File"><span><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/40px-Flag_of_the_United_States.svg.png" decoding="async" width="22" height="12" class="mw-file-element" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/60px-Flag_of_the_United_States.svg.png 2x" data-file-width="1235" data-file-height="650" /></span></span> </span><a href="/wiki/%E7%BE%8E%E5%9C%8B%E5%9C%8B%E5%AE%B6%E7%94%B7%E5%AD%90%E8%B6%B3%E7%90%83%E9%9A%8A" title="美國國家男子足球隊">美國</a> <span style="font-weight:bold">(H)</span>
+</th>
+<td style="font-weight:normal;background-color:#BBF3BB;color:black;">1
+</td>
+<td style="font-weight:normal;background-color:#BBF3BB;color:black;">1
+</td>
+<td style="font-weight:normal;background-color:#BBF3BB;color:black;">0
+</td>
+<td style="font-weight:normal;background-color:#BBF3BB;color:black;">0
+</td>
+<td style="font-weight:normal;background-color:#BBF3BB;color:black;">4
+</td>
+<td style="font-weight:normal;background-color:#BBF3BB;color:black;">1
+</td>
+<td style="font-weight:normal;background-color:#BBF3BB;color:black;">+3
+</td>
+<td style="font-weight:bold;background-color:#BBF3BB;color:black;">3
+</td>
+<td style="font-weight:normal;background-color:#BBF3BB;color:black;" rowspan="2">晉級<a class="mw-selflink-fragment" href="#淘汰賽">淘汰賽</a>
+</td></tr>
+<tr>
+<td style="text-align:center;font-weight:normal;background-color:#BBF3BB;color:black;">2
+</td>
+<th scope="row" style="text-align:left; white-space:nowrap;font-weight:normal;background-color:#BBF3BB;color:black;"><span class="flagicon"><span class="mw-image-border notpageimage" typeof="mw:File"><span><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Flag_of_Australia.svg/40px-Flag_of_Australia.svg.png" decoding="async" width="22" height="11" class="mw-file-element" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Flag_of_Australia.svg/60px-Flag_of_Australia.svg.png 2x" data-file-width="1280" data-file-height="640" /></span></span> </span><a href="/wiki/%E6%BE%B3%E5%A4%A7%E5%88%A9%E4%BA%9A%E5%9B%BD%E5%AE%B6%E8%B6%B3%E7%90%83%E9%98%9F" class="mw-redirect" title="澳大利亞國家足球隊">澳洲</a>
+</th>
+<td style="font-weight:normal;background-color:#BBF3BB;color:black;">1
+</td>
+<td style="font-weight:normal;background-color:#BBF3BB;color:black;">1
+</td>
+<td style="font-weight:normal;background-color:#BBF3BB;color:black;">0
+</td>
+<td style="font-weight:normal;background-color:#BBF3BB;color:black;">0
+</td>
+<td style="font-weight:normal;background-color:#BBF3BB;color:black;">2
+</td>
+<td style="font-weight:normal;background-color:#BBF3BB;color:black;">0
+</td>
+<td style="font-weight:normal;background-color:#BBF3BB;color:black;">+2
+</td>
+<td style="font-weight:bold;background-color:#BBF3BB;color:black;">3
+</td></tr>
+<tr>
+<td style="text-align:center;font-weight:normal;background-color:#BBF3FF;color:black;">3
+</td>
+<th scope="row" style="text-align:left; white-space:nowrap;font-weight:normal;background-color:#BBF3FF;color:black;"><span class="flagicon"><span class="mw-image-border notpageimage" typeof="mw:File"><span><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Flag_of_Turkey.svg/40px-Flag_of_Turkey.svg.png" decoding="async" width="22" height="15" class="mw-file-element" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Flag_of_Turkey.svg/60px-Flag_of_Turkey.svg.png 2x" data-file-width="1200" data-file-height="800" /></span></span> </span><a href="/wiki/%E5%9C%9F%E8%80%B3%E5%85%B6%E5%9C%8B%E5%AE%B6%E8%B6%B3%E7%90%83%E9%9A%8A" title="土耳其國家足球隊">土耳其</a>
+</th>
+<td style="font-weight:normal;background-color:#BBF3FF;color:black;">1
+</td>
+<td style="font-weight:normal;background-color:#BBF3FF;color:black;">0
+</td>
+<td style="font-weight:normal;background-color:#BBF3FF;color:black;">0
+</td>
+<td style="font-weight:normal;background-color:#BBF3FF;color:black;">1
+</td>
+<td style="font-weight:normal;background-color:#BBF3FF;color:black;">0
+</td>
+<td style="font-weight:normal;background-color:#BBF3FF;color:black;">2
+</td>
+<td style="font-weight:normal;background-color:#BBF3FF;color:black;">&#8722;2
+</td>
+<td style="font-weight:bold;background-color:#BBF3FF;color:black;">0
+</td>
+<td style="font-weight:normal;background-color:#BBF3FF;color:black;" rowspan="1">根據<a class="mw-selflink-fragment" href="#各小組第三名隊伍">排名</a>有可能晉級<a class="mw-selflink-fragment" href="#淘汰賽">淘汰賽</a>
+</td></tr>
+<tr>
+<td style="text-align:center;font-weight:normal;background-color:transparent; color: inherit;">4
+</td>
+<th scope="row" style="text-align:left; white-space:nowrap;font-weight:normal;background-color:transparent; color: inherit;"><span class="flagicon"><span class="mw-image-border notpageimage" typeof="mw:File"><span><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/2/27/Flag_of_Paraguay.svg/40px-Flag_of_Paraguay.svg.png" decoding="async" width="22" height="12" class="mw-file-element" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/2/27/Flag_of_Paraguay.svg/60px-Flag_of_Paraguay.svg.png 2x" data-file-width="1200" data-file-height="660" /></span></span> </span><a href="/wiki/%E5%B7%B4%E6%8B%89%E5%9C%AD%E5%9C%8B%E5%AE%B6%E8%B6%B3%E7%90%83%E9%9A%8A" title="巴拉圭國家足球隊">巴拉圭</a>
+</th>
+<td style="font-weight:normal;background-color:transparent; color: inherit;">1
+</td>
+<td style="font-weight:normal;background-color:transparent; color: inherit;">0
+</td>
+<td style="font-weight:normal;background-color:transparent; color: inherit;">0
+</td>
+<td style="font-weight:normal;background-color:transparent; color: inherit;">1
+</td>
+<td style="font-weight:normal;background-color:transparent; color: inherit;">1
+</td>
+<td style="font-weight:normal;background-color:transparent; color: inherit;">4
+</td>
+<td style="font-weight:normal;background-color:transparent; color: inherit;">&#8722;3
+</td>
+<td style="font-weight:bold;background-color:transparent; color: inherit;">0
+</td>
+<td style="font-weight:normal;background-color:transparent; color: inherit;" rowspan="1">
+</td></tr></tbody></table>

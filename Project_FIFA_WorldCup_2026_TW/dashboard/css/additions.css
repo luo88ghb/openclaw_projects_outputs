@@ -1,0 +1,38 @@
+.team-flag-img {
+  width: 1.5em;
+  height: 1em;
+  object-fit: cover;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-right: 0.3em;
+}
+
+.pred-hit {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.pred-miss {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.pred-pre {
+  color: var(--muted);
+  font-size: 0.9em;
+}
+
+.pred-pre-home {
+  color: #4dabf7;
+  font-weight: 600;
+}
+
+.pred-pre-draw {
+  color: #ffd43b;
+  font-weight: 600;
+}
+
+.pred-pre-away {
+  color: #ff922b;
+  font-weight: 600;
+}

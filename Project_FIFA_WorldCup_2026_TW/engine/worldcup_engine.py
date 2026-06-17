@@ -182,6 +182,9 @@ class WorldCupEngine:
         match["prediction"] = {
             "home_score_pred": home_pred,
             "away_score_pred": away_pred,
+            "home_win_prob": pred.get("home_win_prob", 0),
+            "draw_prob": pred.get("draw_prob", 0),
+            "away_win_prob": pred.get("away_win_prob", 0),
             "reason": reason,
             "hit": None
         }
@@ -323,6 +326,20 @@ class WorldCupEngine:
         """為即將到來的比賽自動產生預測。"""
         predictions = []
         for m in self.upcoming_matches(hours):
+            if m.get("prediction"):
+                continue
+            pred = self.set_prediction(m["match_id"])
+            predictions.append(pred)
+        return predictions
+
+    def ensure_all_predictions(self) -> list[dict]:
+        """為所有尚未產生預測且未結束的比賽建立賽前基礎預測。"""
+        predictions = []
+        for m in self.matches:
+            if m.get("status") == "finished":
+                continue
+            if m.get("prediction"):
+                continue
             pred = self.set_prediction(m["match_id"])
             predictions.append(pred)
         return predictions

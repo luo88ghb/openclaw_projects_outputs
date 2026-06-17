@@ -2,33 +2,24 @@ let matches = [];
 let teams = [];
 let stagePredictions = {};
 
-function setupSSE() {
-  try {
-    const evtSource = new EventSource('/update-stream');
-    evtSource.addEventListener('connected', () => {
-      console.log('SSE connected');
-    });
-    evtSource.addEventListener('update', () => {
-      console.log('SSE update received, reloading data...');
-      loadData();
-    });
-    evtSource.onerror = (err) => {
-      console.error('SSE error', err);
-    };
-  } catch (e) {
-    console.error('SSE not supported or failed', e);
-  }
-}
-
 async function loadData() {
-  const [matchesRes, teamsRes] = await Promise.all([
+  const [matchesRes, teamsRes, dbRes] = await Promise.all([
     fetch('data/matches_104.json'),
-    fetch('data/teams.json')
+    fetch('data/teams.json'),
+    fetch('http://localhost:8766/api/predictions/小組賽').catch(() => null)
   ]);
   const matchesData = await matchesRes.json();
   const teamsData = await teamsRes.json();
   matches = matchesData.matches;
   teams = teamsData.teams;
+  if (dbRes) {
+    try {
+      const db = await dbRes.json();
+      stagePredictions = db.data || {};
+    } catch (e) {
+      stagePredictions = {};
+    }
+  }
   renderNextMatch();
   renderPredictions('小組賽');
   renderMatches();
@@ -38,16 +29,7 @@ async function loadData() {
 }
 
 function getTeam(name) {
-  return teams.find(t => t.name_zh === name || t.name_en === name) || { flag_img: '', flag: '', name_zh: name };
-}
-
-function getFlagHTML(team) {
-  // Dual-element structure: image preferred, emoji fallback on load error.
-  const emoji = `<span class="team-flag">${team.flag || ''}</span>`;
-  if (team.flag_img) {
-    return `<img class="team-flag-img" src="${team.flag_img}" alt="${team.name_zh || team.name_en || ''}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">${emoji}`;
-  }
-  return emoji;
+  return teams.find(t => t.name_zh === name || t.name_en === name) || {};
 }
 
 function taiwanDateTime(dateStr, timeStr) {
@@ -93,9 +75,9 @@ function renderNextMatch() {
   container.innerHTML = `
     <div><strong>#${m.match_id} ${m.stage} ${m.group ? m.group + '組' : ''}</strong></div>
     <div style="font-size:1.4rem;margin:.5rem 0;">
-      <span class="team-name">${getFlagHTML(home)}${m.home_team}</span>
+      <span class="team-name"><span class="team-flag">${home.flag || ''}</span>${m.home_team}</span>
       vs
-      <span class="team-name">${getFlagHTML(away)}${m.away_team}</span>
+      <span class="team-name"><span class="team-flag">${away.flag || ''}</span>${m.away_team}</span>
     </div>
     <div>${formatDateTime(m.date, m.time_taiwan)}</div>
     <div style="color:var(--muted)">${m.city}</div>
@@ -209,7 +191,16 @@ function computeGroupPredictions() {
 
 async function renderPredictions(stage) {
   const container = document.getElementById('prediction-content');
-  // API server at :8766 is no longer required; use local computation only.
+  // Try loading from API server first
+  try {
+    const res = await fetch(`http://localhost:8766/api/predictions/${encodeURIComponent(stage)}`);
+    const apiData = await res.json();
+    if (apiData && apiData.data) {
+      stagePredictions[stage] = apiData.data;
+    }
+  } catch (e) {
+    // fallback to local computation
+  }
 
   if (stage === '小組賽') {
     const groups = computeGroupPredictions();
@@ -221,7 +212,7 @@ async function renderPredictions(stage) {
             <strong>${g.group} 組</strong>
             ${g.rows.map((r, idx) => `
               <div class="prediction-row ${r.qualified ? '' : ''}" style="${r.qualified ? 'border-left:3px solid var(--accent2);' : 'opacity:0.75;'}">
-                <div class="prediction-team">${getFlagHTML({flag_img: '', flag: r.flag, name_zh: r.team})}${idx + 1}. ${r.team}</div>
+                <div class="prediction-team"><span class="team-flag">${r.flag}</span>${idx + 1}. ${r.team}</div>
                 <div class="prediction-prob">${r.prob}% 晉級</div>
               </div>
             `).join('')}
@@ -270,15 +261,15 @@ function generateBracketPrediction(stage) {
     content += `
       <div class="prediction-bracket">
         <div class="prediction-row" style="border-left:4px solid gold;">
-          <div class="prediction-team">${getFlagHTML({flag_img: '', flag: champion.flag, name_zh: champion.team})}🏆 冠軍：${champion.team}</div>
+          <div class="prediction-team"><span class="team-flag">${champion.flag}</span>🏆 冠軍：${champion.team}</div>
           <div class="prediction-prob">${Math.round(100 - champion.rank)}%</div>
         </div>
         <div class="prediction-row" style="border-left:4px solid silver;">
-          <div class="prediction-team">${getFlagHTML({flag_img: '', flag: runnerUp.flag, name_zh: runnerUp.team})}🥈 亞軍：${runnerUp.team}</div>
+          <div class="prediction-team"><span class="team-flag">${runnerUp.flag}</span>🥈 亞軍：${runnerUp.team}</div>
           <div class="prediction-prob">${Math.round(90 - runnerUp.rank)}%</div>
         </div>
         <div class="prediction-row" style="border-left:4px solid #cd7f32;">
-          <div class="prediction-team">${getFlagHTML({flag_img: '', flag: third.flag, name_zh: third.team})}🥉 季軍：${third.team}</div>
+          <div class="prediction-team"><span class="team-flag">${third.flag}</span>🥉 季軍：${third.team}</div>
           <div class="prediction-prob">${Math.round(80 - third.rank)}%</div>
         </div>
       </div>
@@ -294,43 +285,12 @@ function renderMatchList(teamsList) {
     <div class="prediction-list">
       ${teamsList.map((t, i) => `
         <div class="prediction-row">
-          <div class="prediction-team">${getFlagHTML({flag_img: '', flag: t.flag, name_zh: t.team})}${i + 1}. ${t.team} <span style="color:var(--muted);font-size:0.8rem;">(FIFA ${t.rank})</span></div>
+          <div class="prediction-team"><span class="team-flag">${t.flag}</span>${i + 1}. ${t.team} <span style="color:var(--muted);font-size:0.8rem;">(FIFA ${t.rank})</span></div>
           <div class="prediction-prob">${Math.max(10, Math.round(100 - t.rank))}%</div>
         </div>
       `).join('')}
     </div>
   `;
-}
-
-function formatPredictionCell(m) {
-  const p = m.prediction;
-  if (m.status === 'finished') {
-    return p.hit
-      ? `<span class="pred-hit">✅ 命中</span>`
-      : `<span class="pred-miss">❌ 未命中</span>`;
-  }
-
-  // Pre-match: predict winner with probability
-  const { home_win_prob, draw_prob, away_win_prob } = p;
-  const probs = {
-    home: home_win_prob || 0,
-    draw: draw_prob || 0,
-    away: away_win_prob || 0,
-  };
-  const winner = Object.keys(probs).reduce((a, b) => probs[a] > probs[b] ? a : b);
-  let label = '';
-  let cls = '';
-  if (winner === 'home') {
-    label = `${m.home_team} 勝`;
-    cls = 'pred-pre-home';
-  } else if (winner === 'away') {
-    label = `${m.away_team} 勝`;
-    cls = 'pred-pre-away';
-  } else {
-    label = '和局';
-    cls = 'pred-pre-draw';
-  }
-  return `<span class="pred-pre ${cls}">預測 ${label} ${probs[winner]}%</span>`;
 }
 
 function renderMatches() {
@@ -356,7 +316,7 @@ function renderMatches() {
       ? `${m.home_score ?? 0} - ${m.away_score ?? 0}`
       : '-';
     const pred = m.prediction
-      ? formatPredictionCell(m)
+      ? `${m.prediction.home_score_pred}-${m.prediction.away_score_pred}`
       : '-';
     const home = getTeam(m.home_team);
     const away = getTeam(m.away_team);
@@ -369,9 +329,9 @@ function renderMatches() {
         <td>${m.time_taiwan}</td>
         <td>${m.stage}</td>
         <td>${m.group || '-'}</td>
-        <td><span class="team-name">${getFlagHTML(home)}${m.home_team}</span></td>
+        <td><span class="team-name"><span class="team-flag">${home.flag || ''}</span>${m.home_team}</span></td>
         <td class="score ${live ? 'live' : ''}">${score}</td>
-        <td><span class="team-name">${getFlagHTML(away)}${m.away_team}</span></td>
+        <td><span class="team-name"><span class="team-flag">${away.flag || ''}</span>${m.away_team}</span></td>
         <td>${m.city}</td>
         <td class="prediction">${pred}</td>
       </tr>
@@ -393,7 +353,7 @@ function renderStandings() {
       [m.home_team, m.away_team].forEach(t => {
         if (!standings[t]) {
           const info = getTeam(t);
-          standings[t] = { team: t, flag: info.flag || '', flag_img: info.flag_img || '', p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, pts: 0 };
+          standings[t] = { team: t, flag: info.flag || '', p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, pts: 0 };
         }
       });
       if (isMatchFinished(m)) {
@@ -430,7 +390,7 @@ function renderStandings() {
           <tbody>
             ${rows.map(r => `
               <tr>
-                <td><span class="team-name">${getFlagHTML({flag_img: r.flag_img, flag: r.flag, name_zh: r.team})}${r.team}</span></td>
+                <td><span class="team-name"><span class="team-flag">${r.flag}</span>${r.team}</span></td>
                 <td>${r.p}</td>
                 <td>${r.w}</td>
                 <td>${r.d}</td>
@@ -446,5 +406,17 @@ function renderStandings() {
   }).join('');
 }
 
-setupSSE();
+// 每 60 秒刷新一次，用於比數與「進行中」狀態
+setInterval(() => {
+  renderNextMatch();
+  renderMatches();
+  renderStandings();
+  const activeTab = document.querySelector('.stage-tab.active');
+  if (activeTab) renderPredictions(activeTab.dataset.stage);
+}, 60000);
+
+document.getElementById('search').addEventListener('input', renderMatches);
+document.getElementById('stage-filter').addEventListener('change', renderMatches);
+document.getElementById('group-filter').addEventListener('change', renderMatches);
+
 loadData();

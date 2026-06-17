@@ -1,0 +1,1388 @@
+{
+  "team_vectors": {
+    "墨西哥": {
+      "matches_played": 4,
+      "wins": 4,
+      "draws": 0,
+      "losses": 0,
+      "goals_for": 8,
+      "goals_against": 0,
+      "attack_score": 56.0,
+      "defense_score": 62.0,
+      "form_score": 100.0,
+      "overall": 72.7
+    },
+    "南非": {
+      "matches_played": 4,
+      "wins": 0,
+      "draws": 0,
+      "losses": 4,
+      "goals_for": 0,
+      "goals_against": 8,
+      "attack_score": 44.0,
+      "defense_score": 50.0,
+      "form_score": 40.0,
+      "overall": 44.7
+    },
+    "沙烏地阿拉伯": {
+      "matches_played": 5,
+      "wins": 4,
+      "draws": 1,
+      "losses": 0,
+      "goals_for": 8,
+      "goals_against": 4,
+      "attack_score": 54.5,
+      "defense_score": 59.0,
+      "form_score": 88.0,
+      "overall": 67.2
+    },
+    "烏拉圭": {
+      "matches_played": 5,
+      "wins": 0,
+      "draws": 1,
+      "losses": 4,
+      "goals_for": 4,
+      "goals_against": 8,
+      "attack_score": 48.5,
+      "defense_score": 53.0,
+      "form_score": 40.0,
+      "overall": 47.2
+    },
+    "韓國": {
+      "matches_played": 2,
+      "wins": 2,
+      "draws": 0,
+      "losses": 0,
+      "goals_for": 4,
+      "goals_against": 2,
+      "attack_score": 53.0,
+      "defense_score": 53.0,
+      "form_score": 100.0,
+      "overall": 68.7
+    },
+    "捷克": {
+      "matches_played": 2,
+      "wins": 0,
+      "draws": 0,
+      "losses": 2,
+      "goals_for": 2,
+      "goals_against": 4,
+      "attack_score": 50.0,
+      "defense_score": 50.0,
+      "form_score": 40.0,
+      "overall": 46.7
+    },
+    "加拿大": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 3,
+      "losses": 0,
+      "goals_for": 3,
+      "goals_against": 3,
+      "attack_score": 50.0,
+      "defense_score": 54.5,
+      "form_score": 40.0,
+      "overall": 48.2
+    },
+    "波士尼亞與赫塞哥維納": {
+      "matches_played": 2,
+      "wins": 0,
+      "draws": 2,
+      "losses": 0,
+      "goals_for": 2,
+      "goals_against": 2,
+      "attack_score": 50.0,
+      "defense_score": 53.0,
+      "form_score": 40.0,
+      "overall": 47.7
+    },
+    "美國": {
+      "matches_played": 3,
+      "wins": 3,
+      "draws": 0,
+      "losses": 0,
+      "goals_for": 12,
+      "goals_against": 3,
+      "attack_score": 63.5,
+      "defense_score": 54.5,
+      "form_score": 100.0,
+      "overall": 72.7
+    },
+    "巴拉圭": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 0,
+      "losses": 3,
+      "goals_for": 3,
+      "goals_against": 12,
+      "attack_score": 50.0,
+      "defense_score": 41.0,
+      "form_score": 40.0,
+      "overall": 43.7
+    },
+    "卡達": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 3,
+      "losses": 0,
+      "goals_for": 3,
+      "goals_against": 3,
+      "attack_score": 50.0,
+      "defense_score": 54.5,
+      "form_score": 40.0,
+      "overall": 48.2
+    },
+    "瑞士": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 3,
+      "losses": 0,
+      "goals_for": 3,
+      "goals_against": 3,
+      "attack_score": 50.0,
+      "defense_score": 54.5,
+      "form_score": 40.0,
+      "overall": 48.2
+    },
+    "巴西": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 3,
+      "losses": 0,
+      "goals_for": 3,
+      "goals_against": 3,
+      "attack_score": 50.0,
+      "defense_score": 54.5,
+      "form_score": 40.0,
+      "overall": 48.2
+    },
+    "摩洛哥": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 3,
+      "losses": 0,
+      "goals_for": 3,
+      "goals_against": 3,
+      "attack_score": 50.0,
+      "defense_score": 54.5,
+      "form_score": 40.0,
+      "overall": 48.2
+    },
+    "海地": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 0,
+      "losses": 3,
+      "goals_for": 0,
+      "goals_against": 3,
+      "attack_score": 45.5,
+      "defense_score": 54.5,
+      "form_score": 40.0,
+      "overall": 46.7
+    },
+    "蘇格蘭": {
+      "matches_played": 3,
+      "wins": 3,
+      "draws": 0,
+      "losses": 0,
+      "goals_for": 3,
+      "goals_against": 0,
+      "attack_score": 50.0,
+      "defense_score": 59.0,
+      "form_score": 100.0,
+      "overall": 69.7
+    },
+    "澳洲": {
+      "matches_played": 3,
+      "wins": 3,
+      "draws": 0,
+      "losses": 0,
+      "goals_for": 6,
+      "goals_against": 0,
+      "attack_score": 54.5,
+      "defense_score": 59.0,
+      "form_score": 100.0,
+      "overall": 71.2
+    },
+    "土耳其": {
+      "matches_played": 2,
+      "wins": 0,
+      "draws": 0,
+      "losses": 2,
+      "goals_for": 0,
+      "goals_against": 4,
+      "attack_score": 47.0,
+      "defense_score": 50.0,
+      "form_score": 40.0,
+      "overall": 45.7
+    },
+    "德國": {
+      "matches_played": 3,
+      "wins": 3,
+      "draws": 0,
+      "losses": 0,
+      "goals_for": 21,
+      "goals_against": 3,
+      "attack_score": 77.0,
+      "defense_score": 54.5,
+      "form_score": 100.0,
+      "overall": 77.2
+    },
+    "庫拉索": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 0,
+      "losses": 3,
+      "goals_for": 3,
+      "goals_against": 21,
+      "attack_score": 50.0,
+      "defense_score": 27.5,
+      "form_score": 40.0,
+      "overall": 39.2
+    },
+    "荷蘭": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 3,
+      "losses": 0,
+      "goals_for": 6,
+      "goals_against": 6,
+      "attack_score": 54.5,
+      "defense_score": 50.0,
+      "form_score": 40.0,
+      "overall": 48.2
+    },
+    "日本": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 3,
+      "losses": 0,
+      "goals_for": 6,
+      "goals_against": 6,
+      "attack_score": 54.5,
+      "defense_score": 50.0,
+      "form_score": 40.0,
+      "overall": 48.2
+    },
+    "象牙海岸": {
+      "matches_played": 3,
+      "wins": 3,
+      "draws": 0,
+      "losses": 0,
+      "goals_for": 3,
+      "goals_against": 0,
+      "attack_score": 50.0,
+      "defense_score": 59.0,
+      "form_score": 100.0,
+      "overall": 69.7
+    },
+    "厄瓜多": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 0,
+      "losses": 3,
+      "goals_for": 0,
+      "goals_against": 3,
+      "attack_score": 45.5,
+      "defense_score": 54.5,
+      "form_score": 40.0,
+      "overall": 46.7
+    },
+    "瑞典": {
+      "matches_played": 2,
+      "wins": 2,
+      "draws": 0,
+      "losses": 0,
+      "goals_for": 10,
+      "goals_against": 2,
+      "attack_score": 62.0,
+      "defense_score": 53.0,
+      "form_score": 100.0,
+      "overall": 71.7
+    },
+    "突尼西亞": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 0,
+      "losses": 3,
+      "goals_for": 3,
+      "goals_against": 15,
+      "attack_score": 50.0,
+      "defense_score": 36.5,
+      "form_score": 40.0,
+      "overall": 42.2
+    },
+    "西班牙": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 3,
+      "losses": 0,
+      "goals_for": 1,
+      "goals_against": 1,
+      "attack_score": 47.0,
+      "defense_score": 57.5,
+      "form_score": 40.0,
+      "overall": 48.2
+    },
+    "維德角": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 3,
+      "losses": 0,
+      "goals_for": 1,
+      "goals_against": 1,
+      "attack_score": 47.0,
+      "defense_score": 57.5,
+      "form_score": 40.0,
+      "overall": 48.2
+    },
+    "比利時": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 3,
+      "losses": 0,
+      "goals_for": 3,
+      "goals_against": 3,
+      "attack_score": 50.0,
+      "defense_score": 54.5,
+      "form_score": 40.0,
+      "overall": 48.2
+    },
+    "埃及": {
+      "matches_played": 3,
+      "wins": 0,
+      "draws": 3,
+      "losses": 0,
+      "goals_for": 3,
+      "goals_against": 3,
+      "attack_score": 50.0,
+      "defense_score": 54.5,
+      "form_score": 40.0,
+      "overall": 48.2
+    },
+    "伊朗": {
+      "matches_played": 2,
+      "wins": 1,
+      "draws": 1,
+      "losses": 0,
+      "goals_for": 2,
+      "goals_against": 0,
+      "attack_score": 50.0,
+      "defense_score": 56.0,
+      "form_score": 70.0,
+      "overall": 58.7
+    },
+    "紐西蘭": {
+      "matches_played": 2,
+      "wins": 0,
+      "draws": 1,
+      "losses": 1,
+      "goals_for": 0,
+      "goals_against": 2,
+      "attack_score": 47.0,
+      "defense_score": 53.0,
+      "form_score": 40.0,
+      "overall": 46.7
+    },
+    "南韓": {
+      "matches_played": 1,
+      "wins": 1,
+      "draws": 0,
+      "losses": 0,
+      "goals_for": 2,
+      "goals_against": 1,
+      "attack_score": 51.5,
+      "defense_score": 51.5,
+      "form_score": 100.0,
+      "overall": 67.7
+    },
+    "附加賽勝者A": {
+      "matches_played": 1,
+      "wins": 0,
+      "draws": 0,
+      "losses": 1,
+      "goals_for": 1,
+      "goals_against": 2,
+      "attack_score": 50.0,
+      "defense_score": 50.0,
+      "form_score": 40.0,
+      "overall": 46.7
+    },
+    "附加賽勝者B": {
+      "matches_played": 1,
+      "wins": 0,
+      "draws": 1,
+      "losses": 0,
+      "goals_for": 1,
+      "goals_against": 1,
+      "attack_score": 50.0,
+      "defense_score": 51.5,
+      "form_score": 40.0,
+      "overall": 47.2
+    },
+    "附加賽勝者C": {
+      "matches_played": 1,
+      "wins": 0,
+      "draws": 0,
+      "losses": 1,
+      "goals_for": 0,
+      "goals_against": 2,
+      "attack_score": 48.5,
+      "defense_score": 50.0,
+      "form_score": 40.0,
+      "overall": 46.2
+    },
+    "附加賽勝者D": {
+      "matches_played": 1,
+      "wins": 1,
+      "draws": 0,
+      "losses": 0,
+      "goals_for": 5,
+      "goals_against": 1,
+      "attack_score": 56.0,
+      "defense_score": 51.5,
+      "form_score": 100.0,
+      "overall": 69.2
+    }
+  },
+  "player_vectors": {},
+  "match_results": [
+    {
+      "match_id": 1,
+      "date": "2026-06-12",
+      "stage": "小組賽",
+      "group": "A",
+      "home_team": "墨西哥",
+      "away_team": "南非",
+      "home_score": 2,
+      "away_score": 0,
+      "recorded_at": "2026-06-16T18:49:34.474622"
+    },
+    {
+      "match_id": 2,
+      "date": "2026-06-12",
+      "stage": "小組賽",
+      "group": "A",
+      "home_team": "南韓",
+      "away_team": "附加賽勝者A",
+      "home_score": 2,
+      "away_score": 1,
+      "recorded_at": "2026-06-16T18:49:34.481128"
+    },
+    {
+      "match_id": 3,
+      "date": "2026-06-13",
+      "stage": "小組賽",
+      "group": "B",
+      "home_team": "加拿大",
+      "away_team": "附加賽勝者B",
+      "home_score": 1,
+      "away_score": 1,
+      "recorded_at": "2026-06-16T18:49:34.489130"
+    },
+    {
+      "match_id": 4,
+      "date": "2026-06-13",
+      "stage": "小組賽",
+      "group": "D",
+      "home_team": "美國",
+      "away_team": "巴拉圭",
+      "home_score": 4,
+      "away_score": 1,
+      "recorded_at": "2026-06-16T18:49:34.500671"
+    },
+    {
+      "match_id": 5,
+      "date": "2026-06-14",
+      "stage": "小組賽",
+      "group": "B",
+      "home_team": "卡達",
+      "away_team": "瑞士",
+      "home_score": 1,
+      "away_score": 1,
+      "recorded_at": "2026-06-16T18:49:34.506686"
+    },
+    {
+      "match_id": 6,
+      "date": "2026-06-14",
+      "stage": "小組賽",
+      "group": "C",
+      "home_team": "巴西",
+      "away_team": "摩洛哥",
+      "home_score": 1,
+      "away_score": 1,
+      "recorded_at": "2026-06-16T18:49:34.513718"
+    },
+    {
+      "match_id": 7,
+      "date": "2026-06-14",
+      "stage": "小組賽",
+      "group": "C",
+      "home_team": "海地",
+      "away_team": "蘇格蘭",
+      "home_score": 0,
+      "away_score": 1,
+      "recorded_at": "2026-06-16T18:49:34.520717"
+    },
+    {
+      "match_id": 8,
+      "date": "2026-06-14",
+      "stage": "小組賽",
+      "group": "D",
+      "home_team": "澳洲",
+      "away_team": "附加賽勝者C",
+      "home_score": 2,
+      "away_score": 0,
+      "recorded_at": "2026-06-16T18:49:34.527696"
+    },
+    {
+      "match_id": 9,
+      "date": "2026-06-15",
+      "stage": "小組賽",
+      "group": "E",
+      "home_team": "德國",
+      "away_team": "庫拉索",
+      "home_score": 7,
+      "away_score": 1,
+      "recorded_at": "2026-06-16T18:49:34.534209"
+    },
+    {
+      "match_id": 10,
+      "date": "2026-06-15",
+      "stage": "小組賽",
+      "group": "F",
+      "home_team": "荷蘭",
+      "away_team": "日本",
+      "home_score": 2,
+      "away_score": 2,
+      "recorded_at": "2026-06-16T18:49:34.541722"
+    },
+    {
+      "match_id": 11,
+      "date": "2026-06-15",
+      "stage": "小組賽",
+      "group": "E",
+      "home_team": "象牙海岸",
+      "away_team": "厄瓜多",
+      "home_score": 1,
+      "away_score": 0,
+      "recorded_at": "2026-06-16T18:49:34.548236"
+    },
+    {
+      "match_id": 12,
+      "date": "2026-06-15",
+      "stage": "小組賽",
+      "group": "F",
+      "home_team": "附加賽勝者D",
+      "away_team": "突尼西亞",
+      "home_score": 5,
+      "away_score": 1,
+      "recorded_at": "2026-06-16T18:49:34.556761"
+    },
+    {
+      "match_id": 13,
+      "date": "2026-06-16",
+      "stage": "小組賽",
+      "group": "H",
+      "home_team": "西班牙",
+      "away_team": "維德角",
+      "home_score": 1,
+      "away_score": 1,
+      "recorded_at": "2026-06-16T18:49:34.565786"
+    },
+    {
+      "match_id": 14,
+      "date": "2026-06-16",
+      "stage": "小組賽",
+      "group": "G",
+      "home_team": "比利時",
+      "away_team": "埃及",
+      "home_score": 1,
+      "away_score": 1,
+      "recorded_at": "2026-06-16T18:49:34.573344"
+    },
+    {
+      "match_id": 15,
+      "date": "2026-06-16",
+      "stage": "小組賽",
+      "group": "H",
+      "home_team": "沙烏地阿拉伯",
+      "away_team": "烏拉圭",
+      "home_score": 0,
+      "away_score": 0,
+      "recorded_at": "2026-06-16T18:49:34.581416"
+    },
+    {
+      "match_id": 16,
+      "date": "2026-06-16",
+      "stage": "小組賽",
+      "group": "G",
+      "home_team": "伊朗",
+      "away_team": "紐西蘭",
+      "home_score": 0,
+      "away_score": 0,
+      "recorded_at": "2026-06-16T18:49:34.587417"
+    }
+  ],
+  "stage_predictions": {
+    "小組賽": {
+      "A": [
+        {
+          "rank": 1,
+          "team": "墨西哥",
+          "flag": "🇲🇽",
+          "pts": 3,
+          "prob": 80
+        },
+        {
+          "rank": 2,
+          "team": "南韓",
+          "flag": "🇰🇷",
+          "pts": 3,
+          "prob": 55
+        },
+        {
+          "rank": 3,
+          "team": "附加賽勝者A",
+          "flag": "",
+          "pts": 0,
+          "prob": 30
+        },
+        {
+          "rank": 4,
+          "team": "南非",
+          "flag": "🇿🇦",
+          "pts": 0,
+          "prob": 5
+        }
+      ],
+      "B": [
+        {
+          "rank": 1,
+          "team": "加拿大",
+          "flag": "🇨🇦",
+          "pts": 1,
+          "prob": 80
+        },
+        {
+          "rank": 2,
+          "team": "卡達",
+          "flag": "🇶🇦",
+          "pts": 1,
+          "prob": 55
+        },
+        {
+          "rank": 3,
+          "team": "瑞士",
+          "flag": "🇨🇭",
+          "pts": 1,
+          "prob": 30
+        },
+        {
+          "rank": 4,
+          "team": "附加賽勝者B",
+          "flag": "",
+          "pts": 1,
+          "prob": 5
+        }
+      ],
+      "D": [
+        {
+          "rank": 1,
+          "team": "美國",
+          "flag": "🇺🇸",
+          "pts": 3,
+          "prob": 80
+        },
+        {
+          "rank": 2,
+          "team": "澳洲",
+          "flag": "🇦🇺",
+          "pts": 3,
+          "prob": 55
+        },
+        {
+          "rank": 3,
+          "team": "附加賽勝者C",
+          "flag": "",
+          "pts": 0,
+          "prob": 30
+        },
+        {
+          "rank": 4,
+          "team": "巴拉圭",
+          "flag": "🇵🇾",
+          "pts": 0,
+          "prob": 5
+        }
+      ],
+      "C": [
+        {
+          "rank": 1,
+          "team": "蘇格蘭",
+          "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+          "pts": 3,
+          "prob": 80
+        },
+        {
+          "rank": 2,
+          "team": "巴西",
+          "flag": "🇧🇷",
+          "pts": 1,
+          "prob": 55
+        },
+        {
+          "rank": 3,
+          "team": "摩洛哥",
+          "flag": "🇲🇦",
+          "pts": 1,
+          "prob": 30
+        },
+        {
+          "rank": 4,
+          "team": "海地",
+          "flag": "🇭🇹",
+          "pts": 0,
+          "prob": 5
+        }
+      ],
+      "E": [
+        {
+          "rank": 1,
+          "team": "德國",
+          "flag": "🇩🇪",
+          "pts": 3,
+          "prob": 80
+        },
+        {
+          "rank": 2,
+          "team": "象牙海岸",
+          "flag": "🇨🇮",
+          "pts": 3,
+          "prob": 55
+        },
+        {
+          "rank": 3,
+          "team": "厄瓜多",
+          "flag": "🇪🇨",
+          "pts": 0,
+          "prob": 30
+        },
+        {
+          "rank": 4,
+          "team": "庫拉索",
+          "flag": "🇨🇼",
+          "pts": 0,
+          "prob": 5
+        }
+      ],
+      "F": [
+        {
+          "rank": 1,
+          "team": "附加賽勝者D",
+          "flag": "",
+          "pts": 3,
+          "prob": 80
+        },
+        {
+          "rank": 2,
+          "team": "日本",
+          "flag": "🇯🇵",
+          "pts": 1,
+          "prob": 55
+        },
+        {
+          "rank": 3,
+          "team": "荷蘭",
+          "flag": "🇳🇱",
+          "pts": 1,
+          "prob": 30
+        },
+        {
+          "rank": 4,
+          "team": "突尼西亞",
+          "flag": "🇹🇳",
+          "pts": 0,
+          "prob": 5
+        }
+      ],
+      "H": [
+        {
+          "rank": 1,
+          "team": "沙烏地阿拉伯",
+          "flag": "🇸🇦",
+          "pts": 1,
+          "prob": 80
+        },
+        {
+          "rank": 2,
+          "team": "烏拉圭",
+          "flag": "🇺🇾",
+          "pts": 1,
+          "prob": 55
+        },
+        {
+          "rank": 3,
+          "team": "維德角",
+          "flag": "🇨🇻",
+          "pts": 1,
+          "prob": 30
+        },
+        {
+          "rank": 4,
+          "team": "西班牙",
+          "flag": "🇪🇸",
+          "pts": 1,
+          "prob": 5
+        }
+      ],
+      "G": [
+        {
+          "rank": 1,
+          "team": "伊朗",
+          "flag": "🇮🇷",
+          "pts": 1,
+          "prob": 80
+        },
+        {
+          "rank": 2,
+          "team": "埃及",
+          "flag": "🇪🇬",
+          "pts": 1,
+          "prob": 55
+        },
+        {
+          "rank": 3,
+          "team": "比利時",
+          "flag": "🇧🇪",
+          "pts": 1,
+          "prob": 30
+        },
+        {
+          "rank": 4,
+          "team": "紐西蘭",
+          "flag": "🇳🇿",
+          "pts": 1,
+          "prob": 5
+        }
+      ],
+      "I": [
+        {
+          "rank": 1,
+          "team": "塞內加爾",
+          "flag": "🇸🇳",
+          "pts": 0,
+          "prob": 80
+        },
+        {
+          "rank": 2,
+          "team": "挪威",
+          "flag": "🇳🇴",
+          "pts": 0,
+          "prob": 55
+        },
+        {
+          "rank": 3,
+          "team": "法國",
+          "flag": "🇫🇷",
+          "pts": 0,
+          "prob": 30
+        },
+        {
+          "rank": 4,
+          "team": "附加賽勝者E",
+          "flag": "",
+          "pts": 0,
+          "prob": 5
+        }
+      ],
+      "J": [
+        {
+          "rank": 1,
+          "team": "奧地利",
+          "flag": "🇦🇹",
+          "pts": 0,
+          "prob": 80
+        },
+        {
+          "rank": 2,
+          "team": "約旦",
+          "flag": "🇯🇴",
+          "pts": 0,
+          "prob": 55
+        },
+        {
+          "rank": 3,
+          "team": "阿根廷",
+          "flag": "🇦🇷",
+          "pts": 0,
+          "prob": 30
+        },
+        {
+          "rank": 4,
+          "team": "阿爾及利亞",
+          "flag": "🇩🇿",
+          "pts": 0,
+          "prob": 5
+        }
+      ],
+      "K": [
+        {
+          "rank": 1,
+          "team": "哥倫比亞",
+          "flag": "🇨🇴",
+          "pts": 0,
+          "prob": 80
+        },
+        {
+          "rank": 2,
+          "team": "烏茲別克",
+          "flag": "🇺🇿",
+          "pts": 0,
+          "prob": 55
+        },
+        {
+          "rank": 3,
+          "team": "葡萄牙",
+          "flag": "🇵🇹",
+          "pts": 0,
+          "prob": 30
+        },
+        {
+          "rank": 4,
+          "team": "附加賽勝者F",
+          "flag": "",
+          "pts": 0,
+          "prob": 5
+        }
+      ],
+      "L": [
+        {
+          "rank": 1,
+          "team": "克羅埃西亞",
+          "flag": "🇭🇷",
+          "pts": 0,
+          "prob": 80
+        },
+        {
+          "rank": 2,
+          "team": "巴拿馬",
+          "flag": "🇵🇦",
+          "pts": 0,
+          "prob": 55
+        },
+        {
+          "rank": 3,
+          "team": "英格蘭",
+          "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+          "pts": 0,
+          "prob": 30
+        },
+        {
+          "rank": 4,
+          "team": "迦納",
+          "flag": "🇬🇭",
+          "pts": 0,
+          "prob": 5
+        }
+      ]
+    },
+    "32強": {
+      "qualified": [
+        {
+          "team": "美國",
+          "flag": "🇺🇸",
+          "rank": 11,
+          "score": 78.0
+        },
+        {
+          "team": "德國",
+          "flag": "🇩🇪",
+          "rank": 16,
+          "score": 77.8
+        },
+        {
+          "team": "墨西哥",
+          "flag": "🇲🇽",
+          "rank": 15,
+          "score": 76.7
+        },
+        {
+          "team": "伊朗",
+          "flag": "🇮🇷",
+          "rank": 20,
+          "score": 72.9
+        },
+        {
+          "team": "瑞典",
+          "flag": "🇸🇪",
+          "rank": 27,
+          "score": 72.2
+        },
+        {
+          "team": "澳洲",
+          "flag": "🇦🇺",
+          "rank": 24,
+          "score": 72.2
+        },
+        {
+          "team": "阿根廷",
+          "flag": "🇦🇷",
+          "rank": 1,
+          "score": 69.6
+        },
+        {
+          "team": "法國",
+          "flag": "🇫🇷",
+          "rank": 2,
+          "score": 69.2
+        },
+        {
+          "team": "英格蘭",
+          "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+          "rank": 4,
+          "score": 68.4
+        },
+        {
+          "team": "西班牙",
+          "flag": "🇪🇸",
+          "rank": 1,
+          "score": 68.2
+        },
+        {
+          "team": "葡萄牙",
+          "flag": "🇵🇹",
+          "rank": 6,
+          "score": 67.6
+        },
+        {
+          "team": "巴西",
+          "flag": "🇧🇷",
+          "rank": 5,
+          "score": 66.6
+        },
+        {
+          "team": "哥倫比亞",
+          "flag": "🇨🇴",
+          "rank": 9,
+          "score": 66.4
+        },
+        {
+          "team": "克羅埃西亞",
+          "flag": "🇭🇷",
+          "rank": 10,
+          "score": 66.0
+        },
+        {
+          "team": "荷蘭",
+          "flag": "🇳🇱",
+          "rank": 7,
+          "score": 65.8
+        },
+        {
+          "team": "比利時",
+          "flag": "🇧🇪",
+          "rank": 8,
+          "score": 65.4
+        },
+        {
+          "team": "蘇格蘭",
+          "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+          "rank": 44,
+          "score": 63.6
+        },
+        {
+          "team": "摩洛哥",
+          "flag": "🇲🇦",
+          "rank": 13,
+          "score": 63.4
+        },
+        {
+          "team": "塞內加爾",
+          "flag": "🇸🇳",
+          "rank": 17,
+          "score": 63.2
+        },
+        {
+          "team": "烏拉圭",
+          "flag": "🇺🇾",
+          "rank": 14,
+          "score": 62.4
+        },
+        {
+          "team": "日本",
+          "flag": "🇯🇵",
+          "rank": 18,
+          "score": 61.4
+        },
+        {
+          "team": "象牙海岸",
+          "flag": "🇨🇮",
+          "rank": 50,
+          "score": 61.2
+        },
+        {
+          "team": "奧地利",
+          "flag": "🇦🇹",
+          "rank": 22,
+          "score": 61.2
+        },
+        {
+          "team": "瑞士",
+          "flag": "🇨🇭",
+          "rank": 19,
+          "score": 61.0
+        },
+        {
+          "team": "南韓",
+          "flag": "🇰🇷",
+          "rank": 23,
+          "score": 60.8
+        },
+        {
+          "team": "沙烏地阿拉伯",
+          "flag": "🇸🇦",
+          "rank": 59,
+          "score": 58.8
+        },
+        {
+          "team": "厄瓜多",
+          "flag": "🇪🇨",
+          "rank": 24,
+          "score": 58.4
+        },
+        {
+          "team": "土耳其",
+          "flag": "🇹🇷",
+          "rank": 28,
+          "score": 56.2
+        },
+        {
+          "team": "加拿大",
+          "flag": "🇨🇦",
+          "rank": 31,
+          "score": 56.2
+        },
+        {
+          "team": "埃及",
+          "flag": "🇪🇬",
+          "rank": 36,
+          "score": 54.2
+        },
+        {
+          "team": "捷克",
+          "flag": "🇨🇿",
+          "rank": 38,
+          "score": 52.8
+        },
+        {
+          "team": "挪威",
+          "flag": "🇳🇴",
+          "rank": 43,
+          "score": 52.8
+        }
+      ]
+    },
+    "16強": {
+      "qualified": [
+        {
+          "team": "美國",
+          "flag": "🇺🇸",
+          "rank": 11,
+          "score": 78.0
+        },
+        {
+          "team": "德國",
+          "flag": "🇩🇪",
+          "rank": 16,
+          "score": 77.8
+        },
+        {
+          "team": "墨西哥",
+          "flag": "🇲🇽",
+          "rank": 15,
+          "score": 76.7
+        },
+        {
+          "team": "伊朗",
+          "flag": "🇮🇷",
+          "rank": 20,
+          "score": 72.9
+        },
+        {
+          "team": "瑞典",
+          "flag": "🇸🇪",
+          "rank": 27,
+          "score": 72.2
+        },
+        {
+          "team": "澳洲",
+          "flag": "🇦🇺",
+          "rank": 24,
+          "score": 72.2
+        },
+        {
+          "team": "阿根廷",
+          "flag": "🇦🇷",
+          "rank": 1,
+          "score": 69.6
+        },
+        {
+          "team": "法國",
+          "flag": "🇫🇷",
+          "rank": 2,
+          "score": 69.2
+        },
+        {
+          "team": "英格蘭",
+          "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+          "rank": 4,
+          "score": 68.4
+        },
+        {
+          "team": "西班牙",
+          "flag": "🇪🇸",
+          "rank": 1,
+          "score": 68.2
+        },
+        {
+          "team": "葡萄牙",
+          "flag": "🇵🇹",
+          "rank": 6,
+          "score": 67.6
+        },
+        {
+          "team": "巴西",
+          "flag": "🇧🇷",
+          "rank": 5,
+          "score": 66.6
+        },
+        {
+          "team": "哥倫比亞",
+          "flag": "🇨🇴",
+          "rank": 9,
+          "score": 66.4
+        },
+        {
+          "team": "克羅埃西亞",
+          "flag": "🇭🇷",
+          "rank": 10,
+          "score": 66.0
+        },
+        {
+          "team": "荷蘭",
+          "flag": "🇳🇱",
+          "rank": 7,
+          "score": 65.8
+        },
+        {
+          "team": "比利時",
+          "flag": "🇧🇪",
+          "rank": 8,
+          "score": 65.4
+        }
+      ]
+    },
+    "8強": {
+      "qualified": [
+        {
+          "team": "美國",
+          "flag": "🇺🇸",
+          "rank": 11,
+          "score": 78.0
+        },
+        {
+          "team": "德國",
+          "flag": "🇩🇪",
+          "rank": 16,
+          "score": 77.8
+        },
+        {
+          "team": "墨西哥",
+          "flag": "🇲🇽",
+          "rank": 15,
+          "score": 76.7
+        },
+        {
+          "team": "伊朗",
+          "flag": "🇮🇷",
+          "rank": 20,
+          "score": 72.9
+        },
+        {
+          "team": "瑞典",
+          "flag": "🇸🇪",
+          "rank": 27,
+          "score": 72.2
+        },
+        {
+          "team": "澳洲",
+          "flag": "🇦🇺",
+          "rank": 24,
+          "score": 72.2
+        },
+        {
+          "team": "阿根廷",
+          "flag": "🇦🇷",
+          "rank": 1,
+          "score": 69.6
+        },
+        {
+          "team": "法國",
+          "flag": "🇫🇷",
+          "rank": 2,
+          "score": 69.2
+        }
+      ]
+    },
+    "4強": {
+      "qualified": [
+        {
+          "team": "美國",
+          "flag": "🇺🇸",
+          "rank": 11,
+          "score": 78.0
+        },
+        {
+          "team": "德國",
+          "flag": "🇩🇪",
+          "rank": 16,
+          "score": 77.8
+        },
+        {
+          "team": "墨西哥",
+          "flag": "🇲🇽",
+          "rank": 15,
+          "score": 76.7
+        },
+        {
+          "team": "伊朗",
+          "flag": "🇮🇷",
+          "rank": 20,
+          "score": 72.9
+        }
+      ]
+    },
+    "冠亞季軍": {
+      "champion": {
+        "team": "美國",
+        "flag": "🇺🇸",
+        "rank": 11,
+        "score": 78.0
+      },
+      "runner_up": {
+        "team": "德國",
+        "flag": "🇩🇪",
+        "rank": 16,
+        "score": 77.8
+      },
+      "third_place": {
+        "team": "墨西哥",
+        "flag": "🇲🇽",
+        "rank": 15,
+        "score": 76.7
+      }
+    }
+  },
+  "last_updated": "2026-06-16T18:49:34.592504"
+}
