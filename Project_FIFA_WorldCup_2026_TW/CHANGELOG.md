@@ -8,7 +8,7 @@
 
 ### 修正
 - 補齊 `data/teams.json` 中庫拉索 (CUW) 缺少的 `flag_img` 欄位：`flags/Flag_of_Curacao.png`。
-- 更新 `dashboard/index.html` 前端版本號為 `v2.1.1`，最後更新時間為 `2026-06-17 22:05`。
+- 更新 `dashboard/index.html` 前端版本號為 `v2.1.1`，最後更新時間為 **台北時間 2026-06-17 12:05**（比賽現場時間 2026-06-16 22:05）。
 
 ### 備註
 - 確保全部 48 支參賽球隊皆有 `flag_img`，儀表板可統一顯示國旗圖片。
@@ -31,7 +31,8 @@
 - **賽前自動產生預測**：`engine/worldcup_engine.py` 在排程器執行時，自動為尚未設定預測的比賽產生基礎預測。
 
 ### 技術備註
-- 觸發時間計算方式：`datetime(date + time_taiwan) + timedelta(minutes=120)`。
+- 觸發時間計算方式：`datetime(date + time_taiwan) + timedelta(minutes=120)`，使用台灣時間（Asia/Taipei, UTC+8）作為系統時間。
+- 若觸發時維基百科尚未公布該場比分，則每 5 分鐘重試一次，最多持續 60 分鐘，直到取得有效比分。
 - 排程器偵測到下一場未賽比賽後，會以該場開賽時間 +120 分鐘設為下一次觸發點，避免無意義輪詢。
 - 資料來源：中文維基百科 — 2026年國際足總世界盃。
 

@@ -68,8 +68,22 @@ def match_datetime(m: dict) -> datetime:
 
 
 def trigger_time(m: dict) -> datetime:
-    """Kickoff time + 120 minutes."""
+    """Kickoff time + 120 minutes in Taipei time."""
     return match_datetime(m) + timedelta(minutes=120)
+
+
+def _wiki_local_datetime(m: dict) -> datetime:
+    """
+    Convert Taipei kickoff time to the approximate local stadium time.
+    FIFA 2026 is played across US/Canada/Mexico; for display/logging we use a
+    rough 14-hour offset from Taipei (UTC+8 -> UTC-6) so the stadium date is
+    often one day earlier.
+    """
+    return match_datetime(m) - timedelta(hours=14)
+
+
+def _is_score_present(result: dict) -> bool:
+    return result is not None and result.get("home_score") is not None and result.get("away_score") is not None
 
 
 def find_next_trigger(matches: list) -> tuple[dict | None, datetime | None]:
@@ -91,7 +105,7 @@ def find_next_trigger(matches: list) -> tuple[dict | None, datetime | None]:
             candidates.append((t, m))
     if not candidates:
         return None, None
-    candidates.sort()
+    candidates.sort(key=lambda x: x[0])
     return candidates[0][1], candidates[0][0]
 
 
@@ -112,7 +126,7 @@ def find_backfill_matches(matches: list) -> list[dict]:
         t = trigger_time(m)
         if t <= now:
             result.append((t, m))
-    result.sort()
+    result.sort(key=lambda x: x[0])
     return [m for _, m in result]
 
 
@@ -148,12 +162,12 @@ def process_match(engine: WorldCupEngine, m: dict, retry_until_score: bool = Tru
         m["home_team"], m["away_team"], m["date"], m["time_taiwan"]
     )
 
-    # 3. Retry loop if Wikipedia has no score yet
-    if result["home_score"] is None and retry_until_score:
+    # 3. Retry loop if Wikipedia has no score yet (every 5 minutes)
+    if not _is_score_present(result) and retry_until_score:
         deadline = taipei_now() + timedelta(minutes=MAX_RETRY_MINUTES)
-        while result["home_score"] is None and taipei_now() < deadline:
+        while not _is_score_present(result) and taipei_now() < deadline:
             print(
-                f"[Scheduler] Match {match_id}: 維基百科尚未公布比分，"
+                f"[Scheduler] Match {match_id}: 維基百科尚未公布比分（台北時間 {taipei_now().strftime('%Y-%m-%d %H:%M')}），"
                 f"{RETRY_DELAY_SECONDS // 60} 分鐘後重試...",
                 flush=True,
             )
@@ -165,7 +179,7 @@ def process_match(engine: WorldCupEngine, m: dict, retry_until_score: bool = Tru
     # 4. Mark checked regardless of whether score was found.
     set_match_checked(engine, m)
 
-    if result["home_score"] is None:
+    if not _is_score_present(result):
         return {
             "match_id": match_id,
             "updated": False,
@@ -232,8 +246,9 @@ def run_scheduler():
         if wait_seconds > 0:
             print(
                 f"[Scheduler] Next trigger: match {next_match['match_id']} "
-                f"at {next_t.strftime('%Y-%m-%d %H:%M')} "
-                f"(kickoff {next_match['date']} {next_match['time_taiwan']} +120min). "
+                f"at Taipei {next_t.strftime('%Y-%m-%d %H:%M')} "
+                f"(kickoff {next_match['date']} {next_match['time_taiwan']} +120min, "
+                f"stadium local ~{_wiki_local_datetime(next_match).strftime('%Y-%m-%d %H:%M')}). "
                 f"Sleeping {int(wait_seconds)}s.",
                 flush=True,
             )
@@ -246,7 +261,7 @@ def run_scheduler():
             print(f"[Scheduler] Match {next_match['match_id']} already finished. Skipping.", flush=True)
             continue
 
-        print(f"[Scheduler] Triggering update for match {next_match['match_id']}...", flush=True)
+        print(f"[Scheduler] Triggering update for match {next_match['match_id']} at Taipei {taipei_now().strftime('%Y-%m-%d %H:%M')}...", flush=True)
         summary = process_match(engine, next_match, retry_until_score=True)
         print(f"[Scheduler] {summary['message']}", flush=True)
 

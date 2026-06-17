@@ -1,6 +1,6 @@
 # 2026-06-17 儀表板伺服器檢查紀錄
 
-**時間**: 2026-06-17 22:05 GMT+8  
+**時間**: 2026-06-17 12:05 GMT+8（台北時間）／比賽現場時間 2026-06-16 22:05  
 **台北時間**: 2026-06-17 12:05  
 **專案**: Project_FIFA_WorldCup_2026_TW  
 **執行**: 啟動 `start_all.bat` 並驗證儀表板資料
@@ -67,5 +67,5 @@
 
 ### Git 提交
 
-- Commit: `1feff7e`
+- Commit: `2644c1b`
 - 訊息: `fix(wiki_scraper): parse HTML directly so table-extraction works; verify 4 finished matches`

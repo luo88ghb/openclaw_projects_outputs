@@ -253,10 +253,19 @@
       "home_team": "法國",
       "away_team": "塞內加爾",
       "city": "新澤西",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
-      "prediction": null
+      "home_score": 3,
+      "away_score": 1,
+      "status": "finished",
+      "prediction": {
+        "home_score_pred": 1,
+        "away_score_pred": 1,
+        "home_win_prob": 52,
+        "draw_prob": 18,
+        "away_win_prob": 30,
+        "reason": "基於 FIFA 排名(2 vs 17) 與累積向量(50 vs 50)",
+        "hit": false
+      },
+      "scrape_checked": true
     },
     {
       "match_id": 18,
@@ -267,10 +276,19 @@
       "home_team": "伊拉克",
       "away_team": "挪威",
       "city": "福克斯堡",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
-      "prediction": null
+      "home_score": 1,
+      "away_score": 4,
+      "status": "finished",
+      "prediction": {
+        "home_score_pred": 1,
+        "away_score_pred": 1,
+        "home_win_prob": 42,
+        "draw_prob": 18,
+        "away_win_prob": 40,
+        "reason": "基於 FIFA 排名(55 vs 43) 與累積向量(50 vs 50)",
+        "hit": false
+      },
+      "scrape_checked": true
     },
     {
       "match_id": 19,
@@ -281,9 +299,9 @@
       "home_team": "阿根廷",
       "away_team": "阿爾及利亞",
       "city": "堪薩斯城",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 3,
+      "away_score": 0,
+      "status": "finished",
       "prediction": {
         "home_score_pred": 2,
         "away_score_pred": 0,
@@ -291,8 +309,9 @@
         "draw_prob": 18,
         "away_win_prob": 17,
         "reason": "基於 FIFA 排名(1 vs 57) 與累積向量(50 vs 50)",
-        "hit": null
-      }
+        "hit": false
+      },
+      "scrape_checked": true
     },
     {
       "match_id": 20,
@@ -303,9 +322,9 @@
       "home_team": "奧地利",
       "away_team": "約旦",
       "city": "聖塔克拉拉",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 3,
+      "away_score": 1,
+      "status": "finished",
       "prediction": {
         "home_score_pred": 2,
         "away_score_pred": 1,
@@ -313,8 +332,9 @@
         "draw_prob": 17,
         "away_win_prob": 19,
         "reason": "基於 FIFA 排名(22 vs 70) 與累積向量(50 vs 50)",
-        "hit": null
-      }
+        "hit": false
+      },
+      "scrape_checked": true
     },
     {
       "match_id": 21,

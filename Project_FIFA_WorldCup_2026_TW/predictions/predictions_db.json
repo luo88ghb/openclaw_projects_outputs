@@ -443,6 +443,102 @@
       "defense_score": 51.5,
       "form_score": 100.0,
       "overall": 69.2
+    },
+    "法國": {
+      "matches_played": 1,
+      "wins": 1,
+      "draws": 0,
+      "losses": 0,
+      "goals_for": 3,
+      "goals_against": 1,
+      "attack_score": 53.0,
+      "defense_score": 51.5,
+      "form_score": 100.0,
+      "overall": 68.2
+    },
+    "塞內加爾": {
+      "matches_played": 1,
+      "wins": 0,
+      "draws": 0,
+      "losses": 1,
+      "goals_for": 1,
+      "goals_against": 3,
+      "attack_score": 50.0,
+      "defense_score": 48.5,
+      "form_score": 40.0,
+      "overall": 46.2
+    },
+    "伊拉克": {
+      "matches_played": 1,
+      "wins": 0,
+      "draws": 0,
+      "losses": 1,
+      "goals_for": 1,
+      "goals_against": 4,
+      "attack_score": 50.0,
+      "defense_score": 47.0,
+      "form_score": 40.0,
+      "overall": 45.7
+    },
+    "挪威": {
+      "matches_played": 1,
+      "wins": 1,
+      "draws": 0,
+      "losses": 0,
+      "goals_for": 4,
+      "goals_against": 1,
+      "attack_score": 54.5,
+      "defense_score": 51.5,
+      "form_score": 100.0,
+      "overall": 68.7
+    },
+    "阿根廷": {
+      "matches_played": 1,
+      "wins": 1,
+      "draws": 0,
+      "losses": 0,
+      "goals_for": 3,
+      "goals_against": 0,
+      "attack_score": 53.0,
+      "defense_score": 53.0,
+      "form_score": 100.0,
+      "overall": 68.7
+    },
+    "阿爾及利亞": {
+      "matches_played": 1,
+      "wins": 0,
+      "draws": 0,
+      "losses": 1,
+      "goals_for": 0,
+      "goals_against": 3,
+      "attack_score": 48.5,
+      "defense_score": 48.5,
+      "form_score": 40.0,
+      "overall": 45.7
+    },
+    "奧地利": {
+      "matches_played": 1,
+      "wins": 1,
+      "draws": 0,
+      "losses": 0,
+      "goals_for": 3,
+      "goals_against": 1,
+      "attack_score": 53.0,
+      "defense_score": 51.5,
+      "form_score": 100.0,
+      "overall": 68.2
+    },
+    "約旦": {
+      "matches_played": 1,
+      "wins": 0,
+      "draws": 0,
+      "losses": 1,
+      "goals_for": 1,
+      "goals_against": 3,
+      "attack_score": 50.0,
+      "defense_score": 48.5,
+      "form_score": 40.0,
+      "overall": 46.2
     }
   },
   "player_vectors": {},
@@ -622,6 +718,50 @@
       "home_score": 0,
       "away_score": 0,
       "recorded_at": "2026-06-16T18:49:34.587417"
+    },
+    {
+      "match_id": 17,
+      "date": "2026-06-17",
+      "stage": "小組賽",
+      "group": "I",
+      "home_team": "法國",
+      "away_team": "塞內加爾",
+      "home_score": 3,
+      "away_score": 1,
+      "recorded_at": "2026-06-17T19:37:13.006261"
+    },
+    {
+      "match_id": 18,
+      "date": "2026-06-17",
+      "stage": "小組賽",
+      "group": "I",
+      "home_team": "伊拉克",
+      "away_team": "挪威",
+      "home_score": 1,
+      "away_score": 4,
+      "recorded_at": "2026-06-17T19:37:16.750987"
+    },
+    {
+      "match_id": 19,
+      "date": "2026-06-17",
+      "stage": "小組賽",
+      "group": "J",
+      "home_team": "阿根廷",
+      "away_team": "阿爾及利亞",
+      "home_score": 3,
+      "away_score": 0,
+      "recorded_at": "2026-06-17T19:37:20.533304"
+    },
+    {
+      "match_id": 20,
+      "date": "2026-06-17",
+      "stage": "小組賽",
+      "group": "J",
+      "home_team": "奧地利",
+      "away_team": "約旦",
+      "home_score": 3,
+      "away_score": 1,
+      "recorded_at": "2026-06-17T19:37:24.231489"
     }
   ],
   "stage_predictions": {
@@ -1384,5 +1524,5 @@
       }
     }
   },
-  "last_updated": "2026-06-16T18:49:34.592504"
+  "last_updated": "2026-06-17T19:37:24.232488"
 }
