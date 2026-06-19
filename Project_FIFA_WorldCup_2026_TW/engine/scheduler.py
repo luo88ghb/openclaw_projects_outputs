@@ -31,7 +31,7 @@ ENGINE_DIR = BASE_DIR / "engine"
 sys.path.insert(0, str(ENGINE_DIR))
 
 from worldcup_engine import WorldCupEngine
-from telegram_notifier import notify_match_result
+from telegram_notifier import notify_match_result, notify_upcoming
 from wiki_scraper import get_match_result
 
 DATA_DIR = BASE_DIR / "data"
@@ -59,18 +59,22 @@ def save_matches_data(data: dict):
 
 
 def taipei_now():
-    """Return current naive datetime in Asia/Taipei (UTC+8)."""
-    return datetime.now()
+    """Return current aware datetime in Asia/Taipei (UTC+8)."""
+    return datetime.now().astimezone()
 
 
 def match_datetime(m: dict) -> datetime:
-    return datetime.strptime(f"{m['date']} {m['time_taiwan']}", "%Y-%m-%d %H:%M")
+    dt = datetime.strptime(f"{m['date']} {m['time_taiwan']}", "%Y-%m-%d %H:%M")
+    tz = dt.astimezone().tzinfo
+    return dt.replace(tzinfo=tz)
 
 
 def trigger_time(m: dict) -> datetime:
     """Kickoff time + 120 minutes in Taipei time."""
     return match_datetime(m) + timedelta(minutes=120)
 
+
+_local_tz = datetime.now().astimezone().tzinfo
 
 def _wiki_local_datetime(m: dict) -> datetime:
     """
@@ -193,7 +197,7 @@ def process_match(engine: WorldCupEngine, m: dict, retry_until_score: bool = Tru
     hit_text = ""
     if pred:
         hit = pred.get("hit")
-        hit_text = f" {'✅ 命中' if hit else '❌ 未命中'}"
+        hit_text = f" {'命中' if hit else '未命中'}"
 
     # 6. Telegram notification
     try:
@@ -225,12 +229,98 @@ def run_backfill(engine: WorldCupEngine) -> None:
         print(f"[Scheduler] {summary['message']}", flush=True)
 
 
+def find_next_kickoff(matches: list) -> tuple[dict | None, datetime | None]:
+    """
+    Find the next match whose kickoff time is within the next 30 minutes.
+    Returns (match, kickoff_time). If none, returns (None, None).
+    """
+    now = taipei_now()
+    candidates = []
+    for m in matches:
+        if m.get("status") == "finished":
+            continue
+        kickoff = match_datetime(m)
+        delta = (kickoff - now).total_seconds() / 60
+        if 0 <= delta <= 30:  # Within 30 minutes of kickoff
+            candidates.append((kickoff, m))
+    if not candidates:
+        return None, None
+    candidates.sort(key=lambda x: x[0])
+    return candidates[0][1], candidates[0][0]
+
+
+def run_kickoff_notifier():
+    """
+    Background thread that checks every minute for upcoming matches
+    and sends Telegram notifications 30 minutes before kickoff.
+    Each match is notified at most once; already-notified match_ids
+    are persisted to disk so notifications survive scheduler restarts.
+    """
+    import threading
+
+    notified_file = BASE_DIR / "predictions" / "kickoff_notified.json"
+
+    def load_notified() -> set[int]:
+        try:
+            with open(notified_file, "r", encoding="utf-8") as f:
+                return set(json.load(f))
+        except Exception:
+            return set()
+
+    def save_notified(notified: set[int]):
+        try:
+            with open(notified_file, "w", encoding="utf-8") as f:
+                json.dump(sorted(notified), f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            print(f"[KickoffNotifier] Failed to save notified list: {e}", flush=True)
+
+    def notifier_loop():
+        notified = load_notified()
+        while True:
+            try:
+                now = taipei_now()
+                matches = load_matches_data()["matches"]
+                next_match = None
+                next_delta = None
+                for m in matches:
+                    if m.get("status") == "finished":
+                        continue
+                    kickoff = match_datetime(m)
+                    delta = (kickoff - now).total_seconds() / 60
+                    if 0 <= delta <= 30:
+                        if next_match is None or delta < next_delta:
+                            next_match = m
+                            next_delta = delta
+
+                if next_match is not None and next_match["match_id"] not in notified:
+                    m = next_match
+                    print(
+                        f"[KickoffNotifier] Match {m['match_id']} starting within 30 min, sending notification...",
+                        flush=True,
+                    )
+                    notify_upcoming(minutes_ahead=30, match_id=m["match_id"])
+                    notified.add(m["match_id"])
+                    save_notified(notified)
+
+                time.sleep(60)  # Check every minute
+            except Exception as e:
+                print(f"[KickoffNotifier] Error: {e}", flush=True)
+                time.sleep(60)
+
+    thread = threading.Thread(target=notifier_loop, daemon=True)
+    thread.start()
+    return thread
+
+
 def run_scheduler():
     print("[Scheduler] Time-correction scheduler started (Asia/Taipei UTC+8)", flush=True)
     engine = WorldCupEngine()
 
     # Startup backfill: catch up any missed historic matches
     run_backfill(engine)
+
+    # Start kickoff notifier in background
+    notifier_thread = run_kickoff_notifier()
 
     while True:
         engine = WorldCupEngine()  # reload data each cycle

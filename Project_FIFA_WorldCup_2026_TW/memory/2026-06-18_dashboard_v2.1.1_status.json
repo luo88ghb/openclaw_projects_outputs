@@ -1,0 +1,9 @@
+{
+  "server_pid": 54852,
+  "server_started_at": "2026-06-18 06:15:25",
+  "version": "v2.1.1",
+  "last_update": "2026-06-17 12:05 Asia/Taipei",
+  "fixed_at": "2026-06-18 06:15:45",
+  "status": "dashboard_server_running",
+  "note": "Dashboard v2.1.1 is running with server PID 54852 on 0.0.0.0:8765. The last-update timestamp in CHANGELOG.md and dashboard/index.html is set to 2026-06-17 12:05 Asia/Taipei. Verified by curl localhost:8765 returning HTTP 200 with version v2.1.1."
+}

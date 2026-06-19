@@ -1,0 +1,2645 @@
+{
+  "metadata": {
+    "version": "advanced-v1.0",
+    "generated_at": "2026-06-19T00:15:21.044177",
+    "source": "engine/advanced_predictor.py",
+    "scope": "group_stage",
+    "total_matches": 72,
+    "method": "three-vector-strategy",
+    "note": "小組賽 72 場預測，產出 32 強名單。淘汰賽需等待真實或預測小組賽結果後再推演。"
+  },
+  "group_stage": {
+    "predictions": [
+      {
+        "match_id": 1,
+        "stage": "小組賽",
+        "group": "A",
+        "home_team": "墨西哥",
+        "away_team": "南非",
+        "home_win_prob": 43,
+        "draw_prob": 31,
+        "away_win_prob": 26,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.598,
+            "away": 0.403
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.818,
+            "away": 0.182
+          }
+        },
+        "reason": "FIFA排名 15 vs 60；戰術風格 balanced vs defensive；墨西哥 具北美主場優勢；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 2,
+        "stage": "小組賽",
+        "group": "A",
+        "home_team": "南韓",
+        "away_team": "捷克",
+        "home_win_prob": 34,
+        "draw_prob": 38,
+        "away_win_prob": 28,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.58,
+            "away": 0.42
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.557,
+            "away": 0.443
+          }
+        },
+        "reason": "FIFA排名 23 vs 36；戰術風格 balanced vs balanced；主要優勢來自量化數據"
+      },
+      {
+        "match_id": 3,
+        "stage": "小組賽",
+        "group": "B",
+        "home_team": "加拿大",
+        "away_team": "波赫",
+        "home_win_prob": 43,
+        "draw_prob": 31,
+        "away_win_prob": 26,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.612,
+            "away": 0.388
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.82,
+            "away": 0.18
+          }
+        },
+        "reason": "FIFA排名 31 vs 74；戰術風格 high pressing vs defensive；加拿大 具北美主場優勢；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 4,
+        "stage": "小組賽",
+        "group": "D",
+        "home_team": "美國",
+        "away_team": "巴拉圭",
+        "home_win_prob": 41,
+        "draw_prob": 32,
+        "away_win_prob": 27,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.599,
+            "away": 0.401
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.778,
+            "away": 0.222
+          }
+        },
+        "reason": "FIFA排名 11 vs 53；戰術風格 balanced vs defensive；美國 具北美主場優勢；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 5,
+        "stage": "小組賽",
+        "group": "B",
+        "home_team": "卡達",
+        "away_team": "瑞士",
+        "home_win_prob": 27,
+        "draw_prob": 35,
+        "away_win_prob": 38,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.381,
+            "away": 0.619
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.359,
+            "away": 0.641
+          }
+        },
+        "reason": "FIFA排名 58 vs 19；戰術風格 possession-based vs organized；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 6,
+        "stage": "小組賽",
+        "group": "C",
+        "home_team": "巴西",
+        "away_team": "摩洛哥",
+        "home_win_prob": 34,
+        "draw_prob": 38,
+        "away_win_prob": 28,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.517,
+            "away": 0.483
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.663,
+            "away": 0.337
+          }
+        },
+        "reason": "FIFA排名 5 vs 13；戰術風格 attacking vs organized defensive；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 7,
+        "stage": "小組賽",
+        "group": "C",
+        "home_team": "海地",
+        "away_team": "蘇格蘭",
+        "home_win_prob": 28,
+        "draw_prob": 38,
+        "away_win_prob": 34,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.402,
+            "away": 0.598
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.457,
+            "away": 0.543
+          }
+        },
+        "reason": "FIFA排名 85 vs 44；戰術風格 counter-attacking vs defensive；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 8,
+        "stage": "小組賽",
+        "group": "D",
+        "home_team": "澳洲",
+        "away_team": "土耳其",
+        "home_win_prob": 28,
+        "draw_prob": 42,
+        "away_win_prob": 29,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.513,
+            "away": 0.487
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.447,
+            "away": 0.553
+          }
+        },
+        "reason": "FIFA排名 24 vs 28；戰術風格 physical direct vs attacking；主要優勢來自量化數據"
+      },
+      {
+        "match_id": 9,
+        "stage": "小組賽",
+        "group": "E",
+        "home_team": "德國",
+        "away_team": "庫拉索",
+        "home_win_prob": 41,
+        "draw_prob": 33,
+        "away_win_prob": 27,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.649,
+            "away": 0.351
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.675,
+            "away": 0.325
+          }
+        },
+        "reason": "FIFA排名 10 vs 79；戰術風格 attacking possession vs defensive organized；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 10,
+        "stage": "小組賽",
+        "group": "F",
+        "home_team": "荷蘭",
+        "away_team": "日本",
+        "home_win_prob": 34,
+        "draw_prob": 38,
+        "away_win_prob": 28,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.525,
+            "away": 0.475
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.662,
+            "away": 0.338
+          }
+        },
+        "reason": "FIFA排名 7 vs 18；戰術風格 balanced possession vs technical possession；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 11,
+        "stage": "小組賽",
+        "group": "E",
+        "home_team": "象牙海岸",
+        "away_team": "厄瓜多",
+        "home_win_prob": 28,
+        "draw_prob": 38,
+        "away_win_prob": 34,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.444,
+            "away": 0.556
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.408,
+            "away": 0.592
+          }
+        },
+        "reason": "FIFA排名 50 vs 24；戰術風格 attacking vs organized defensive；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 12,
+        "stage": "小組賽",
+        "group": "F",
+        "home_team": "瑞典",
+        "away_team": "突尼西亞",
+        "home_win_prob": 33,
+        "draw_prob": 39,
+        "away_win_prob": 28,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.556,
+            "away": 0.444
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.555,
+            "away": 0.445
+          }
+        },
+        "reason": "FIFA排名 27 vs 41；戰術風格 physical direct vs defensive organized；主要優勢來自量化數據"
+      },
+      {
+        "match_id": 13,
+        "stage": "小組賽",
+        "group": "H",
+        "home_team": "西班牙",
+        "away_team": "維德角",
+        "home_win_prob": 43,
+        "draw_prob": 31,
+        "away_win_prob": 26,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.663,
+            "away": 0.337
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.728,
+            "away": 0.272
+          }
+        },
+        "reason": "FIFA排名 1 vs 65；戰術風格 possession tiki-taka vs organized counter；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 14,
+        "stage": "小組賽",
+        "group": "G",
+        "home_team": "比利時",
+        "away_team": "埃及",
+        "home_win_prob": 36,
+        "draw_prob": 37,
+        "away_win_prob": 28,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.564,
+            "away": 0.436
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.651,
+            "away": 0.349
+          }
+        },
+        "reason": "FIFA排名 8 vs 36；戰術風格 attacking possession vs organized defensive；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 15,
+        "stage": "小組賽",
+        "group": "H",
+        "home_team": "烏拉圭",
+        "away_team": "沙烏地阿拉伯",
+        "home_win_prob": 39,
+        "draw_prob": 34,
+        "away_win_prob": 27,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.609,
+            "away": 0.391
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.677,
+            "away": 0.323
+          }
+        },
+        "reason": "FIFA排名 14 vs 59；戰術風格 high intensity pressing vs organized counter；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 16,
+        "stage": "小組賽",
+        "group": "G",
+        "home_team": "紐西蘭",
+        "away_team": "伊朗",
+        "home_win_prob": 26,
+        "draw_prob": 31,
+        "away_win_prob": 42,
+        "predicted_home_score": 1,
+        "predicted_away_score": 2,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.315,
+            "away": 0.685
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.328,
+            "away": 0.672
+          }
+        },
+        "reason": "FIFA排名 94 vs 20；戰術風格 organized defensive vs organized defensive；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 17,
+        "stage": "小組賽",
+        "group": "I",
+        "home_team": "法國",
+        "away_team": "塞內加爾",
+        "home_win_prob": 36,
+        "draw_prob": 37,
+        "away_win_prob": 28,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.535,
+            "away": 0.465
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.698,
+            "away": 0.302
+          }
+        },
+        "reason": "FIFA排名 2 vs 17；戰術風格 balanced attacking vs balanced；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 18,
+        "stage": "小組賽",
+        "group": "I",
+        "home_team": "伊拉克",
+        "away_team": "挪威",
+        "home_win_prob": 28,
+        "draw_prob": 37,
+        "away_win_prob": 35,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.452,
+            "away": 0.548
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.337,
+            "away": 0.663
+          }
+        },
+        "reason": "FIFA排名 55 vs 43；戰術風格 organized vs attacking；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 19,
+        "stage": "小組賽",
+        "group": "J",
+        "home_team": "阿根廷",
+        "away_team": "阿爾及利亞",
+        "home_win_prob": 43,
+        "draw_prob": 31,
+        "away_win_prob": 26,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.646,
+            "away": 0.354
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.754,
+            "away": 0.246
+          }
+        },
+        "reason": "FIFA排名 1 vs 57；戰術風格 attacking possession vs balanced；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 20,
+        "stage": "小組賽",
+        "group": "J",
+        "home_team": "奧地利",
+        "away_team": "約旦",
+        "home_win_prob": 39,
+        "draw_prob": 34,
+        "away_win_prob": 27,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.614,
+            "away": 0.386
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.664,
+            "away": 0.336
+          }
+        },
+        "reason": "FIFA排名 22 vs 62；戰術風格 high pressing vs organized defensive；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 21,
+        "stage": "小組賽",
+        "group": "K",
+        "home_team": "葡萄牙",
+        "away_team": "剛果民主共和國",
+        "home_win_prob": 42,
+        "draw_prob": 31,
+        "away_win_prob": 26,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.642,
+            "away": 0.358
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.738,
+            "away": 0.262
+          }
+        },
+        "reason": "FIFA排名 6 vs 63；戰術風格 attacking possession vs organized defensive；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 22,
+        "stage": "小組賽",
+        "group": "L",
+        "home_team": "英格蘭",
+        "away_team": "克羅埃西亞",
+        "home_win_prob": 32,
+        "draw_prob": 40,
+        "away_win_prob": 28,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.498,
+            "away": 0.502
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.644,
+            "away": 0.356
+          }
+        },
+        "reason": "FIFA排名 4 vs 10；戰術風格 controlled possession vs possession control；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 23,
+        "stage": "小組賽",
+        "group": "L",
+        "home_team": "迦納",
+        "away_team": "巴拿馬",
+        "home_win_prob": 29,
+        "draw_prob": 43,
+        "away_win_prob": 28,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.53,
+            "away": 0.47
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.472,
+            "away": 0.528
+          }
+        },
+        "reason": "FIFA排名 68 vs 33；戰術風格 counter-attacking vs organized defensive；主要優勢來自量化數據"
+      },
+      {
+        "match_id": 24,
+        "stage": "小組賽",
+        "group": "K",
+        "home_team": "烏茲別克",
+        "away_team": "哥倫比亞",
+        "home_win_prob": 26,
+        "draw_prob": 31,
+        "away_win_prob": 43,
+        "predicted_home_score": 1,
+        "predicted_away_score": 2,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.355,
+            "away": 0.645
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.248,
+            "away": 0.752
+          }
+        },
+        "reason": "FIFA排名 60 vs 9；戰術風格 organized vs balanced attacking；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 25,
+        "stage": "小組賽",
+        "group": "A",
+        "home_team": "捷克",
+        "away_team": "南非",
+        "home_win_prob": 32,
+        "draw_prob": 40,
+        "away_win_prob": 28,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.519,
+            "away": 0.481
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.608,
+            "away": 0.392
+          }
+        },
+        "reason": "FIFA排名 36 vs 60；戰術風格 balanced vs defensive；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 26,
+        "stage": "小組賽",
+        "group": "B",
+        "home_team": "瑞士",
+        "away_team": "波赫",
+        "home_win_prob": 41,
+        "draw_prob": 32,
+        "away_win_prob": 27,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.654,
+            "away": 0.346
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.677,
+            "away": 0.323
+          }
+        },
+        "reason": "FIFA排名 19 vs 74；戰術風格 organized vs defensive；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 27,
+        "stage": "小組賽",
+        "group": "B",
+        "home_team": "加拿大",
+        "away_team": "卡達",
+        "home_win_prob": 41,
+        "draw_prob": 33,
+        "away_win_prob": 27,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.578,
+            "away": 0.422
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.787,
+            "away": 0.213
+          }
+        },
+        "reason": "FIFA排名 31 vs 58；戰術風格 high pressing vs possession-based；加拿大 具北美主場優勢；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 28,
+        "stage": "小組賽",
+        "group": "A",
+        "home_team": "墨西哥",
+        "away_team": "南韓",
+        "home_win_prob": 35,
+        "draw_prob": 37,
+        "away_win_prob": 28,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.499,
+            "away": 0.501
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.734,
+            "away": 0.266
+          }
+        },
+        "reason": "FIFA排名 15 vs 23；戰術風格 balanced vs balanced；墨西哥 具北美主場優勢；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 29,
+        "stage": "小組賽",
+        "group": "D",
+        "home_team": "美國",
+        "away_team": "澳洲",
+        "home_win_prob": 38,
+        "draw_prob": 35,
+        "away_win_prob": 27,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.524,
+            "away": 0.476
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.793,
+            "away": 0.207
+          }
+        },
+        "reason": "FIFA排名 11 vs 24；戰術風格 balanced vs physical direct；美國 具北美主場優勢；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 30,
+        "stage": "小組賽",
+        "group": "C",
+        "home_team": "蘇格蘭",
+        "away_team": "摩洛哥",
+        "home_win_prob": 27,
+        "draw_prob": 35,
+        "away_win_prob": 38,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.406,
+            "away": 0.594
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.312,
+            "away": 0.688
+          }
+        },
+        "reason": "FIFA排名 44 vs 13；戰術風格 defensive vs organized defensive；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 31,
+        "stage": "小組賽",
+        "group": "C",
+        "home_team": "巴西",
+        "away_team": "海地",
+        "home_win_prob": 45,
+        "draw_prob": 30,
+        "away_win_prob": 26,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.709,
+            "away": 0.291
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.703,
+            "away": 0.297
+          }
+        },
+        "reason": "FIFA排名 5 vs 85；戰術風格 attacking vs counter-attacking；主要優勢來自量化數據"
+      },
+      {
+        "match_id": 32,
+        "stage": "小組賽",
+        "group": "D",
+        "home_team": "土耳其",
+        "away_team": "巴拉圭",
+        "home_win_prob": 32,
+        "draw_prob": 40,
+        "away_win_prob": 28,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.562,
+            "away": 0.438
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.533,
+            "away": 0.467
+          }
+        },
+        "reason": "FIFA排名 28 vs 53；戰術風格 attacking vs defensive；主要優勢來自量化數據"
+      },
+      {
+        "match_id": 33,
+        "stage": "小組賽",
+        "group": "F",
+        "home_team": "荷蘭",
+        "away_team": "瑞典",
+        "home_win_prob": 37,
+        "draw_prob": 36,
+        "away_win_prob": 27,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.547,
+            "away": 0.453
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.719,
+            "away": 0.281
+          }
+        },
+        "reason": "FIFA排名 7 vs 27；戰術風格 balanced possession vs physical direct；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 34,
+        "stage": "小組賽",
+        "group": "E",
+        "home_team": "德國",
+        "away_team": "象牙海岸",
+        "home_win_prob": 39,
+        "draw_prob": 34,
+        "away_win_prob": 27,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.576,
+            "away": 0.424
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.73,
+            "away": 0.27
+          }
+        },
+        "reason": "FIFA排名 10 vs 50；戰術風格 attacking possession vs attacking；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 35,
+        "stage": "小組賽",
+        "group": "E",
+        "home_team": "厄瓜多",
+        "away_team": "庫拉索",
+        "home_win_prob": 39,
+        "draw_prob": 34,
+        "away_win_prob": 27,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.629,
+            "away": 0.371
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.666,
+            "away": 0.334
+          }
+        },
+        "reason": "FIFA排名 24 vs 79；戰術風格 organized defensive vs defensive organized；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 36,
+        "stage": "小組賽",
+        "group": "F",
+        "home_team": "突尼西亞",
+        "away_team": "日本",
+        "home_win_prob": 28,
+        "draw_prob": 36,
+        "away_win_prob": 36,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.421,
+            "away": 0.579
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.354,
+            "away": 0.646
+          }
+        },
+        "reason": "FIFA排名 41 vs 18；戰術風格 defensive organized vs technical possession；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 37,
+        "stage": "小組賽",
+        "group": "H",
+        "home_team": "西班牙",
+        "away_team": "沙烏地阿拉伯",
+        "home_win_prob": 41,
+        "draw_prob": 32,
+        "away_win_prob": 27,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.653,
+            "away": 0.347
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.69,
+            "away": 0.31
+          }
+        },
+        "reason": "FIFA排名 1 vs 59；戰術風格 possession tiki-taka vs organized counter；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 38,
+        "stage": "小組賽",
+        "group": "G",
+        "home_team": "比利時",
+        "away_team": "伊朗",
+        "home_win_prob": 35,
+        "draw_prob": 37,
+        "away_win_prob": 28,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.533,
+            "away": 0.467
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.689,
+            "away": 0.311
+          }
+        },
+        "reason": "FIFA排名 8 vs 20；戰術風格 attacking possession vs organized defensive；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 39,
+        "stage": "小組賽",
+        "group": "H",
+        "home_team": "烏拉圭",
+        "away_team": "維德角",
+        "home_win_prob": 41,
+        "draw_prob": 33,
+        "away_win_prob": 27,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.619,
+            "away": 0.381
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.725,
+            "away": 0.275
+          }
+        },
+        "reason": "FIFA排名 14 vs 65；戰術風格 high intensity pressing vs organized counter；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 40,
+        "stage": "小組賽",
+        "group": "G",
+        "home_team": "紐西蘭",
+        "away_team": "埃及",
+        "home_win_prob": 26,
+        "draw_prob": 31,
+        "away_win_prob": 42,
+        "predicted_home_score": 1,
+        "predicted_away_score": 2,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.346,
+            "away": 0.654
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.28,
+            "away": 0.72
+          }
+        },
+        "reason": "FIFA排名 94 vs 36；戰術風格 organized defensive vs organized defensive；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 41,
+        "stage": "小組賽",
+        "group": "J",
+        "home_team": "阿根廷",
+        "away_team": "奧地利",
+        "home_win_prob": 38,
+        "draw_prob": 35,
+        "away_win_prob": 27,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.558,
+            "away": 0.442
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.727,
+            "away": 0.273
+          }
+        },
+        "reason": "FIFA排名 1 vs 22；戰術風格 attacking possession vs high pressing；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 42,
+        "stage": "小組賽",
+        "group": "I",
+        "home_team": "法國",
+        "away_team": "伊拉克",
+        "home_win_prob": 42,
+        "draw_prob": 31,
+        "away_win_prob": 26,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.646,
+            "away": 0.354
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.732,
+            "away": 0.268
+          }
+        },
+        "reason": "FIFA排名 2 vs 55；戰術風格 balanced attacking vs organized；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 43,
+        "stage": "小組賽",
+        "group": "I",
+        "home_team": "挪威",
+        "away_team": "塞內加爾",
+        "home_win_prob": 28,
+        "draw_prob": 40,
+        "away_win_prob": 32,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.436,
+            "away": 0.564
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.476,
+            "away": 0.524
+          }
+        },
+        "reason": "FIFA排名 43 vs 17；戰術風格 attacking vs balanced；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 44,
+        "stage": "小組賽",
+        "group": "J",
+        "home_team": "約旦",
+        "away_team": "阿爾及利亞",
+        "home_win_prob": 28,
+        "draw_prob": 40,
+        "away_win_prob": 31,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.473,
+            "away": 0.527
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.439,
+            "away": 0.561
+          }
+        },
+        "reason": "FIFA排名 62 vs 57；戰術風格 organized defensive vs balanced；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 45,
+        "stage": "小組賽",
+        "group": "K",
+        "home_team": "葡萄牙",
+        "away_team": "烏茲別克",
+        "home_win_prob": 42,
+        "draw_prob": 31,
+        "away_win_prob": 26,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.635,
+            "away": 0.365
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.747,
+            "away": 0.253
+          }
+        },
+        "reason": "FIFA排名 6 vs 60；戰術風格 attacking possession vs organized；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 46,
+        "stage": "小組賽",
+        "group": "L",
+        "home_team": "英格蘭",
+        "away_team": "迦納",
+        "home_win_prob": 44,
+        "draw_prob": 30,
+        "away_win_prob": 26,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.669,
+            "away": 0.331
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.733,
+            "away": 0.267
+          }
+        },
+        "reason": "FIFA排名 4 vs 68；戰術風格 controlled possession vs counter-attacking；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 47,
+        "stage": "小組賽",
+        "group": "L",
+        "home_team": "巴拿馬",
+        "away_team": "克羅埃西亞",
+        "home_win_prob": 26,
+        "draw_prob": 32,
+        "away_win_prob": 42,
+        "predicted_home_score": 1,
+        "predicted_away_score": 2,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.299,
+            "away": 0.701
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.365,
+            "away": 0.635
+          }
+        },
+        "reason": "FIFA排名 33 vs 10；戰術風格 organized defensive vs possession control；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 48,
+        "stage": "小組賽",
+        "group": "K",
+        "home_team": "哥倫比亞",
+        "away_team": "剛果民主共和國",
+        "home_win_prob": 43,
+        "draw_prob": 31,
+        "away_win_prob": 26,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.652,
+            "away": 0.348
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.741,
+            "away": 0.259
+          }
+        },
+        "reason": "FIFA排名 9 vs 63；戰術風格 balanced attacking vs organized defensive；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 49,
+        "stage": "小組賽",
+        "group": "B",
+        "home_team": "瑞士",
+        "away_team": "加拿大",
+        "home_win_prob": 28,
+        "draw_prob": 39,
+        "away_win_prob": 33,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.542,
+            "away": 0.458
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.288,
+            "away": 0.712
+          }
+        },
+        "reason": "FIFA排名 19 vs 31；戰術風格 organized vs high pressing；加拿大 具北美主場優勢；主要優勢來自量化數據"
+      },
+      {
+        "match_id": 50,
+        "stage": "小組賽",
+        "group": "B",
+        "home_team": "波赫",
+        "away_team": "卡達",
+        "home_win_prob": 28,
+        "draw_prob": 41,
+        "away_win_prob": 31,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.465,
+            "away": 0.535
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.464,
+            "away": 0.536
+          }
+        },
+        "reason": "FIFA排名 74 vs 58；戰術風格 defensive vs possession-based；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 51,
+        "stage": "小組賽",
+        "group": "C",
+        "home_team": "蘇格蘭",
+        "away_team": "巴西",
+        "home_win_prob": 27,
+        "draw_prob": 32,
+        "away_win_prob": 41,
+        "predicted_home_score": 1,
+        "predicted_away_score": 2,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.389,
+            "away": 0.611
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.246,
+            "away": 0.754
+          }
+        },
+        "reason": "FIFA排名 44 vs 5；戰術風格 defensive vs attacking；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 52,
+        "stage": "小組賽",
+        "group": "C",
+        "home_team": "摩洛哥",
+        "away_team": "海地",
+        "home_win_prob": 42,
+        "draw_prob": 31,
+        "away_win_prob": 26,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.692,
+            "away": 0.308
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.662,
+            "away": 0.338
+          }
+        },
+        "reason": "FIFA排名 13 vs 85；戰術風格 organized defensive vs counter-attacking；主要優勢來自量化數據"
+      },
+      {
+        "match_id": 53,
+        "stage": "小組賽",
+        "group": "A",
+        "home_team": "南非",
+        "away_team": "南韓",
+        "home_win_prob": 27,
+        "draw_prob": 35,
+        "away_win_prob": 37,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.401,
+            "away": 0.599
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.349,
+            "away": 0.651
+          }
+        },
+        "reason": "FIFA排名 60 vs 23；戰術風格 defensive vs balanced；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 54,
+        "stage": "小組賽",
+        "group": "A",
+        "home_team": "捷克",
+        "away_team": "墨西哥",
+        "home_win_prob": 27,
+        "draw_prob": 33,
+        "away_win_prob": 40,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.421,
+            "away": 0.579
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.231,
+            "away": 0.769
+          }
+        },
+        "reason": "FIFA排名 36 vs 15；戰術風格 balanced vs balanced；墨西哥 具北美主場優勢；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 55,
+        "stage": "小組賽",
+        "group": "E",
+        "home_team": "庫拉索",
+        "away_team": "象牙海岸",
+        "home_win_prob": 28,
+        "draw_prob": 38,
+        "away_win_prob": 35,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.427,
+            "away": 0.573
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.401,
+            "away": 0.599
+          }
+        },
+        "reason": "FIFA排名 79 vs 50；戰術風格 defensive organized vs attacking；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 56,
+        "stage": "小組賽",
+        "group": "E",
+        "home_team": "厄瓜多",
+        "away_team": "德國",
+        "home_win_prob": 28,
+        "draw_prob": 39,
+        "away_win_prob": 33,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.48,
+            "away": 0.52
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.358,
+            "away": 0.642
+          }
+        },
+        "reason": "FIFA排名 24 vs 10；戰術風格 organized defensive vs attacking possession；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 57,
+        "stage": "小組賽",
+        "group": "F",
+        "home_team": "突尼西亞",
+        "away_team": "荷蘭",
+        "home_win_prob": 27,
+        "draw_prob": 33,
+        "away_win_prob": 40,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.396,
+            "away": 0.604
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.277,
+            "away": 0.723
+          }
+        },
+        "reason": "FIFA排名 41 vs 7；戰術風格 defensive organized vs balanced possession；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 58,
+        "stage": "小組賽",
+        "group": "F",
+        "home_team": "日本",
+        "away_team": "瑞典",
+        "home_win_prob": 33,
+        "draw_prob": 39,
+        "away_win_prob": 28,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.523,
+            "away": 0.478
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.613,
+            "away": 0.387
+          }
+        },
+        "reason": "FIFA排名 18 vs 27；戰術風格 technical possession vs physical direct；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 59,
+        "stage": "小組賽",
+        "group": "D",
+        "home_team": "土耳其",
+        "away_team": "美國",
+        "home_win_prob": 27,
+        "draw_prob": 35,
+        "away_win_prob": 38,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.463,
+            "away": 0.537
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.23,
+            "away": 0.77
+          }
+        },
+        "reason": "FIFA排名 28 vs 11；戰術風格 attacking vs balanced；美國 具北美主場優勢；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 60,
+        "stage": "小組賽",
+        "group": "D",
+        "home_team": "巴拉圭",
+        "away_team": "澳洲",
+        "home_win_prob": 28,
+        "draw_prob": 40,
+        "away_win_prob": 31,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.425,
+            "away": 0.575
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.517,
+            "away": 0.483
+          }
+        },
+        "reason": "FIFA排名 53 vs 24；戰術風格 defensive vs physical direct；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 61,
+        "stage": "小組賽",
+        "group": "I",
+        "home_team": "挪威",
+        "away_team": "法國",
+        "home_win_prob": 27,
+        "draw_prob": 34,
+        "away_win_prob": 39,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.402,
+            "away": 0.598
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.286,
+            "away": 0.714
+          }
+        },
+        "reason": "FIFA排名 43 vs 2；戰術風格 attacking vs balanced attacking；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 62,
+        "stage": "小組賽",
+        "group": "I",
+        "home_team": "塞內加爾",
+        "away_team": "伊拉克",
+        "home_win_prob": 39,
+        "draw_prob": 34,
+        "away_win_prob": 27,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.611,
+            "away": 0.389
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.67,
+            "away": 0.33
+          }
+        },
+        "reason": "FIFA排名 17 vs 55；戰術風格 balanced vs organized；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 63,
+        "stage": "小組賽",
+        "group": "H",
+        "home_team": "烏拉圭",
+        "away_team": "西班牙",
+        "home_win_prob": 28,
+        "draw_prob": 38,
+        "away_win_prob": 34,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.456,
+            "away": 0.544
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.367,
+            "away": 0.633
+          }
+        },
+        "reason": "FIFA排名 14 vs 1；戰術風格 high intensity pressing vs possession tiki-taka；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 64,
+        "stage": "小組賽",
+        "group": "H",
+        "home_team": "維德角",
+        "away_team": "沙烏地阿拉伯",
+        "home_win_prob": 28,
+        "draw_prob": 41,
+        "away_win_prob": 31,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.491,
+            "away": 0.509
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.423,
+            "away": 0.577
+          }
+        },
+        "reason": "FIFA排名 65 vs 59；戰術風格 organized counter vs organized counter；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 65,
+        "stage": "小組賽",
+        "group": "G",
+        "home_team": "紐西蘭",
+        "away_team": "比利時",
+        "home_win_prob": 25,
+        "draw_prob": 28,
+        "away_win_prob": 47,
+        "predicted_home_score": 1,
+        "predicted_away_score": 2,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.297,
+            "away": 0.703
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.22,
+            "away": 0.78
+          }
+        },
+        "reason": "FIFA排名 94 vs 8；戰術風格 organized defensive vs attacking possession；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 66,
+        "stage": "小組賽",
+        "group": "G",
+        "home_team": "埃及",
+        "away_team": "伊朗",
+        "home_win_prob": 29,
+        "draw_prob": 42,
+        "away_win_prob": 28,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.469,
+            "away": 0.531
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.571,
+            "away": 0.429
+          }
+        },
+        "reason": "FIFA排名 36 vs 20；戰術風格 organized defensive vs organized defensive；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 67,
+        "stage": "小組賽",
+        "group": "L",
+        "home_team": "巴拿馬",
+        "away_team": "英格蘭",
+        "home_win_prob": 26,
+        "draw_prob": 31,
+        "away_win_prob": 43,
+        "predicted_home_score": 1,
+        "predicted_away_score": 2,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.301,
+            "away": 0.699
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.338,
+            "away": 0.662
+          }
+        },
+        "reason": "FIFA排名 33 vs 4；戰術風格 organized defensive vs controlled possession；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 68,
+        "stage": "小組賽",
+        "group": "L",
+        "home_team": "克羅埃西亞",
+        "away_team": "迦納",
+        "home_win_prob": 42,
+        "draw_prob": 31,
+        "away_win_prob": 26,
+        "predicted_home_score": 2,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.671,
+            "away": 0.329
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.696,
+            "away": 0.304
+          }
+        },
+        "reason": "FIFA排名 10 vs 68；戰術風格 possession control vs counter-attacking；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 69,
+        "stage": "小組賽",
+        "group": "K",
+        "home_team": "哥倫比亞",
+        "away_team": "葡萄牙",
+        "home_win_prob": 28,
+        "draw_prob": 42,
+        "away_win_prob": 29,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.51,
+            "away": 0.49
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.453,
+            "away": 0.547
+          }
+        },
+        "reason": "FIFA排名 9 vs 6；戰術風格 balanced attacking vs attacking possession；主要優勢來自量化數據"
+      },
+      {
+        "match_id": 70,
+        "stage": "小組賽",
+        "group": "K",
+        "home_team": "剛果民主共和國",
+        "away_team": "烏茲別克",
+        "home_win_prob": 29,
+        "draw_prob": 42,
+        "away_win_prob": 28,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.493,
+            "away": 0.508
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.54,
+            "away": 0.46
+          }
+        },
+        "reason": "FIFA排名 63 vs 60；戰術風格 organized defensive vs organized；主要優勢來自外部變數"
+      },
+      {
+        "match_id": 71,
+        "stage": "小組賽",
+        "group": "J",
+        "home_team": "阿爾及利亞",
+        "away_team": "奧地利",
+        "home_win_prob": 28,
+        "draw_prob": 36,
+        "away_win_prob": 36,
+        "predicted_home_score": 1,
+        "predicted_away_score": 1,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.412,
+            "away": 0.588
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.365,
+            "away": 0.635
+          }
+        },
+        "reason": "FIFA排名 57 vs 22；戰術風格 balanced vs high pressing；主要優勢來自戰術相剋"
+      },
+      {
+        "match_id": 72,
+        "stage": "小組賽",
+        "group": "J",
+        "home_team": "約旦",
+        "away_team": "阿根廷",
+        "home_win_prob": 26,
+        "draw_prob": 30,
+        "away_win_prob": 44,
+        "predicted_home_score": 1,
+        "predicted_away_score": 2,
+        "vector_breakdown": {
+          "A": {
+            "home": 0.328,
+            "away": 0.672
+          },
+          "B": {
+            "home": 0.5,
+            "away": 0.5
+          },
+          "C": {
+            "home": 0.261,
+            "away": 0.739
+          }
+        },
+        "reason": "FIFA排名 62 vs 1；戰術風格 organized defensive vs attacking possession；主要優勢來自戰術相剋"
+      }
+    ],
+    "standings": {
+      "A": [
+        {
+          "team": "墨西哥",
+          "played": 3,
+          "wins": 2,
+          "draws": 1,
+          "losses": 0,
+          "gf": 5,
+          "ga": 3,
+          "points": 7
+        },
+        {
+          "team": "南韓",
+          "played": 3,
+          "wins": 1,
+          "draws": 1,
+          "losses": 1,
+          "gf": 4,
+          "ga": 4,
+          "points": 4
+        },
+        {
+          "team": "南非",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2
+        },
+        {
+          "team": "捷克",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2
+        }
+      ],
+      "B": [
+        {
+          "team": "加拿大",
+          "played": 3,
+          "wins": 2,
+          "draws": 1,
+          "losses": 0,
+          "gf": 5,
+          "ga": 3,
+          "points": 7
+        },
+        {
+          "team": "瑞士",
+          "played": 3,
+          "wins": 1,
+          "draws": 2,
+          "losses": 0,
+          "gf": 4,
+          "ga": 3,
+          "points": 5
+        },
+        {
+          "team": "卡達",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2
+        },
+        {
+          "team": "波赫",
+          "played": 3,
+          "wins": 0,
+          "draws": 1,
+          "losses": 2,
+          "gf": 3,
+          "ga": 5,
+          "points": 1
+        }
+      ],
+      "D": [
+        {
+          "team": "美國",
+          "played": 3,
+          "wins": 2,
+          "draws": 1,
+          "losses": 0,
+          "gf": 5,
+          "ga": 3,
+          "points": 7
+        },
+        {
+          "team": "土耳其",
+          "played": 3,
+          "wins": 0,
+          "draws": 3,
+          "losses": 0,
+          "gf": 3,
+          "ga": 3,
+          "points": 3
+        },
+        {
+          "team": "巴拉圭",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2
+        },
+        {
+          "team": "澳洲",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2
+        }
+      ],
+      "C": [
+        {
+          "team": "巴西",
+          "played": 3,
+          "wins": 3,
+          "draws": 0,
+          "losses": 0,
+          "gf": 6,
+          "ga": 3,
+          "points": 9
+        },
+        {
+          "team": "摩洛哥",
+          "played": 3,
+          "wins": 1,
+          "draws": 1,
+          "losses": 1,
+          "gf": 4,
+          "ga": 4,
+          "points": 4
+        },
+        {
+          "team": "蘇格蘭",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2
+        },
+        {
+          "team": "海地",
+          "played": 3,
+          "wins": 0,
+          "draws": 1,
+          "losses": 2,
+          "gf": 3,
+          "ga": 5,
+          "points": 1
+        }
+      ],
+      "E": [
+        {
+          "team": "德國",
+          "played": 3,
+          "wins": 2,
+          "draws": 1,
+          "losses": 0,
+          "gf": 5,
+          "ga": 3,
+          "points": 7
+        },
+        {
+          "team": "厄瓜多",
+          "played": 3,
+          "wins": 1,
+          "draws": 2,
+          "losses": 0,
+          "gf": 4,
+          "ga": 3,
+          "points": 5
+        },
+        {
+          "team": "象牙海岸",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2
+        },
+        {
+          "team": "庫拉索",
+          "played": 3,
+          "wins": 0,
+          "draws": 1,
+          "losses": 2,
+          "gf": 3,
+          "ga": 5,
+          "points": 1
+        }
+      ],
+      "F": [
+        {
+          "team": "荷蘭",
+          "played": 3,
+          "wins": 2,
+          "draws": 1,
+          "losses": 0,
+          "gf": 5,
+          "ga": 3,
+          "points": 7
+        },
+        {
+          "team": "突尼西亞",
+          "played": 3,
+          "wins": 0,
+          "draws": 3,
+          "losses": 0,
+          "gf": 3,
+          "ga": 3,
+          "points": 3
+        },
+        {
+          "team": "日本",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2
+        },
+        {
+          "team": "瑞典",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2
+        }
+      ],
+      "H": [
+        {
+          "team": "西班牙",
+          "played": 3,
+          "wins": 2,
+          "draws": 1,
+          "losses": 0,
+          "gf": 5,
+          "ga": 3,
+          "points": 7
+        },
+        {
+          "team": "烏拉圭",
+          "played": 3,
+          "wins": 2,
+          "draws": 1,
+          "losses": 0,
+          "gf": 5,
+          "ga": 3,
+          "points": 7
+        },
+        {
+          "team": "維德角",
+          "played": 3,
+          "wins": 0,
+          "draws": 1,
+          "losses": 2,
+          "gf": 3,
+          "ga": 5,
+          "points": 1
+        },
+        {
+          "team": "沙烏地阿拉伯",
+          "played": 3,
+          "wins": 0,
+          "draws": 1,
+          "losses": 2,
+          "gf": 3,
+          "ga": 5,
+          "points": 1
+        }
+      ],
+      "G": [
+        {
+          "team": "比利時",
+          "played": 3,
+          "wins": 3,
+          "draws": 0,
+          "losses": 0,
+          "gf": 6,
+          "ga": 3,
+          "points": 9
+        },
+        {
+          "team": "埃及",
+          "played": 3,
+          "wins": 1,
+          "draws": 1,
+          "losses": 1,
+          "gf": 4,
+          "ga": 4,
+          "points": 4
+        },
+        {
+          "team": "伊朗",
+          "played": 3,
+          "wins": 1,
+          "draws": 1,
+          "losses": 1,
+          "gf": 4,
+          "ga": 4,
+          "points": 4
+        },
+        {
+          "team": "紐西蘭",
+          "played": 3,
+          "wins": 0,
+          "draws": 0,
+          "losses": 3,
+          "gf": 3,
+          "ga": 6,
+          "points": 0
+        }
+      ],
+      "I": [
+        {
+          "team": "法國",
+          "played": 3,
+          "wins": 2,
+          "draws": 1,
+          "losses": 0,
+          "gf": 5,
+          "ga": 3,
+          "points": 7
+        },
+        {
+          "team": "塞內加爾",
+          "played": 3,
+          "wins": 1,
+          "draws": 1,
+          "losses": 1,
+          "gf": 4,
+          "ga": 4,
+          "points": 4
+        },
+        {
+          "team": "挪威",
+          "played": 3,
+          "wins": 0,
+          "draws": 3,
+          "losses": 0,
+          "gf": 3,
+          "ga": 3,
+          "points": 3
+        },
+        {
+          "team": "伊拉克",
+          "played": 3,
+          "wins": 0,
+          "draws": 1,
+          "losses": 2,
+          "gf": 3,
+          "ga": 5,
+          "points": 1
+        }
+      ],
+      "J": [
+        {
+          "team": "阿根廷",
+          "played": 3,
+          "wins": 3,
+          "draws": 0,
+          "losses": 0,
+          "gf": 6,
+          "ga": 3,
+          "points": 9
+        },
+        {
+          "team": "奧地利",
+          "played": 3,
+          "wins": 1,
+          "draws": 1,
+          "losses": 1,
+          "gf": 4,
+          "ga": 4,
+          "points": 4
+        },
+        {
+          "team": "阿爾及利亞",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2
+        },
+        {
+          "team": "約旦",
+          "played": 3,
+          "wins": 0,
+          "draws": 1,
+          "losses": 2,
+          "gf": 3,
+          "ga": 5,
+          "points": 1
+        }
+      ],
+      "K": [
+        {
+          "team": "葡萄牙",
+          "played": 3,
+          "wins": 2,
+          "draws": 1,
+          "losses": 0,
+          "gf": 5,
+          "ga": 3,
+          "points": 7
+        },
+        {
+          "team": "哥倫比亞",
+          "played": 3,
+          "wins": 2,
+          "draws": 1,
+          "losses": 0,
+          "gf": 5,
+          "ga": 3,
+          "points": 7
+        },
+        {
+          "team": "剛果民主共和國",
+          "played": 3,
+          "wins": 0,
+          "draws": 1,
+          "losses": 2,
+          "gf": 3,
+          "ga": 5,
+          "points": 1
+        },
+        {
+          "team": "烏茲別克",
+          "played": 3,
+          "wins": 0,
+          "draws": 1,
+          "losses": 2,
+          "gf": 3,
+          "ga": 5,
+          "points": 1
+        }
+      ],
+      "L": [
+        {
+          "team": "英格蘭",
+          "played": 3,
+          "wins": 2,
+          "draws": 1,
+          "losses": 0,
+          "gf": 5,
+          "ga": 3,
+          "points": 7
+        },
+        {
+          "team": "克羅埃西亞",
+          "played": 3,
+          "wins": 2,
+          "draws": 1,
+          "losses": 0,
+          "gf": 5,
+          "ga": 3,
+          "points": 7
+        },
+        {
+          "team": "迦納",
+          "played": 3,
+          "wins": 0,
+          "draws": 1,
+          "losses": 2,
+          "gf": 3,
+          "ga": 5,
+          "points": 1
+        },
+        {
+          "team": "巴拿馬",
+          "played": 3,
+          "wins": 0,
+          "draws": 1,
+          "losses": 2,
+          "gf": 3,
+          "ga": 5,
+          "points": 1
+        }
+      ]
+    },
+    "round_of_32": {
+      "qualified_teams": [
+        "墨西哥",
+        "南韓",
+        "加拿大",
+        "瑞士",
+        "美國",
+        "土耳其",
+        "巴西",
+        "摩洛哥",
+        "德國",
+        "厄瓜多",
+        "荷蘭",
+        "突尼西亞",
+        "西班牙",
+        "烏拉圭",
+        "比利時",
+        "埃及",
+        "法國",
+        "塞內加爾",
+        "阿根廷",
+        "奧地利",
+        "葡萄牙",
+        "哥倫比亞",
+        "英格蘭",
+        "克羅埃西亞",
+        "伊朗",
+        "挪威",
+        "南非",
+        "卡達",
+        "巴拉圭",
+        "蘇格蘭",
+        "象牙海岸",
+        "日本"
+      ],
+      "third_place_ranking": [
+        {
+          "team": "伊朗",
+          "played": 3,
+          "wins": 1,
+          "draws": 1,
+          "losses": 1,
+          "gf": 4,
+          "ga": 4,
+          "points": 4,
+          "group": "G"
+        },
+        {
+          "team": "挪威",
+          "played": 3,
+          "wins": 0,
+          "draws": 3,
+          "losses": 0,
+          "gf": 3,
+          "ga": 3,
+          "points": 3,
+          "group": "I"
+        },
+        {
+          "team": "南非",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2,
+          "group": "A"
+        },
+        {
+          "team": "卡達",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2,
+          "group": "B"
+        },
+        {
+          "team": "巴拉圭",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2,
+          "group": "D"
+        },
+        {
+          "team": "蘇格蘭",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2,
+          "group": "C"
+        },
+        {
+          "team": "象牙海岸",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2,
+          "group": "E"
+        },
+        {
+          "team": "日本",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2,
+          "group": "F"
+        },
+        {
+          "team": "阿爾及利亞",
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "gf": 3,
+          "ga": 4,
+          "points": 2,
+          "group": "J"
+        },
+        {
+          "team": "維德角",
+          "played": 3,
+          "wins": 0,
+          "draws": 1,
+          "losses": 2,
+          "gf": 3,
+          "ga": 5,
+          "points": 1,
+          "group": "H"
+        },
+        {
+          "team": "剛果民主共和國",
+          "played": 3,
+          "wins": 0,
+          "draws": 1,
+          "losses": 2,
+          "gf": 3,
+          "ga": 5,
+          "points": 1,
+          "group": "K"
+        },
+        {
+          "team": "迦納",
+          "played": 3,
+          "wins": 0,
+          "draws": 1,
+          "losses": 2,
+          "gf": 3,
+          "ga": 5,
+          "points": 1,
+          "group": "L"
+        }
+      ],
+      "best_third_teams": [
+        "伊朗",
+        "挪威",
+        "南非",
+        "卡達",
+        "巴拉圭",
+        "蘇格蘭",
+        "象牙海岸",
+        "日本"
+      ]
+    }
+  }
+}

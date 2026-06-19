@@ -11,6 +11,7 @@ import sys
 import threading
 import time
 import urllib.parse
+import json
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,6 +22,7 @@ PORT = 8765
 # Shared event to wake SSE clients
 _update_event = threading.Event()
 _update_payload = "reload"
+_httpd_instance = None
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
@@ -49,7 +51,68 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if parsed.path == "/notify-update":
             self._notify_update()
             return
+        if parsed.path == "/api/status":
+            self._serve_status()
+            return
         return super().do_GET()
+
+    def do_POST(self):
+        parsed = urllib.parse.urlparse(self.path)
+        if parsed.path == "/notify-update":
+            self._notify_update()
+            return
+        if parsed.path == "/api/shutdown":
+            self._shutdown()
+            return
+        self.send_response(404)
+        self.end_headers()
+
+    def _serve_status(self):
+        status = {
+            "running": True,
+            "port": PORT,
+            "version": "v2.2.1",
+            "pid": os.getpid(),
+            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+        }
+        body = json.dumps(status, ensure_ascii=False).encode("utf-8")
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _shutdown(self):
+        global _httpd_instance
+        self.send_response(200)
+        self.send_header("Content-Type", "text/plain; charset=utf-8")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.end_headers()
+        try:
+            self.wfile.write(b"Server is shutting down...")
+            self.wfile.flush()
+        except Exception:
+            pass
+        # Trigger shutdown in a background thread so the response is sent first
+        def _stop():
+            time.sleep(0.3)
+            try:
+                if _httpd_instance is not None:
+                    _httpd_instance.shutdown_requested = True
+                    _httpd_instance.shutdown()
+            except Exception as e:
+                print(f"shutdown via httpd error: {e}", flush=True)
+            try:
+                os.kill(os.getpid(), signal.SIGTERM)
+            except Exception as e:
+                print(f"shutdown via SIGTERM error: {e}", flush=True)
+        threading.Thread(target=_stop, daemon=True).start()
+        # Also stop the current handler's server_forever loop from inside if possible
+        try:
+            self.server.shutdown()
+        except Exception:
+            pass
 
     def _serve_sse(self):
         self.send_response(200)
@@ -130,14 +193,25 @@ def kill_existing_server(port=PORT):
 
 
 def run():
+    global _httpd_instance
     os.chdir(BASE_DIR)
     kill_existing_server(PORT)
-    socketserver.TCPServer.allow_reuse_address = True
-    with socketserver.TCPServer(("", PORT), Handler) as httpd:
+    socketserver.ThreadingTCPServer.allow_reuse_address = True
+    with socketserver.ThreadingTCPServer(("", PORT), Handler) as httpd:
+        _httpd_instance = httpd
         print(f"World Cup 2026 Dashboard running at http://localhost:{PORT}/index.html", flush=True)
         print(f"SSE update stream at http://localhost:{PORT}/update-stream", flush=True)
+        print(f"API status at http://localhost:{PORT}/api/status", flush=True)
+        print(f"Shutdown via POST http://localhost:{PORT}/api/shutdown", flush=True)
         sys.stdout.flush()
-        httpd.serve_forever()
+        httpd.shutdown_requested = False
+        try:
+            httpd.serve_forever()
+        except OSError:
+            if not getattr(httpd, 'shutdown_requested', False):
+                raise
+        finally:
+            _httpd_instance = None
 
 
 if __name__ == "__main__":

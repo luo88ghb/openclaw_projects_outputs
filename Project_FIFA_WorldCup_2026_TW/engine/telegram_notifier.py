@@ -44,12 +44,14 @@ def send_telegram_default(message: str) -> dict:
     return send_telegram(message)
 
 
-def notify_upcoming(minutes_ahead: int = 30):
+def notify_upcoming(minutes_ahead: int = 30, match_id: int = None):
     now = datetime.now()
     matches = load_matches()
     upcoming = []
     for m in matches:
         if m.get("status") == "finished":
+            continue
+        if match_id is not None and m["match_id"] != match_id:
             continue
         dt = datetime.strptime(f"{m['date']} {m['time_taiwan']}", "%Y-%m-%d %H:%M")
         delta = (dt - now).total_seconds() / 60
@@ -64,7 +66,9 @@ def notify_upcoming(minutes_ahead: int = 30):
         pred_text = ""
         if m.get("prediction"):
             pred = m["prediction"]
-            pred_text = f"\n🔮 預測比分：{pred['home_score_pred']}-{pred['away_score_pred']}"
+            winner = m["home_team"] if pred["home_win_prob"] >= pred["away_win_prob"] else m["away_team"]
+            winner_prob = max(pred["home_win_prob"], pred["away_win_prob"])
+            pred_text = f"\n🔮 預測：{winner} 勝 {winner_prob}%"
         msg = (
             f"⚽ <b>2026 世界盃開賽提醒</b>\n"
             f"場次：#{m['match_id']} {m['stage']}{' ' + m['group'] + '組' if m['group'] else ''}\n"
@@ -114,10 +118,37 @@ def notify_match_result(m: dict):
     hit_text = ""
     if pred:
         hit = pred.get("hit")
-        hit_text = (
-            f"\n🔮 賽前預測：{pred['home_score_pred']}-{pred['away_score_pred']} "
-            f"{'✅ 命中' if hit else '❌ 未命中'}"
-        ) if hit is not None else f"\n🔮 賽前預測：{pred['home_score_pred']}-{pred['away_score_pred']}"
+        # 更精準的命中判斷：預測勝隊與實際勝隊相同
+        home_win = m["home_score"] > m["away_score"]
+        away_win = m["home_score"] < m["away_score"]
+        draw = m["home_score"] == m["away_score"]
+        pred_home_win = pred["home_win_prob"] > pred["away_win_prob"]
+        pred_away_win = pred["away_win_prob"] > pred["home_win_prob"]
+        pred_draw = pred["draw_prob"] >= max(pred["home_win_prob"], pred["away_win_prob"])
+        
+        if hit is not None:
+            # 原本的比分預測命中判斷
+            hit_text = (
+                f"\n🔮 賽前預測：{pred['home_score_pred']}-{pred['away_score_pred']} "
+                f"{'✅ 命中' if hit else '❌ 未命中'}"
+            )
+        else:
+            # 勝隊預測命中判斷
+            if draw and pred_draw:
+                pred_hit = True
+            elif home_win and pred_home_win:
+                pred_hit = True
+            elif away_win and pred_away_win:
+                pred_hit = True
+            else:
+                pred_hit = False
+            
+            winner = "和局" if draw else (m["home_team"] if home_win else m["away_team"])
+            pred_winner = "和局" if pred_draw else (m["home_team"] if pred_home_win else m["away_team"])
+            hit_text = (
+                f"\n🔮 預測：{pred_winner} {'✅ 命中' if pred_hit else '❌ 未命中'}"
+                f" | 實際：{winner}"
+            )
     msg = (
         f"⚽ <b>2026 世界盃賽果更新</b>\n"
         f"場次：#{m['match_id']} {m['stage']}{' ' + m['group'] + '組' if m['group'] else ''}\n"

@@ -4,6 +4,144 @@
 
 ---
 
+## [2.2.1] - 2026-06-19
+
+### 修正
+- **開賽前 30 分鐘 Telegram 提醒重複/遺漏問題**：
+  - 根據用戶回報，#25、#28 等場次未準時收到開場推播。
+  - 問題原因：`run_kickoff_notifier()` 原本只取第一個符合條件的場次通知一次，且未記錄已通知場次，導致重啟後會重複通知或跳過。
+  - 改為：每分鐘掃描，只選出最接近開賽的未結束場次；已通知場次寫入 `predictions/kickoff_notified.json`，避免重複；支援 `match_id` 精準指定單場通知。
+  - `notify_upcoming()` 新增 `match_id` 選項，可單獨通知指定場次。
+
+### 新增
+- `predictions/kickoff_notified.json`：持久化已通知場次清單。
+
+---
+
+## [2.2.0] - 2026-06-19
+
+### 新增
+- **進階預測系統**：新增 engine/advanced_predictor.py，採用三視角模型（Vector_A 量化數據 40%、Vector_B 戰術相剋 35%、Vector_C 外部變數 25%）。
+- **預測研究快取**：新增 cache/prediction_research_cache.json，儲存 search 工具搜集的各隊真實資料。
+- **預測報告生成器**：新增 engine/generate_prediction_report.py，輸出 predictions/Advanced_Prediction_Report.md。
+- **並行資料搜集**：啟動 3 個 subagent 並行回填 B~L 組共 44 支球隊研究資料。
+
+### 變更
+- predictions/advanced_predictions.json 現包含 72 場小組賽預測與 32 強晉級名單。
+
+### 備註
+- 淘汰賽推演將在小組賽結果確認後繼續開發。
+
+---
+
+## [2.1.7] - 2026-06-18
+
+### 新增
+- **自動產生賽前預測**：新增 `engine/generate_predictions.py` 腳本，為所有 `status: scheduled` 且 `prediction: null` 的場次自動產生預測。
+  - 預測內容包含：主客隊比分預測、勝率機率（主勝/和局/客勝）、預測依據（FIFA 排名 + 累積向量）。
+  - 執行 `python engine/generate_predictions.py` 可批次產生預測。
+- **Telegram 開賣前 30 分鐘提醒**：`scheduler.py` 新增 `run_kickoff_notifier()` 背景執行緒，每分鐘檢查是否有比賽在 30 分鐘內開賽，自動發送提醒訊息。
+  - 提醒訊息包含：場次、對戰、時間、地點、預測勝隊與勝率。
+
+### 變更
+- **Schedule Section 預測欄位修正**：
+  - 未開賽場次現在會顯示「預測 [隊名] 勝 [勝率]%」，不再空白。
+  - 已結束場次顯示「✅ 命中」或「❌ 未命中」。
+- **Telegram 賽果推播內容優化**：
+  - 改為顯示「預測：[隊名] ✅ 命中 / ❌ 未命中 | 實際：[結果]」
+  - 不再顯示預測比分（因為比分預測準確度極低，勝隊預測較具參考價值）。
+
+### 備註
+- 預測產生後，前端 Schedule Section 的「預測」欄位已不再空白。
+- Telegram 推播需設定環境變數 `TELEGRAM_BOT_TOKEN` 與 `TELEGRAM_CHAT_ID`。
+
+---
+
+## [2.1.6] - 2026-06-18
+
+### 重大修正
+- **Next Match Card 邏輯改為「以場次為基礎的滑動視窗」**：
+  - 不再以日期定位，改以 `match_id` 順序滑動。
+  - **已結束比賽**：固定顯示以中心場次為基準，往前最多 4 場已結束比賽。
+  - **比賽中**：若存在進行中比賽，獨立顯示在「🔴 比賽中」區塊。
+  - **下一場比賽**：固定顯示中心場次往後最多 4 場尚未開賽的比賽。
+  - 中心場次判定優先順序：進行中比賽 > 下一場未賽比賽 > 最後一場已結束比賽。
+  - 隨著比賽結束，視窗會自動向前輪替。
+
+### 變更
+- `js/app.js` 新增 `FOCUS_WINDOW_SIZE = 4` 常數與輔助函式 `getMatchWindowCenter()`、`getMatchByOffset()`。
+- `renderMatchInfo()` 新增 `compact` 選項，讓多場次列表更緊湊。
+- `css/additions.css` 微調行距與新增比賽中區塊標題紅色樣式。
+- 更新 `dashboard/index.html` 前端版本號為 `v2.1.6`，最後更新時間為 **台北時間 2026-06-18 17:40**。
+
+---
+
+## [2.1.5] - 2026-06-18
+
+### 重大修正
+- **Next Match Card 邏輯重新設計**：
+  - 以「下一場未賽 / 進行中比賽」所在的日期定義為「今日」。
+  - **上半區「今日已結束比賽」**：列出該日所有 `status: finished` 的場次。
+  - **下半區「今日賽程（尚未開賽 / 比賽中）」**：列出該日所有未結束場次，進行中比賽顯示「● 比賽中」與即時比分。
+  - 隨著比賽進行，場次會自然從下半區移動到上半區。
+  - 當「今日」所有比賽結束後，自動推進到下一個有賽事的日期。
+  - 例：下一場未賽 #25 為 2026-06-19 00:00，則「今日」= 2026-06-19，目前因 #25 尚未開賽，上半區顯示 2026-06-18 的 #21~#24；待 #25 開始後「今日」切換為 2026-06-19，顯示 #25 狀態，#26~#28 列於下半區。
+
+### 變更
+- `renderMatchInfo()` 現在三態顯示：已結束（比分綠色）、比賽中（紅色閃爍 ● 比賽中 + 即時比分）、尚未開賽（灰色）。
+- 移除 `getPreviousDay()`，改為 `getTodayOfNextUpcoming()` 動態判定「今日」日期。
+- 更新 `dashboard/css/additions.css`：新增比賽中動畫與三態顏色區分。
+- 更新 `dashboard/index.html` 前端版本號為 `v2.1.5`，最後更新時間為 **台北時間 2026-06-18 16:40**。
+
+---
+
+## [2.1.4] - 2026-06-18
+
+### 修正
+- **Next Match Card 邏輯修正**：原「最後完成單場」改為顯示「次日的已結束比賽」。
+  - 以「下一場未賽比賽」的日期為基準，往前推一天，列出該日所有 `status: finished` 的場次。
+  - 例：下一場未賽為 #25（2026-06-19 00:00），則顯示 2026-06-18 的 #21、#22、#23、#24 四場已結束比賽。
+- 新增 `getPreviousDay()` 輔助函式，使用 Asia/Taipei 時區計算前一天日期。
+- 更新 `renderMatchInfo()` 為通用行內賽事資訊渲染，移除固定的 `last` / `next` 標籤，改由區塊標題區分。
+- 更新 `dashboard/css/additions.css` 樣式，使多場次日賽事以緊湊行內形式呈現。
+
+### 變更
+- 更新 `dashboard/index.html` 前端版本號為 `v2.1.4`，最後更新時間為 **台北時間 2026-06-18 15:35**。
+
+---
+
+## [2.1.3] - 2026-06-18
+
+### 新增
+- **Next Match Card 上方補上「最後完成比賽」資訊**：`js/app.js` 新增 `renderMatchInfo()` 通用渲染函式，`renderNextMatch()` 同時顯示最近一場已完成比賽與下一場未賽比賽。
+- **建立 v2.1.2 備份**：複製 `dashboard/` 至 `dashboard_v2.1.2_backup/`，保留 GUI 修改前的對照基準。
+
+### 修正
+- **修復 Stage Filter / Group Filter 篩選失效問題**：`js/app.js` 新增 `setupFilters()`，在 `loadData()` 初始化後為階段下拉、組別下拉、搜尋框綁定 `change` / `input` 事件，即時觸發 `renderMatches()`。
+
+### 變更
+- Next Match Card 標題由「下一場比賽」改為「賽事焦點」，以反映同時顯示「最後完成 + 下一場」的內容。
+- 更新 `dashboard/index.html` 前端版本號為 `v2.1.3`，最後更新時間為 **台北時間 2026-06-18 15:20**。
+- 新增 `dashboard/css/additions.css` 樣式，區分「最後完成」與「下一場」兩筆賽事資訊的視覺層級。
+
+### 備註
+- 篩選功能失效原因：v2.0.2 之後重構 `loadData()` 時遺漏了事件監聽器綁定，導致下拉選單變更不會重新渲染賽程表。
+
+---
+
+## [2.1.2] - 2026-06-18
+
+### 修正
+- 修復 `engine/server.py` 單執行緒導致 SSE 長連線阻塞資料載入的問題：改為 `socketserver.ThreadingTCPServer`。
+- 新增 `/api/status` 與 `/api/shutdown` 端點，支援遠端查看狀態與優雅關閉。
+- 新增 `start_dashboard.bat` 與 `stop_dashboard.bat`，雙擊即可開啟/關閉儀表板伺服器。
+- 更新 `start_all.bat` 為一鍵啟動伺服器 + 排程器。
+
+### 備註
+- 之前開啟網頁但資料載不進來，是因為 SSE 連線佔住伺服器執行緒；改用多執行緒後已解決。
+
+---
+
 ## [2.1.1] - 2026-06-17
 
 ### 修正

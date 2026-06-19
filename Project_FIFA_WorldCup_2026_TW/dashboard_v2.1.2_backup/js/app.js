@@ -20,18 +20,6 @@ function setupSSE() {
   }
 }
 
-function setupFilters() {
-  const stageFilter = document.getElementById('stage-filter');
-  const groupFilter = document.getElementById('group-filter');
-  const search = document.getElementById('search');
-
-  const render = () => renderMatches();
-
-  if (stageFilter) stageFilter.addEventListener('change', render);
-  if (groupFilter) groupFilter.addEventListener('change', render);
-  if (search) search.addEventListener('input', render);
-}
-
 async function loadData() {
   const [matchesRes, teamsRes] = await Promise.all([
     fetch('data/matches_104.json'),
@@ -47,7 +35,6 @@ async function loadData() {
   renderStandings();
   setupPredictionTabs();
   setupPredictionActions();
-  setupFilters();
 }
 
 function getTeam(name) {
@@ -89,124 +76,30 @@ function isMatchLive(m) {
   return now >= kickoff && now <= end && !isMatchFinished(m);
 }
 
-const FOCUS_WINDOW_SIZE = 4;
-
-function renderMatchInfo(m, options = {}) {
-  const home = getTeam(m.home_team);
-  const away = getTeam(m.away_team);
-  const finished = isMatchFinished(m);
-  const live = isMatchLive(m);
-  let score;
-  let statusClass = '';
-  if (finished) {
-    score = `<strong>${m.home_score} - ${m.away_score}</strong>`;
-    statusClass = 'finished';
-  } else if (live) {
-    score = `<strong class="live-score">${m.home_score ?? 0} - ${m.away_score ?? 0}</strong><span class="live-badge">● 比賽中</span>`;
-    statusClass = 'live';
-  } else {
-    score = `<span style="color:var(--muted)">尚未開賽</span>`;
-    statusClass = 'scheduled';
-  }
-
-  const compactClass = options.compact ? 'compact' : '';
-  return `
-    <div class="match-info-row ${statusClass} ${compactClass}">
-      <div class="match-info-meta"><strong>#${m.match_id} ${m.stage} ${m.group ? m.group + '組' : ''}</strong> · ${formatDateTime(m.date, m.time_taiwan)} · ${m.city}</div>
-      <div class="match-info-teams">
-        <span class="team-name">${getFlagHTML(home)}${m.home_team}</span>
-        <span class="match-info-score">${score}</span>
-        <span class="team-name">${getFlagHTML(away)}${m.away_team}</span>
-      </div>
-    </div>
-  `;
-}
-
-function getMatchWindowCenter() {
+function renderNextMatch() {
   const now = new Date();
-
-  // 比賽中場次：最優先作為視窗中心
-  const liveMatches = matches
-    .filter(m => isMatchLive(m))
-    .sort((a, b) => taiwanDateTime(a.date, a.time_taiwan) - taiwanDateTime(b.date, b.time_taiwan));
-  if (liveMatches.length) return { centerMatch: liveMatches[0], mode: 'live' };
-
-  // 下一場未賽比賽：作為視窗中心
   const upcoming = matches
     .filter(m => !isMatchFinished(m) && taiwanDateTime(m.date, m.time_taiwan) > now)
     .sort((a, b) => taiwanDateTime(a.date, a.time_taiwan) - taiwanDateTime(b.date, b.time_taiwan));
-  if (upcoming.length) return { centerMatch: upcoming[0], mode: 'upcoming' };
 
-  // 全部結束：以最後一場為中心
-  const lastFinished = matches
-    .filter(m => isMatchFinished(m))
-    .sort((a, b) => taiwanDateTime(b.date, b.time_taiwan) - taiwanDateTime(a.date, a.time_taiwan))[0];
-  if (lastFinished) return { centerMatch: lastFinished, mode: 'all-finished' };
-
-  return { centerMatch: null, mode: 'empty' };
-}
-
-function getMatchByOffset(centerId, offset) {
-  const idx = matches.findIndex(m => m.match_id === centerId);
-  if (idx === -1) return null;
-  const targetIdx = idx + offset;
-  if (targetIdx < 0 || targetIdx >= matches.length) return null;
-  return matches[targetIdx];
-}
-
-function renderNextMatch() {
   const container = document.getElementById('next-match');
-  const { centerMatch, mode } = getMatchWindowCenter();
-
-  if (!centerMatch) {
+  if (!upcoming.length) {
     container.innerHTML = '所有賽事已結束';
     return;
   }
-
-  const centerId = centerMatch.match_id;
-
-  // 已結束區塊：中心場次往前數 FOCUS_WINDOW_SIZE 場
-  const finishedHtmlRows = [];
-  for (let offset = -1; offset >= -FOCUS_WINDOW_SIZE; offset--) {
-    const m = getMatchByOffset(centerId, offset);
-    if (m && isMatchFinished(m)) {
-      finishedHtmlRows.unshift(renderMatchInfo(m, { compact: true }));
-    }
-  }
-
-  // 下一場區塊：中心場次往後數，跳過比賽中（因為比賽中單獨顯示）
-  const nextHtmlRows = [];
-  for (let offset = (mode === 'live' ? 1 : 0); offset < FOCUS_WINDOW_SIZE + (mode === 'live' ? 0 : 1); offset++) {
-    const m = getMatchByOffset(centerId, offset);
-    if (m) {
-      nextHtmlRows.push(renderMatchInfo(m, { compact: true }));
-    }
-  }
-
-  let html = '';
-
-  if (finishedHtmlRows.length) {
-    html += `<div class="match-info last">
-      <div class="match-info-section-title">📅 已結束比賽</div>
-      ${finishedHtmlRows.join('')}
-    </div>`;
-  }
-
-  if (mode === 'live') {
-    html += `<div class="match-info live">
-      <div class="match-info-section-title">🔴 比賽中</div>
-      ${renderMatchInfo(centerMatch)}
-    </div>`;
-  }
-
-  if (nextHtmlRows.length) {
-    html += `<div class="match-info next">
-      <div class="match-info-section-title">⏰ 下一場比賽</div>
-      ${nextHtmlRows.join('')}
-    </div>`;
-  }
-
-  container.innerHTML = html || '所有賽事已結束';
+  const m = upcoming[0];
+  const home = getTeam(m.home_team);
+  const away = getTeam(m.away_team);
+  container.innerHTML = `
+    <div><strong>#${m.match_id} ${m.stage} ${m.group ? m.group + '組' : ''}</strong></div>
+    <div style="font-size:1.4rem;margin:.5rem 0;">
+      <span class="team-name">${getFlagHTML(home)}${m.home_team}</span>
+      vs
+      <span class="team-name">${getFlagHTML(away)}${m.away_team}</span>
+    </div>
+    <div>${formatDateTime(m.date, m.time_taiwan)}</div>
+    <div style="color:var(--muted)">${m.city}</div>
+  `;
 }
 
 function setupPredictionTabs() {

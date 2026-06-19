@@ -1,0 +1,2427 @@
+{
+  "team:墨西哥": {
+    "team_name": "墨西哥",
+    "team_en": "Mexico",
+    "fifa_ranking": 15,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "co-host automatic qualification"
+      },
+      {
+        "tournament": "2024 Copa America",
+        "result": "group stage"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "group stage"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "balanced",
+      "formation": "4-3-3 / 4-4-2",
+      "strengths": [
+        "home advantage as co-host",
+        "experienced core (Ochoa, Alvarez, Lozano)",
+        "solid defensive midfield"
+      ],
+      "weaknesses": [
+        "transitional squad generation gap",
+        "over-reliance on veteran players",
+        "attack conversion inconsistency"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": true,
+      "climate_adaptation": 85,
+      "travel_burden": 30
+    },
+    "odds": {
+      "win": "40-1",
+      "group_advance": "75%"
+    },
+    "sources": [
+      "mundialanalytics.com",
+      "foxsports.com"
+    ],
+    "searched_at": "2026-06-19T00:06:36.958045"
+  },
+  "team:南非": {
+    "team_name": "南非",
+    "team_en": "South Africa",
+    "fifa_ranking": 60,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup qualification",
+        "result": "qualified (10 matches, 6 goals conceded)"
+      },
+      {
+        "tournament": "2023 Africa Cup of Nations",
+        "result": "semi-final"
+      },
+      {
+        "tournament": "2010 FIFA World Cup",
+        "result": "group stage"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "defensive",
+      "formation": "4-4-2 / 4-2-3-1",
+      "strengths": [
+        "well-organized defense",
+        "low block discipline",
+        "domestic core chemistry (Mamelodi Sundowns players)",
+        "quick transitions"
+      ],
+      "weaknesses": [
+        "lack of elite finishing",
+        "average only 1.7 goals per qualifier",
+        "limited attacking creativity"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 50,
+      "travel_burden": 75
+    },
+    "odds": {
+      "win": "300-1",
+      "group_advance": "25%"
+    },
+    "sources": [
+      "theanalyst.com",
+      "worldsoccertalk.com"
+    ],
+    "searched_at": "2026-06-19T00:06:36.958045"
+  },
+  "team:南韓": {
+    "team_name": "南韓",
+    "team_en": "South Korea",
+    "fifa_ranking": 23,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup qualification",
+        "result": "unbeaten but many draws"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "round of 16"
+      },
+      {
+        "tournament": "2023 AFC Asian Cup",
+        "result": "semi-final"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "balanced",
+      "formation": "3-4-2-1 / 4-2-3-1",
+      "strengths": [
+        "tactical flexibility",
+        "star players (Son Heung-min, Lee Kang-in, Kim Min-jae)",
+        "World Cup experience"
+      ],
+      "weaknesses": [
+        "over-dependency on star players",
+        "too many draws in qualifying",
+        "coach under pressure"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 55,
+      "travel_burden": 70
+    },
+    "odds": {
+      "win": "80-1",
+      "group_advance": "55%"
+    },
+    "sources": [
+      "theanalyst.com",
+      "bbc.com"
+    ],
+    "searched_at": "2026-06-19T00:06:36.958045"
+  },
+  "team:捷克": {
+    "team_name": "捷克",
+    "team_en": "Czechia",
+    "fifa_ranking": 36,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup qualification",
+        "result": "UEFA Group L 2nd, playoff wins vs Ireland and Denmark (penalties)"
+      },
+      {
+        "tournament": "2024 UEFA Euro",
+        "result": "group stage"
+      },
+      {
+        "tournament": "2006 FIFA World Cup",
+        "result": "group stage"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "balanced",
+      "formation": "3-4-2-1",
+      "strengths": [
+        "pragmatic system",
+        "tournament experience",
+        "set-piece threat (Schick, Krejci)",
+        "penalty shootout resilience"
+      ],
+      "weaknesses": [
+        "aged coach (74-year-old Koubek)",
+        "20-year World Cup absence",
+        "struggled in Euro 2024 group"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 50,
+      "travel_burden": 60
+    },
+    "odds": {
+      "win": "150-1",
+      "group_advance": "35%"
+    },
+    "sources": [
+      "goal.com",
+      "uefa.com",
+      "fifa.com"
+    ],
+    "searched_at": "2026-06-19T00:06:36.958045"
+  },
+  "team:加拿大": {
+    "team_name": "加拿大",
+    "team_en": "Canada",
+    "fifa_ranking": 31,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "co-host automatic qualification"
+      },
+      {
+        "tournament": "2024 Copa America",
+        "result": "semi-final"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "group stage"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "high pressing",
+      "formation": "4-2-3-1",
+      "strengths": [
+        "Alphonso Davies world-class left back",
+        "Jonathan David clinical finisher",
+        "Jesse Marsch pressing system",
+        "host nation advantage"
+      ],
+      "weaknesses": [
+        "defensive vulnerability",
+        "inexperienced at World Cup level",
+        "midfield creativity limited"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": true,
+      "climate_adaptation": 80,
+      "travel_burden": 20
+    },
+    "odds": {
+      "win": "60-1",
+      "group_advance": "65%"
+    },
+    "sources": [
+      "tsn.ca",
+      "wtksports.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:波赫": {
+    "team_name": "波赫",
+    "team_en": "Bosnia and Herzegovina",
+    "fifa_ranking": 74,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup qualification",
+        "result": "UEFA playoff qualification"
+      },
+      {
+        "tournament": "2014 FIFA World Cup",
+        "result": "group stage"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "defensive",
+      "formation": "3-5-2 / 5-3-2",
+      "strengths": [
+        "Edin Dzeko veteran striker",
+        "organized defensive block",
+        "set-piece threat"
+      ],
+      "weaknesses": [
+        "aging squad",
+        "limited youth development",
+        "struggle to score against top teams"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 45,
+      "travel_burden": 65
+    },
+    "odds": {
+      "win": "500-1",
+      "group_advance": "15%"
+    },
+    "sources": [
+      "bbc.com",
+      "espn.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:美國": {
+    "team_name": "美國",
+    "team_en": "United States",
+    "fifa_ranking": 11,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "co-host automatic qualification"
+      },
+      {
+        "tournament": "2024 Copa America",
+        "result": "group stage"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "round of 16"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "balanced",
+      "formation": "4-3-3",
+      "strengths": [
+        "Christian Pulisic world-class winger",
+        "Giovanni Reyna creative midfielder",
+        "host nation advantage",
+        "strong goalkeeping depth"
+      ],
+      "weaknesses": [
+        "defensive inconsistency",
+        "striker position unresolved",
+        "Copa America 2024 disappointment"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": true,
+      "climate_adaptation": 85,
+      "travel_burden": 15
+    },
+    "odds": {
+      "win": "35-1",
+      "group_advance": "70%"
+    },
+    "sources": [
+      "espn.com",
+      "fifa.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:巴拉圭": {
+    "team_name": "巴拉圭",
+    "team_en": "Paraguay",
+    "fifa_ranking": 53,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CONMEBOL"
+      },
+      {
+        "tournament": "2024 Copa America",
+        "result": "quarter-final"
+      },
+      {
+        "tournament": "2010 FIFA World Cup",
+        "result": "quarter-final"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "defensive",
+      "formation": "4-4-2 / 4-1-4-1",
+      "strengths": [
+        "resilient defensive organization",
+        "youth talent emerging",
+        "Julio Enciso attacking threat"
+      ],
+      "weaknesses": [
+        "first World Cup since 2010",
+        "limited goal scoring",
+        "coach changed after Copa America"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 60,
+      "travel_burden": 55
+    },
+    "odds": {
+      "win": "200-1",
+      "group_advance": "30%"
+    },
+    "sources": [
+      "bbc.com",
+      "fifa.com",
+      "espn.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:卡達": {
+    "team_name": "卡達",
+    "team_en": "Qatar",
+    "fifa_ranking": 58,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup qualification",
+        "result": "AFC qualification"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "group stage (hosts)"
+      },
+      {
+        "tournament": "2023 AFC Asian Cup",
+        "result": "group stage"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "possession-based",
+      "formation": "5-3-2 / 3-5-2",
+      "strengths": [
+        "Akram Afif key attacker",
+        "Almoez Ali striker",
+        "domestic league experience"
+      ],
+      "weaknesses": [
+        "World Cup 2022 poor performance",
+        "defensive vulnerabilities",
+        "limited international experience"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 70,
+      "travel_burden": 75
+    },
+    "odds": {
+      "win": "400-1",
+      "group_advance": "20%"
+    },
+    "sources": [
+      "bbc.com",
+      "fifa.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:瑞士": {
+    "team_name": "瑞士",
+    "team_en": "Switzerland",
+    "fifa_ranking": 19,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via UEFA"
+      },
+      {
+        "tournament": "2024 UEFA Euro",
+        "result": "quarter-final"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "round of 16"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "organized",
+      "formation": "3-4-3 / 4-2-3-1",
+      "strengths": [
+        "Murat Yakin organized system",
+        "Granit Xhaka midfield control",
+        "defensive solidity"
+      ],
+      "weaknesses": [
+        "Shaqiri retired, generation changing",
+        "lack of world-class striker",
+        "transition to new generation"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 55,
+      "travel_burden": 60
+    },
+    "odds": {
+      "win": "100-1",
+      "group_advance": "50%"
+    },
+    "sources": [
+      "bbc.com",
+      "tacticalfootballanalysis.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:巴西": {
+    "team_name": "巴西",
+    "team_en": "Brazil",
+    "fifa_ranking": 5,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CONMEBOL"
+      },
+      {
+        "tournament": "2024 Copa America",
+        "result": "quarter-final"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "quarter-final"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "attacking",
+      "formation": "4-3-3 / 4-2-3-1",
+      "strengths": [
+        "Vinicius Jr world-class winger",
+        "Rodrygo attacking threat",
+        "individual talent depth",
+        "historical World Cup success"
+      ],
+      "weaknesses": [
+        "Dorival Junior sacked, new coach",
+        "defensive organization",
+        "team cohesion issues",
+        "Neymar injuries"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 70,
+      "travel_burden": 50
+    },
+    "odds": {
+      "win": "6-1",
+      "group_advance": "85%"
+    },
+    "sources": [
+      "fifa.com",
+      "espn.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:摩洛哥": {
+    "team_name": "摩洛哥",
+    "team_en": "Morocco",
+    "fifa_ranking": 13,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CAF"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "fourth place (historic)"
+      },
+      {
+        "tournament": "2023 Africa Cup of Nations",
+        "result": "round of 16"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "organized defensive",
+      "formation": "4-1-4-1 / 4-3-3",
+      "strengths": [
+        "Walid Regragui tactical system",
+        "Achraf Hakimi elite right back",
+        "Sofyan Amrabat midfield",
+        "2022 World Cup semifinal experience"
+      ],
+      "weaknesses": [
+        "over-dependence on key players",
+        "striker conversion rate",
+        "Ziyech availability questions"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 60,
+      "travel_burden": 60
+    },
+    "odds": {
+      "win": "30-1",
+      "group_advance": "70%"
+    },
+    "sources": [
+      "bbc.com",
+      "skysports.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:海地": {
+    "team_name": "海地",
+    "team_en": "Haiti",
+    "fifa_ranking": 85,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CONCACAF"
+      },
+      {
+        "tournament": "2024 Copa America",
+        "result": "did not qualify"
+      },
+      {
+        "tournament": "1974 FIFA World Cup",
+        "result": "group stage (only appearance)"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "counter-attacking",
+      "formation": "4-4-2",
+      "strengths": [
+        "first World Cup in 52 years",
+        "Melchie Dumornay (if available)",
+        "organized defensive structure"
+      ],
+      "weaknesses": [
+        "limited international experience",
+        "squad depth concerns",
+        "offensive firepower limited"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 65,
+      "travel_burden": 40
+    },
+    "odds": {
+      "win": "500-1",
+      "group_advance": "10%"
+    },
+    "sources": [
+      "footlab-data.com",
+      "worldsoccertalk.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:蘇格蘭": {
+    "team_name": "蘇格蘭",
+    "team_en": "Scotland",
+    "fifa_ranking": 44,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via UEFA"
+      },
+      {
+        "tournament": "2024 UEFA Euro",
+        "result": "group stage"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "defensive",
+      "formation": "3-5-2 / 5-3-2",
+      "strengths": [
+        "Andy Robertson elite left back",
+        "Scott McTominay goal threat",
+        "organized defensive block",
+        "set-piece threat"
+      ],
+      "weaknesses": [
+        "struggled at Euro 2024",
+        "limited attacking options",
+        "defensive injuries concerns"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 50,
+      "travel_burden": 65
+    },
+    "odds": {
+      "win": "200-1",
+      "group_advance": "30%"
+    },
+    "sources": [
+      "bbc.com",
+      "espn.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:澳洲": {
+    "team_name": "澳洲",
+    "team_en": "Australia",
+    "fifa_ranking": 24,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via AFC"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "round of 16"
+      },
+      {
+        "tournament": "2024 AFC Asian Cup",
+        "result": "quarter-final"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "physical direct",
+      "formation": "4-2-3-1 / 4-4-2",
+      "strengths": [
+        "Tony Popovic defensive organization",
+        "Mathew Ryan goalkeeper",
+        "physical aerial presence",
+        "2022 World Cup success"
+      ],
+      "weaknesses": [
+        "Graham Arnold departed",
+        "aging squad core",
+        "creative midfield limited"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 60,
+      "travel_burden": 80
+    },
+    "odds": {
+      "win": "150-1",
+      "group_advance": "35%"
+    },
+    "sources": [
+      "espn.com",
+      "abc.net.au"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:土耳其": {
+    "team_name": "土耳其",
+    "team_en": "Türkiye",
+    "fifa_ranking": 28,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via UEFA"
+      },
+      {
+        "tournament": "2024 UEFA Euro",
+        "result": "quarter-final"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "attacking",
+      "formation": "4-2-3-1",
+      "strengths": [
+        "Vincenzo Montella system",
+        "Arda Guler young talent",
+        "energetic pressing",
+        "Euro 2024 surprise"
+      ],
+      "weaknesses": [
+        "defensive inconsistency",
+        "tournament experience limited",
+        "reliance on young players"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 55,
+      "travel_burden": 65
+    },
+    "odds": {
+      "win": "120-1",
+      "group_advance": "40%"
+    },
+    "sources": [
+      "bbc.com",
+      "espn.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:德國": {
+    "team_name": "德國",
+    "team_en": "Germany",
+    "fifa_ranking": 10,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via UEFA"
+      },
+      {
+        "tournament": "2024 UEFA Euro",
+        "result": "quarter-final"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "group stage"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "attacking possession",
+      "formation": "4-2-3-1",
+      "strengths": [
+        "Julian Nagelsmann tactics",
+        "Wirtz-Musiala elite attacking duo",
+        "Joshua Kimmich captain",
+        "tournament pedigree (4 titles)"
+      ],
+      "weaknesses": [
+        "goalkeeper question (Neuer age 40)",
+        "defensive midfield vulnerability",
+        "striker position unresolved"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 55,
+      "travel_burden": 60
+    },
+    "odds": {
+      "win": "8-1",
+      "group_advance": "80%"
+    },
+    "sources": [
+      "wtksports.com",
+      "getfootballnewsgermany.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:庫拉索": {
+    "team_name": "庫拉索",
+    "team_en": "Curacao",
+    "fifa_ranking": 79,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "first ever qualification"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "defensive organized",
+      "formation": "5-3-2 / 4-4-2",
+      "strengths": [
+        "Dick Advocaat experienced coach",
+        "smallest nation ever to qualify",
+        "Dutch-influenced football",
+        "defensive discipline"
+      ],
+      "weaknesses": [
+        "first World Cup appearance",
+        "limited player depth",
+        "small population base"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 70,
+      "travel_burden": 45
+    },
+    "odds": {
+      "win": "800-1",
+      "group_advance": "5%"
+    },
+    "sources": [
+      "bbc.com",
+      "theanalyst.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:荷蘭": {
+    "team_name": "荷蘭",
+    "team_en": "Netherlands",
+    "fifa_ranking": 7,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via UEFA"
+      },
+      {
+        "tournament": "2024 UEFA Euro",
+        "result": "semi-final"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "quarter-final"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "balanced possession",
+      "formation": "4-3-3 / 4-2-3-1",
+      "strengths": [
+        "Ronald Koeman experienced coach",
+        "Virgil van Dijk elite defender",
+        "Frenkie de Jong midfield control",
+        "Cody Gakpo attacking threat"
+      ],
+      "weaknesses": [
+        "striker position questions",
+        "de Jong injury concerns",
+        "full-back vulnerabilities"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 55,
+      "travel_burden": 60
+    },
+    "odds": {
+      "win": "12-1",
+      "group_advance": "75%"
+    },
+    "sources": [
+      "wtksports.com",
+      "bbc.com",
+      "theanalyst.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:日本": {
+    "team_name": "日本",
+    "team_en": "Japan",
+    "fifa_ranking": 18,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via AFC"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "round of 16"
+      },
+      {
+        "tournament": "2024 AFC Asian Cup",
+        "result": "quarter-final"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "technical possession",
+      "formation": "4-3-3 / 4-2-3-1",
+      "strengths": [
+        "Hajime Moriyasu tactical flexibility",
+        "Takefusa Kubo creative playmaker",
+        "strong European-based squad",
+        "2022 giant-killing experience"
+      ],
+      "weaknesses": [
+        "striker depth concerns",
+        "quarter-final barrier historical",
+        "defensive set-piece vulnerability"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 50,
+      "travel_burden": 70
+    },
+    "odds": {
+      "win": "50-1",
+      "group_advance": "55%"
+    },
+    "sources": [
+      "theanalyst.com",
+      "fifawatch.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:象牙海岸": {
+    "team_name": "象牙海岸",
+    "team_en": "Ivory Coast",
+    "fifa_ranking": 50,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CAF"
+      },
+      {
+        "tournament": "2023 Africa Cup of Nations",
+        "result": "champions (hosts)"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "attacking",
+      "formation": "4-3-3",
+      "strengths": [
+        "Emerse Fae AFCON-winning coach",
+        "Sebastien Haller striker",
+        "Franck Kessie midfield",
+        "AFCON 2023 momentum"
+      ],
+      "weaknesses": [
+        "defensive organization",
+        "ageing squad core",
+        "World Cup experience limited"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 50,
+      "travel_burden": 75
+    },
+    "odds": {
+      "win": "100-1",
+      "group_advance": "40%"
+    },
+    "sources": [
+      "cafonline.com",
+      "bbc.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:厄瓜多": {
+    "team_name": "厄瓜多",
+    "team_en": "Ecuador",
+    "fifa_ranking": 24,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CONMEBOL"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "group stage"
+      },
+      {
+        "tournament": "2024 Copa America",
+        "result": "quarter-final"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "organized defensive",
+      "formation": "4-3-3 / 4-4-2",
+      "strengths": [
+        "Sebastian Beccacece tactical system",
+        "Piero Hincapie defender",
+        "Kendry Paez young talent",
+        "defensive solidity in qualifiers"
+      ],
+      "weaknesses": [
+        "Enner Valencia aging",
+        "limited goal scoring options",
+        "experience at top level limited"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 70,
+      "travel_burden": 50
+    },
+    "odds": {
+      "win": "80-1",
+      "group_advance": "45%"
+    },
+    "sources": [
+      "bbc.com",
+      "theanalyst.com",
+      "footlab-data.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:瑞典": {
+    "team_name": "瑞典",
+    "team_en": "Sweden",
+    "fifa_ranking": 27,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via UEFA"
+      },
+      {
+        "tournament": "2021 UEFA Euro",
+        "result": "round of 16"
+      },
+      {
+        "tournament": "2018 FIFA World Cup",
+        "result": "quarter-final"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "physical direct",
+      "formation": "4-4-2 / 3-5-2",
+      "strengths": [
+        "organized defensive structure",
+        "set-piece threat",
+        "physical aerial presence",
+        "Jon Dahl Tomasson coach"
+      ],
+      "weaknesses": [
+        "Ibrahimovic retired",
+        "Isak injury prone",
+        "creative midfield limited"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 45,
+      "travel_burden": 65
+    },
+    "odds": {
+      "win": "150-1",
+      "group_advance": "35%"
+    },
+    "sources": [
+      "bbc.com",
+      "espn.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:突尼西亞": {
+    "team_name": "突尼西亞",
+    "team_en": "Tunisia",
+    "fifa_ranking": 41,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CAF"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "group stage"
+      },
+      {
+        "tournament": "2023 Africa Cup of Nations",
+        "result": "group stage"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "defensive organized",
+      "formation": "4-2-3-1 / 4-3-3",
+      "strengths": [
+        "Sami Trabelsi organized system",
+        "Ellyes Skhiri midfield",
+        "defensive discipline",
+        "first team to qualify without conceding"
+      ],
+      "weaknesses": [
+        "limited attacking firepower",
+        "coach changed late",
+        "knockout round experience limited"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 55,
+      "travel_burden": 70
+    },
+    "odds": {
+      "win": "250-1",
+      "group_advance": "25%"
+    },
+    "sources": [
+      "bbc.com",
+      "mundialanalytics.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:西班牙": {
+    "team_name": "西班牙",
+    "team_en": "Spain",
+    "fifa_ranking": 1,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via UEFA"
+      },
+      {
+        "tournament": "2024 UEFA Euro",
+        "result": "champions"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "round of 16"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "possession tiki-taka",
+      "formation": "4-3-3 / 4-2-3-1",
+      "strengths": [
+        "Luis de la Fuente Euro-winning coach",
+        "Lamine Yamal teenage superstar",
+        "Nico Williams winger",
+        "Rodri best midfielder in world",
+        "Euro 2024 champions momentum"
+      ],
+      "weaknesses": [
+        "striker position questions",
+        "defensive line pace",
+        "over-reliance on possession"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 50,
+      "travel_burden": 60
+    },
+    "odds": {
+      "win": "4-1",
+      "group_advance": "90%"
+    },
+    "sources": [
+      "espn.com",
+      "bbc.com",
+      "fifa.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:維德角": {
+    "team_name": "維德角",
+    "team_en": "Cape Verde",
+    "fifa_ranking": 65,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "first ever qualification"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "organized counter",
+      "formation": "4-4-2 / 4-1-4-1",
+      "strengths": [
+        "Bubista former captain coach",
+        "first ever World Cup qualification",
+        "defensive organization",
+        "Vozinha experienced goalkeeper"
+      ],
+      "weaknesses": [
+        "first World Cup appearance",
+        "limited squad depth",
+        "attacking firepower limited"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 60,
+      "travel_burden": 70
+    },
+    "odds": {
+      "win": "500-1",
+      "group_advance": "10%"
+    },
+    "sources": [
+      "bbc.com",
+      "footlab-data.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:比利時": {
+    "team_name": "比利時",
+    "team_en": "Belgium",
+    "fifa_ranking": 8,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via UEFA"
+      },
+      {
+        "tournament": "2024 UEFA Euro",
+        "result": "round of 16"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "group stage"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "attacking possession",
+      "formation": "4-2-3-1 / 3-4-3",
+      "strengths": [
+        "Domenico Tedesco tactical system",
+        "Kevin De Bruyne world-class midfielder",
+        "Romelu Lukaku goal scorer",
+        "Thibaut Courtois goalkeeper"
+      ],
+      "weaknesses": [
+        "golden generation ageing",
+        "Hazard retired",
+        "defensive transition",
+        "Euro 2024 disappointment"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 55,
+      "travel_burden": 60
+    },
+    "odds": {
+      "win": "18-1",
+      "group_advance": "70%"
+    },
+    "sources": [
+      "bbc.com",
+      "wtksports.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:埃及": {
+    "team_name": "埃及",
+    "team_en": "Egypt",
+    "fifa_ranking": 36,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CAF"
+      },
+      {
+        "tournament": "2021 Africa Cup of Nations",
+        "result": "runners-up"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "did not qualify"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "organized defensive",
+      "formation": "4-3-3 / 4-2-3-1",
+      "strengths": [
+        "Hossam Hassan experienced coach",
+        "Mohamed Salah world-class forward",
+        "organized defensive structure",
+        "AFCON pedigree"
+      ],
+      "weaknesses": [
+        "over-dependence on Salah",
+        "creative midfield limited",
+        "striker support for Salah"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 60,
+      "travel_burden": 70
+    },
+    "odds": {
+      "win": "80-1",
+      "group_advance": "45%"
+    },
+    "sources": [
+      "bbc.com",
+      "ahram.org.eg"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:烏拉圭": {
+    "team_name": "烏拉圭",
+    "team_en": "Uruguay",
+    "fifa_ranking": 14,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CONMEBOL"
+      },
+      {
+        "tournament": "2024 Copa America",
+        "result": "third place"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "group stage"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "high intensity pressing",
+      "formation": "4-3-3 / 4-2-3-1",
+      "strengths": [
+        "Marcelo Bielsa legendary coach",
+        "Federico Valverde elite midfielder",
+        "Darwin Nunez striker",
+        "aggressive pressing system"
+      ],
+      "weaknesses": [
+        "Suarez retired, Cavani retired",
+        "defensive organization",
+        "Bielsa high-risk style"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 60,
+      "travel_burden": 55
+    },
+    "odds": {
+      "win": "25-1",
+      "group_advance": "65%"
+    },
+    "sources": [
+      "bbc.com",
+      "worldsoccertalk.com",
+      "tacticalfootballanalysis.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:沙烏地阿拉伯": {
+    "team_name": "沙烏地阿拉伯",
+    "team_en": "Saudi Arabia",
+    "fifa_ranking": 59,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via AFC"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "group stage (beat Argentina)"
+      },
+      {
+        "tournament": "2023 AFC Asian Cup",
+        "result": "round of 16"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "organized counter",
+      "formation": "4-2-3-1 / 4-3-3",
+      "strengths": [
+        "Herve Renard returning coach",
+        "Salem Al-Dawsari key attacker",
+        "2022 Argentina upset experience",
+        "domestic league development"
+      ],
+      "weaknesses": [
+        "defensive inconsistency",
+        "qualifying struggles",
+        "limited world-class talent"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 80,
+      "travel_burden": 70
+    },
+    "odds": {
+      "win": "300-1",
+      "group_advance": "25%"
+    },
+    "sources": [
+      "fifa.com",
+      "thenationalnews.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:紐西蘭": {
+    "team_name": "紐西蘭",
+    "team_en": "New Zealand",
+    "fifa_ranking": 94,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via OFC"
+      },
+      {
+        "tournament": "2010 FIFA World Cup",
+        "result": "group stage (unbeaten)"
+      },
+      {
+        "tournament": "2024 OFC Nations Cup",
+        "result": "champions"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "organized defensive",
+      "formation": "4-4-2 / 5-3-2",
+      "strengths": [
+        "Darren Bazeley coach",
+        "Chris Wood Premier League striker",
+        "OFC dominance",
+        "defensive organization"
+      ],
+      "weaknesses": [
+        "lowest ranked in tournament",
+        "limited world-class players",
+        "attacking creativity limited"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 50,
+      "travel_burden": 85
+    },
+    "odds": {
+      "win": "500-1",
+      "group_advance": "10%"
+    },
+    "sources": [
+      "mundialanalytics.com",
+      "footlab-data.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:伊朗": {
+    "team_name": "伊朗",
+    "team_en": "Iran",
+    "fifa_ranking": 20,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via AFC"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "group stage"
+      },
+      {
+        "tournament": "2023 AFC Asian Cup",
+        "result": "semi-final"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "organized defensive",
+      "formation": "4-2-3-1 / 4-4-2",
+      "strengths": [
+        "Amir Ghalenoei experienced coach",
+        "Sardar Azmoun striker",
+        "Mehdi Taremi attacker",
+        "defensive organization"
+      ],
+      "weaknesses": [
+        "never passed group stage",
+        "political distractions",
+        "creative midfield limited"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 65,
+      "travel_burden": 75
+    },
+    "odds": {
+      "win": "150-1",
+      "group_advance": "35%"
+    },
+    "sources": [
+      "tehrantimes.com",
+      "footlab-data.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:法國": {
+    "team_name": "法國",
+    "team_en": "France",
+    "fifa_ranking": 2,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via UEFA"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "runners-up"
+      },
+      {
+        "tournament": "2024 UEFA Euro",
+        "result": "semi-final"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "balanced attacking",
+      "formation": "4-2-3-1 / 4-3-3",
+      "strengths": [
+        "Didier Deschamps experienced coach",
+        "Kylian Mbappe world-class forward",
+        "Antoine Griezmann creative",
+        "depth of talent",
+        "2022 finalists experience"
+      ],
+      "weaknesses": [
+        "defensive midfield questions",
+        "full-back depth",
+        "striker depth beyond Mbappe"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 55,
+      "travel_burden": 60
+    },
+    "odds": {
+      "win": "5-1",
+      "group_advance": "90%"
+    },
+    "sources": [
+      "bbc.com",
+      "theanalyst.com",
+      "tacticalfootballanalysis.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:塞內加爾": {
+    "team_name": "塞內加爾",
+    "team_en": "Senegal",
+    "fifa_ranking": 17,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CAF"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "round of 16"
+      },
+      {
+        "tournament": "2021 Africa Cup of Nations",
+        "result": "champions"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "balanced",
+      "formation": "4-3-3 / 4-2-3-1",
+      "strengths": [
+        "new coach after Aliou Cisse",
+        "Sadio Mane experienced forward",
+        "Ismaila Sarr winger",
+        "Kalidou Koulibaly defender"
+      ],
+      "weaknesses": [
+        "Cisse departure uncertainty",
+        "AFCON 2025 struggles",
+        "cohesion under new coach"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 55,
+      "travel_burden": 70
+    },
+    "odds": {
+      "win": "50-1",
+      "group_advance": "55%"
+    },
+    "sources": [
+      "bbc.com",
+      "pulsesports.ng"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:伊拉克": {
+    "team_name": "伊拉克",
+    "team_en": "Iraq",
+    "fifa_ranking": 55,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via AFC"
+      },
+      {
+        "tournament": "1986 FIFA World Cup",
+        "result": "group stage (only appearance)"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "organized",
+      "formation": "4-2-3-1",
+      "strengths": [
+        "Graham Arnold experienced coach",
+        "Aymen Hussein striker",
+        "Ali Al Hamadi forward",
+        "21-game qualifying campaign"
+      ],
+      "weaknesses": [
+        "40-year World Cup absence",
+        "limited experience",
+        "group stage very difficult"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 65,
+      "travel_burden": 75
+    },
+    "odds": {
+      "win": "400-1",
+      "group_advance": "15%"
+    },
+    "sources": [
+      "bbc.com",
+      "thenationalnews.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:挪威": {
+    "team_name": "挪威",
+    "team_en": "Norway",
+    "fifa_ranking": 43,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via UEFA"
+      },
+      {
+        "tournament": "1998 FIFA World Cup",
+        "result": "round of 16 (last appearance)"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "attacking",
+      "formation": "4-3-3 / 4-2-3-1",
+      "strengths": [
+        "Stale Solbakken coach",
+        "Erling Haaland best striker in world",
+        "Martin Odegaard creative midfielder",
+        "37 goals in qualifying"
+      ],
+      "weaknesses": [
+        "28-year World Cup absence",
+        "over-dependence on Haaland/Odegaard",
+        "defensive organization"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 45,
+      "travel_burden": 65
+    },
+    "odds": {
+      "win": "60-1",
+      "group_advance": "50%"
+    },
+    "sources": [
+      "bbc.com",
+      "theanalyst.com",
+      "tacticalfootballanalysis.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:阿根廷": {
+    "team_name": "阿根廷",
+    "team_en": "Argentina",
+    "fifa_ranking": 1,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CONMEBOL"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "champions"
+      },
+      {
+        "tournament": "2024 Copa America",
+        "result": "champions"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "attacking possession",
+      "formation": "4-3-3 / 4-4-2",
+      "strengths": [
+        "Lionel Scaloni coach",
+        "Lionel Messi GOAT final tournament",
+        "Julian Alvarez striker",
+        "Enzo Fernandez midfielder",
+        "defending champions"
+      ],
+      "weaknesses": [
+        "Messi age (39) and fitness",
+        "Di Maria retired",
+        "transition after Messi era"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 60,
+      "travel_burden": 50
+    },
+    "odds": {
+      "win": "3-1",
+      "group_advance": "95%"
+    },
+    "sources": [
+      "marca.com",
+      "fifa.com",
+      "bbc.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:阿爾及利亞": {
+    "team_name": "阿爾及利亞",
+    "team_en": "Algeria",
+    "fifa_ranking": 57,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CAF"
+      },
+      {
+        "tournament": "2014 FIFA World Cup",
+        "result": "round of 16"
+      },
+      {
+        "tournament": "2021 Africa Cup of Nations",
+        "result": "group stage"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "balanced",
+      "formation": "4-2-3-1 / 4-3-3",
+      "strengths": [
+        "Vladimir Petkovic experienced coach",
+        "Riyad Mahrez attacker",
+        "mid-block defensive system",
+        "2014 round of 16 experience"
+      ],
+      "weaknesses": [
+        "12-year World Cup absence",
+        "ageing squad",
+        "Group J with Argentina very difficult"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 55,
+      "travel_burden": 70
+    },
+    "odds": {
+      "win": "200-1",
+      "group_advance": "20%"
+    },
+    "sources": [
+      "bbc.com",
+      "tacticalfootballanalysis.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:奧地利": {
+    "team_name": "奧地利",
+    "team_en": "Austria",
+    "fifa_ranking": 22,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via UEFA"
+      },
+      {
+        "tournament": "2024 UEFA Euro",
+        "result": "round of 16"
+      },
+      {
+        "tournament": "1998 FIFA World Cup",
+        "result": "group stage (last appearance)"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "high pressing",
+      "formation": "4-2-3-1 / 4-3-3",
+      "strengths": [
+        "Ralf Rangnick 'Professor' coach",
+        "intense gegenpressing system",
+        "Marcel Sabitzer midfielder",
+        "Euro 2024 impressive"
+      ],
+      "weaknesses": [
+        "28-year World Cup absence",
+        "striker depth concerns",
+        "knockout round experience"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 50,
+      "travel_burden": 60
+    },
+    "odds": {
+      "win": "60-1",
+      "group_advance": "55%"
+    },
+    "sources": [
+      "bbc.com",
+      "si.com",
+      "tacticalfootballanalysis.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:約旦": {
+    "team_name": "約旦",
+    "team_en": "Jordan",
+    "fifa_ranking": 62,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "first ever qualification"
+      },
+      {
+        "tournament": "2024 AFC Asian Cup",
+        "result": "runners-up"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "organized defensive",
+      "formation": "4-4-2 / 5-3-2",
+      "strengths": [
+        "Hussein Ammouta organized coach",
+        "Mousa Al-Tamari key attacker",
+        "Asian Cup 2024 runners-up",
+        "defensive discipline"
+      ],
+      "weaknesses": [
+        "first World Cup appearance",
+        "Group J with Argentina very difficult",
+        "limited world-class players"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 65,
+      "travel_burden": 70
+    },
+    "odds": {
+      "win": "400-1",
+      "group_advance": "10%"
+    },
+    "sources": [
+      "bbc.com",
+      "mundialanalytics.com",
+      "jordantimes.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:葡萄牙": {
+    "team_name": "葡萄牙",
+    "team_en": "Portugal",
+    "fifa_ranking": 6,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via UEFA"
+      },
+      {
+        "tournament": "2024 UEFA Euro",
+        "result": "quarter-final"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "quarter-final"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "attacking possession",
+      "formation": "4-2-3-1 / 4-3-3",
+      "strengths": [
+        "Roberto Martinez coach",
+        "Cristiano Ronaldo (41) record scorer",
+        "Bruno Fernandes midfielder",
+        "Rafael Leao winger",
+        "Ronaldo final tournament"
+      ],
+      "weaknesses": [
+        "over-dependence on Ronaldo",
+        "striker questions beyond Ronaldo",
+        "knockout round consistency"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 55,
+      "travel_burden": 60
+    },
+    "odds": {
+      "win": "12-1",
+      "group_advance": "80%"
+    },
+    "sources": [
+      "wtksports.com",
+      "sportstar.thehindu.com",
+      "sofascore.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:剛果民主共和國": {
+    "team_name": "剛果民主共和國",
+    "team_en": "DR Congo",
+    "fifa_ranking": 63,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CAF"
+      },
+      {
+        "tournament": "2023 Africa Cup of Nations",
+        "result": "semi-final"
+      },
+      {
+        "tournament": "2019 Africa Cup of Nations",
+        "result": "fourth place"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "organized defensive",
+      "formation": "4-3-3 / 4-2-3-1",
+      "strengths": [
+        "Sebastien Desabre French coach",
+        "ironclad defense AFCON 2023",
+        "dual nationals strength",
+        "organized counter-attacking"
+      ],
+      "weaknesses": [
+        "first World Cup since 1974",
+        "limited world-class stars",
+        "attacking firepower concerns"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 55,
+      "travel_burden": 75
+    },
+    "odds": {
+      "win": "300-1",
+      "group_advance": "20%"
+    },
+    "sources": [
+      "espn.in",
+      "africasoccer.com",
+      "cafonline.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:英格蘭": {
+    "team_name": "英格蘭",
+    "team_en": "England",
+    "fifa_ranking": 4,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via UEFA"
+      },
+      {
+        "tournament": "2024 UEFA Euro",
+        "result": "runners-up"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "quarter-final"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "controlled possession",
+      "formation": "4-2-3-1",
+      "strengths": [
+        "Thomas Tuchel Champions League winning coach",
+        "Jude Bellingham world-class midfielder",
+        "Harry Kane elite striker",
+        "Declan Rice defensive midfield",
+        "depth of Champions League talent"
+      ],
+      "weaknesses": [
+        "late game discipline questions",
+        "right-back selection debate",
+        "tournament fatigue history"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 55,
+      "travel_burden": 60
+    },
+    "odds": {
+      "win": "6-1",
+      "group_advance": "85%"
+    },
+    "sources": [
+      "wtksports.com",
+      "fwctimes.com",
+      "bbc.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:克羅埃西亞": {
+    "team_name": "克羅埃西亞",
+    "team_en": "Croatia",
+    "fifa_ranking": 10,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via UEFA"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "third place"
+      },
+      {
+        "tournament": "2018 FIFA World Cup",
+        "result": "finalists"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "possession control",
+      "formation": "4-3-3 / 4-2-3-1 / 3-4-3",
+      "strengths": [
+        "Zlatko Dalic experienced coach",
+        "Luka Modric final tournament (40)",
+        "Mateo Kovacic midfielder",
+        "Josko Gvardiol elite defender",
+        "consecutive semi-finals 2018/2022"
+      ],
+      "weaknesses": [
+        "golden generation ageing",
+        "formation switching uncertainty",
+        "natural width limited",
+        "Modric dependency"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 55,
+      "travel_burden": 60
+    },
+    "odds": {
+      "win": "30-1",
+      "group_advance": "60%"
+    },
+    "sources": [
+      "wtksports.com",
+      "theanalyst.com",
+      "tacticalfootballanalysis.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:迦納": {
+    "team_name": "迦納",
+    "team_en": "Ghana",
+    "fifa_ranking": 68,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CAF"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "group stage"
+      },
+      {
+        "tournament": "2023 Africa Cup of Nations",
+        "result": "did not qualify"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "counter-attacking",
+      "formation": "4-3-3 / 3-4-3",
+      "strengths": [
+        "Otto Addo tactical coach",
+        "Mohammed Kudus attacking midfielder",
+        "Jordan Ayew experienced forward",
+        "young squad rebuilding"
+      ],
+      "weaknesses": [
+        "AFCON 2023 absence",
+        "defensive organization questions",
+        "back three vs back four dilemma"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 55,
+      "travel_burden": 70
+    },
+    "odds": {
+      "win": "250-1",
+      "group_advance": "20%"
+    },
+    "sources": [
+      "ghanafa.org",
+      "flashscore.ca",
+      "myjoyonline.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:巴拿馬": {
+    "team_name": "巴拿馬",
+    "team_en": "Panama",
+    "fifa_ranking": 33,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CONCACAF"
+      },
+      {
+        "tournament": "2018 FIFA World Cup",
+        "result": "group stage"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "organized defensive",
+      "formation": "4-4-2 / 5-3-2",
+      "strengths": [
+        "Thomas Christiansen experienced coach",
+        "Anibal Godoy midfielder",
+        "CONCACAF structure experience",
+        "defensive discipline"
+      ],
+      "weaknesses": [
+        "2018 conceded most goals",
+        "limited world-class talent",
+        "attacking firepower limited"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 70,
+      "travel_burden": 35
+    },
+    "odds": {
+      "win": "350-1",
+      "group_advance": "15%"
+    },
+    "sources": [
+      "bbc.com",
+      "tsn.ca",
+      "fifa.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:烏茲別克": {
+    "team_name": "烏茲別克",
+    "team_en": "Uzbekistan",
+    "fifa_ranking": 60,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "first ever qualification"
+      },
+      {
+        "tournament": "2024 AFC Asian Cup",
+        "result": "quarter-final"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "organized",
+      "formation": "4-2-3-1",
+      "strengths": [
+        "first ever World Cup qualification",
+        "growing football popularity",
+        "Eldor Shomurodov forward",
+        "strong qualifying campaign"
+      ],
+      "weaknesses": [
+        "Katanec resigned due to health",
+        "no World Cup experience",
+        "limited world-class players"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 60,
+      "travel_burden": 80
+    },
+    "odds": {
+      "win": "400-1",
+      "group_advance": "15%"
+    },
+    "sources": [
+      "bbc.com",
+      "fifa.com",
+      "theasiangame.net"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "team:哥倫比亞": {
+    "team_name": "哥倫比亞",
+    "team_en": "Colombia",
+    "fifa_ranking": 9,
+    "squad_value": null,
+    "recent_tournaments": [
+      {
+        "tournament": "2026 FIFA World Cup",
+        "result": "qualified via CONMEBOL"
+      },
+      {
+        "tournament": "2024 Copa America",
+        "result": "finalists"
+      },
+      {
+        "tournament": "2022 FIFA World Cup",
+        "result": "did not qualify"
+      }
+    ],
+    "injuries": [],
+    "tactics": {
+      "style": "balanced attacking",
+      "formation": "4-3-3 / 4-2-3-1",
+      "strengths": [
+        "Nestor Lorenzo coach",
+        "James Rodriguez playmaker",
+        "Luis Diaz winger",
+        "Copa America 2024 finalists",
+        "strong qualifying third place"
+      ],
+      "weaknesses": [
+        "defensive consistency",
+        "striker conversion",
+        "World Cup absence 2022"
+      ]
+    },
+    "head_to_head": {},
+    "external_factors": {
+      "home_advantage": false,
+      "climate_adaptation": 65,
+      "travel_burden": 50
+    },
+    "odds": {
+      "win": "25-1",
+      "group_advance": "70%"
+    },
+    "sources": [
+      "goal.com",
+      "worldsoccertalk.com",
+      "footlab-data.com"
+    ],
+    "searched_at": "2026-06-19T00:08:00.000000"
+  },
+  "metadata": {
+    "last_updated": "2026-06-19T00:08:00+08:00",
+    "total_teams": 48,
+    "teams_processed": 48,
+    "groups_covered": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"],
+    "sources": ["bbc.com", "espn.com", "fifa.com", "wtksports.com", "theanalyst.com", "tacticalfootballanalysis.com", "footlab-data.com", "mundialanalytics.com"]
+  }
+}
