@@ -32,6 +32,127 @@ function setupFilters() {
   if (search) search.addEventListener('input', render);
 }
 
+function setupJumpToLatest() {
+  const btn = document.getElementById('jump-to-latest');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    const { centerMatch } = getMatchWindowCenter();
+    if (!centerMatch) return;
+    const row = document.querySelector(`tr[data-match-id="${centerMatch.match_id}"]`);
+    if (row) {
+      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      row.classList.add('highlight-row');
+      setTimeout(() => row.classList.remove('highlight-row'), 2000);
+    }
+  });
+}
+
+function setupPredictionDetailButtons() {
+  const container = document.getElementById('match-table-container');
+  if (!container) return;
+  container.addEventListener('click', (e) => {
+    // 點選場次編號或預測欄位時，開啟預測歷史 modal
+    const cell = e.target.closest('td.prediction, td:first-child');
+    if (cell) {
+      const row = cell.closest('tr');
+      if (row) {
+        const matchId = Number(row.dataset.matchId);
+        if (matchId) {
+          showPredictionHistory(matchId);
+          return;
+        }
+      }
+    }
+    // 原有的預測細節按鈕切換
+    const btn = e.target.closest('.pred-detail-btn');
+    if (!btn) return;
+    const row = btn.closest('tr');
+    const detail = row ? row.querySelector('.pred-detail') : null;
+    if (detail) {
+      detail.classList.toggle('hidden');
+    }
+  });
+}
+
+async function showPredictionHistory(matchId) {
+  const modal = document.getElementById('prediction-history-modal');
+  const title = document.getElementById('prediction-history-title');
+  const body = document.getElementById('prediction-history-body');
+  const match = matches.find(m => m.match_id === matchId);
+  if (!match) return;
+
+  title.textContent = `場次 #${matchId} 預測歷史`;
+  body.innerHTML = '<p>載入中...</p>';
+  modal.classList.remove('hidden');
+
+  // 1. 當前 matches_104.json 中的預測
+  const currentRows = [];
+  if (match.prediction) {
+    const p = match.prediction;
+    currentRows.push({
+      time: match.date + ' ' + match.time_taiwan,
+      source: '當前資料 (matches_104.json)',
+      prediction: `${match.home_team} ${p.home_score_pred ?? '-'} - ${p.away_score_pred ?? '-'} ${match.away_team}`,
+      outcome: `主 ${p.home_win_prob ?? '-'}% / 和 ${p.draw_prob ?? '-'}% / 客 ${p.away_win_prob ?? '-'}%`,
+      hit: p.hit === true ? '✅ 命中' : (p.hit === false ? '❌ 未命中' : '未結束')
+    });
+  }
+
+  // 2. predictions_db.json 中的歷史預測（如果存在）
+  let historyRows = [];
+  try {
+    const res = await fetch('predictions/predictions_db.json');
+    if (res.ok) {
+      const db = await res.json();
+      const recs = (db.match_predictions || []).filter(r => r.match_id === matchId);
+      historyRows = recs.map(r => ({
+        time: r.created_at ? new Date(r.created_at).toLocaleString('zh-TW') : '未知時間',
+        source: r.source || '預測資料庫',
+        prediction: `${match.home_team} ${r.home_score_pred ?? '-'} - ${r.away_score_pred ?? '-'} ${match.away_team}`,
+        outcome: `主 ${r.home_win_prob ?? '-'}% / 和 ${r.draw_prob ?? '-'}% / 客 ${r.away_win_prob ?? '-'}%`,
+        hit: r.hit === true ? '✅ 命中' : (r.hit === false ? '❌ 未命中' : '未結束')
+      }));
+    }
+  } catch (e) {
+    console.error('Failed to load predictions_db.json', e);
+  }
+
+  const rows = [...historyRows, ...currentRows];
+  if (!rows.length) {
+    body.innerHTML = '<p>尚無預測記錄。</p>';
+    return;
+  }
+
+  body.innerHTML = `
+    <table class="history-table">
+      <thead>
+        <tr><th>時間</th><th>來源</th><th>預測比數</th><th>預測結果機率</th><th>命中</th></tr>
+      </thead>
+      <tbody>
+        ${rows.map(r => `
+          <tr>
+            <td>${r.time}</td>
+            <td>${r.source}</td>
+            <td>${r.prediction}</td>
+            <td>${r.outcome}</td>
+            <td>${r.hit}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function setupPredictionHistoryModal() {
+  const modal = document.getElementById('prediction-history-modal');
+  if (!modal) return;
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal || e.target.closest('.modal-close')) {
+      modal.classList.add('hidden');
+    }
+  });
+}
+
 async function loadData() {
   const [matchesRes, teamsRes] = await Promise.all([
     fetch('data/matches_104.json'),
@@ -48,6 +169,9 @@ async function loadData() {
   setupPredictionTabs();
   setupPredictionActions();
   setupFilters();
+  setupPredictionDetailButtons();
+  setupJumpToLatest();
+  setupPredictionHistoryModal();
 }
 
 function getTeam(name) {
@@ -79,7 +203,10 @@ function formatDateTime(dateStr, timeStr) {
 }
 
 function isMatchFinished(m) {
-  return m.status === 'finished' || (m.home_score !== null && m.away_score !== null);
+  if (m.status === 'finished') return true;
+  const hs = m.home_score;
+  const aw = m.away_score;
+  return hs != null && aw != null && hs !== '' && aw !== '' && !Number.isNaN(Number(hs)) && !Number.isNaN(Number(aw));
 }
 
 function isMatchLive(m) {
@@ -411,33 +538,40 @@ function renderMatchList(teamsList) {
 
 function formatPredictionCell(m) {
   const p = m.prediction;
+  if (!p) return '-';
+  // 先嘗試多種可能的欄位名稱
+  const homePred = p.home_score_pred !== undefined ? p.home_score_pred : p.predicted_home_score;
+  const awayPred = p.away_score_pred !== undefined ? p.away_score_pred : p.predicted_away_score;
+  // Use probability-based outcome instead of score-based.
+  const probs = {
+    home: p.home_win_prob || 0,
+    draw: p.draw_prob || 0,
+    away: p.away_win_prob || 0
+  };
+  const predicted = Object.keys(probs).reduce((a, b) => probs[a] > probs[b] ? a : b);
+  const predictedLabel = { home: '主勝', draw: '和局', away: '客勝' }[predicted];
+  const probValue = probs[predicted];
+
+  let summary = '';
   if (m.status === 'finished') {
-    return p.hit
-      ? `<span class="pred-hit">✅ 命中</span>`
-      : `<span class="pred-miss">❌ 未命中</span>`;
+    const isHit = p.hit === true || m.hit === true;
+    summary = isHit ? `✅ 命中 (${predictedLabel} ${probValue}%)` : `❌ 未命中`;
+  } else {
+    summary = `🔮 ${predictedLabel} ${probValue}%`;
   }
 
-  // Pre-match: predict winner with probability
-  const { home_win_prob, draw_prob, away_win_prob } = p;
-  const probs = {
-    home: home_win_prob || 0,
-    draw: draw_prob || 0,
-    away: away_win_prob || 0,
-  };
-  const winner = Object.keys(probs).reduce((a, b) => probs[a] > probs[b] ? a : b);
-  let label = '';
-  let cls = '';
-  if (winner === 'home') {
-    label = `${m.home_team} 勝`;
-    cls = 'pred-pre-home';
-  } else if (winner === 'away') {
-    label = `${m.away_team} 勝`;
-    cls = 'pred-pre-away';
-  } else {
-    label = '和局';
-    cls = 'pred-pre-draw';
+  const scoreText = p.score !== undefined ? `(${p.score > 0 ? '+' : ''}${p.score}分)` : '';
+  const preHtml = `<span class="pred-pre">${summary} ${scoreText}</span>`;
+  const details = [];
+  if (p.home_win_prob !== undefined && p.away_win_prob !== undefined && p.draw_prob !== undefined) {
+    details.push(`主 ${p.home_win_prob}% / 和 ${p.draw_prob}% / 客 ${p.away_win_prob}%`);
+    details.push(`比數預測 ${homePred ?? '-'} - ${awayPred ?? '-'}`);
+  } else if (homePred != null && awayPred != null) {
+    details.push(`比數預測 ${homePred} - ${awayPred}`);
   }
-  return `<span class="pred-pre ${cls}">預測 ${label} ${probs[winner]}%</span>`;
+  if (p.reason) details.push(p.reason);
+  return `<button class="pred-detail-btn" data-match-id="${m.match_id}">${preHtml}</button>` +
+    (details.length ? `<div class="pred-detail hidden">${details.join('<br>')}</div>` : '');
 }
 
 function renderMatches() {
@@ -470,8 +604,8 @@ function renderMatches() {
     const rowClass = (index % 2 === 0 ? 'odd' : 'even') + (finished ? ' finished' : '') + (live ? ' live' : '');
 
     return `
-      <tr class="${rowClass}">
-        <td>${m.match_id}</td>
+      <tr class="${rowClass}" data-match-id="${m.match_id}">
+        <td title="點擊查看預測歷史">${m.match_id}</td>
         <td>${m.date}</td>
         <td>${m.time_taiwan}</td>
         <td>${m.stage}</td>
@@ -480,7 +614,7 @@ function renderMatches() {
         <td class="score ${live ? 'live' : ''}">${score}</td>
         <td><span class="team-name">${getFlagHTML(away)}${m.away_team}</span></td>
         <td>${m.city}</td>
-        <td class="prediction">${pred}</td>
+        <td class="prediction" title="點擊查看預測歷史">${pred}</td>
       </tr>
     `;
   }).join('');
@@ -555,3 +689,4 @@ function renderStandings() {
 
 setupSSE();
 loadData();
+

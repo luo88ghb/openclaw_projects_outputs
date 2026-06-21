@@ -1,16 +1,16 @@
 {
   "team_vectors": {
     "墨西哥": {
-      "matches_played": 4,
-      "wins": 4,
+      "matches_played": 5,
+      "wins": 5,
       "draws": 0,
       "losses": 0,
-      "goals_for": 8,
+      "goals_for": 9,
       "goals_against": 0,
       "attack_score": 56.0,
-      "defense_score": 62.0,
+      "defense_score": 65.0,
       "form_score": 100.0,
-      "overall": 72.7
+      "overall": 73.7
     },
     "南非": {
       "matches_played": 5,
@@ -97,28 +97,28 @@
       "overall": 47.7
     },
     "美國": {
-      "matches_played": 3,
-      "wins": 3,
+      "matches_played": 4,
+      "wins": 4,
       "draws": 0,
       "losses": 0,
-      "goals_for": 12,
+      "goals_for": 14,
       "goals_against": 3,
-      "attack_score": 63.5,
-      "defense_score": 54.5,
+      "attack_score": 65.0,
+      "defense_score": 57.5,
       "form_score": 100.0,
-      "overall": 72.7
+      "overall": 74.2
     },
     "巴拉圭": {
-      "matches_played": 3,
-      "wins": 0,
+      "matches_played": 4,
+      "wins": 1,
       "draws": 0,
       "losses": 3,
-      "goals_for": 3,
+      "goals_for": 4,
       "goals_against": 12,
       "attack_score": 50.0,
-      "defense_score": 41.0,
-      "form_score": 40.0,
-      "overall": 43.7
+      "defense_score": 44.0,
+      "form_score": 55.0,
+      "overall": 49.7
     },
     "卡達": {
       "matches_played": 4,
@@ -145,74 +145,74 @@
       "overall": 55.2
     },
     "巴西": {
-      "matches_played": 3,
-      "wins": 0,
+      "matches_played": 4,
+      "wins": 1,
       "draws": 3,
       "losses": 0,
-      "goals_for": 3,
+      "goals_for": 6,
       "goals_against": 3,
-      "attack_score": 50.0,
-      "defense_score": 54.5,
-      "form_score": 40.0,
-      "overall": 48.2
+      "attack_score": 53.0,
+      "defense_score": 57.5,
+      "form_score": 55.0,
+      "overall": 55.2
     },
     "摩洛哥": {
-      "matches_played": 3,
-      "wins": 0,
+      "matches_played": 4,
+      "wins": 1,
       "draws": 3,
       "losses": 0,
-      "goals_for": 3,
+      "goals_for": 4,
       "goals_against": 3,
       "attack_score": 50.0,
-      "defense_score": 54.5,
-      "form_score": 40.0,
-      "overall": 48.2
+      "defense_score": 57.5,
+      "form_score": 55.0,
+      "overall": 54.2
     },
     "海地": {
+      "matches_played": 4,
+      "wins": 0,
+      "draws": 0,
+      "losses": 4,
+      "goals_for": 0,
+      "goals_against": 6,
+      "attack_score": 44.0,
+      "defense_score": 53.0,
+      "form_score": 40.0,
+      "overall": 45.7
+    },
+    "蘇格蘭": {
+      "matches_played": 4,
+      "wins": 3,
+      "draws": 0,
+      "losses": 1,
+      "goals_for": 3,
+      "goals_against": 1,
+      "attack_score": 48.5,
+      "defense_score": 60.5,
+      "form_score": 85.0,
+      "overall": 64.7
+    },
+    "澳洲": {
+      "matches_played": 4,
+      "wins": 3,
+      "draws": 0,
+      "losses": 1,
+      "goals_for": 6,
+      "goals_against": 2,
+      "attack_score": 53.0,
+      "defense_score": 59.0,
+      "form_score": 85.0,
+      "overall": 65.7
+    },
+    "土耳其": {
       "matches_played": 3,
       "wins": 0,
       "draws": 0,
       "losses": 3,
       "goals_for": 0,
-      "goals_against": 3,
+      "goals_against": 5,
       "attack_score": 45.5,
-      "defense_score": 54.5,
-      "form_score": 40.0,
-      "overall": 46.7
-    },
-    "蘇格蘭": {
-      "matches_played": 3,
-      "wins": 3,
-      "draws": 0,
-      "losses": 0,
-      "goals_for": 3,
-      "goals_against": 0,
-      "attack_score": 50.0,
-      "defense_score": 59.0,
-      "form_score": 100.0,
-      "overall": 69.7
-    },
-    "澳洲": {
-      "matches_played": 3,
-      "wins": 3,
-      "draws": 0,
-      "losses": 0,
-      "goals_for": 6,
-      "goals_against": 0,
-      "attack_score": 54.5,
-      "defense_score": 59.0,
-      "form_score": 100.0,
-      "overall": 71.2
-    },
-    "土耳其": {
-      "matches_played": 2,
-      "wins": 0,
-      "draws": 0,
-      "losses": 2,
-      "goals_for": 0,
-      "goals_against": 4,
-      "attack_score": 47.0,
-      "defense_score": 50.0,
+      "defense_score": 51.5,
       "form_score": 40.0,
       "overall": 45.7
     },
@@ -241,28 +241,28 @@
       "overall": 39.2
     },
     "荷蘭": {
-      "matches_played": 3,
-      "wins": 0,
+      "matches_played": 4,
+      "wins": 1,
       "draws": 3,
       "losses": 0,
-      "goals_for": 6,
-      "goals_against": 6,
-      "attack_score": 54.5,
-      "defense_score": 50.0,
-      "form_score": 40.0,
-      "overall": 48.2
+      "goals_for": 11,
+      "goals_against": 7,
+      "attack_score": 60.5,
+      "defense_score": 51.5,
+      "form_score": 55.0,
+      "overall": 55.7
     },
     "日本": {
-      "matches_played": 3,
-      "wins": 0,
+      "matches_played": 5,
+      "wins": 2,
       "draws": 3,
       "losses": 0,
-      "goals_for": 6,
+      "goals_for": 12,
       "goals_against": 6,
-      "attack_score": 54.5,
-      "defense_score": 50.0,
-      "form_score": 40.0,
-      "overall": 48.2
+      "attack_score": 60.5,
+      "defense_score": 56.0,
+      "form_score": 64.0,
+      "overall": 60.2
     },
     "象牙海岸": {
       "matches_played": 3,
@@ -289,28 +289,28 @@
       "overall": 46.7
     },
     "瑞典": {
-      "matches_played": 2,
+      "matches_played": 3,
       "wins": 2,
       "draws": 0,
-      "losses": 0,
-      "goals_for": 10,
-      "goals_against": 2,
+      "losses": 1,
+      "goals_for": 11,
+      "goals_against": 7,
       "attack_score": 62.0,
-      "defense_score": 53.0,
-      "form_score": 100.0,
-      "overall": 71.7
+      "defense_score": 48.5,
+      "form_score": 80.0,
+      "overall": 63.5
     },
     "突尼西亞": {
-      "matches_played": 3,
+      "matches_played": 5,
       "wins": 0,
       "draws": 0,
-      "losses": 3,
+      "losses": 5,
       "goals_for": 3,
-      "goals_against": 15,
-      "attack_score": 50.0,
-      "defense_score": 36.5,
+      "goals_against": 21,
+      "attack_score": 47.0,
+      "defense_score": 33.5,
       "form_score": 40.0,
-      "overall": 42.2
+      "overall": 40.2
     },
     "西班牙": {
       "matches_played": 3,
@@ -385,16 +385,16 @@
       "overall": 46.7
     },
     "南韓": {
-      "matches_played": 1,
+      "matches_played": 2,
       "wins": 1,
       "draws": 0,
-      "losses": 0,
+      "losses": 1,
       "goals_for": 2,
-      "goals_against": 1,
-      "attack_score": 51.5,
-      "defense_score": 51.5,
-      "form_score": 100.0,
-      "overall": 67.7
+      "goals_against": 2,
+      "attack_score": 50.0,
+      "defense_score": 53.0,
+      "form_score": 70.0,
+      "overall": 57.7
     },
     "附加賽勝者A": {
       "matches_played": 1,
@@ -947,6 +947,83 @@
       "home_score": 6,
       "away_score": 0,
       "recorded_at": "2026-06-19T09:35:31.072164"
+    },
+    {
+      "match_id": 28,
+      "date": "2026-06-19",
+      "stage": "小組賽",
+      "group": "A",
+      "home_team": "墨西哥",
+      "away_team": "南韓",
+      "home_score": 1,
+      "away_score": 0,
+      "recorded_at": "2026-06-19T11:25:09.309083"
+    },
+    {
+      "match_id": 29,
+      "date": "2026-06-20",
+      "stage": "小組賽",
+      "group": "D",
+      "home_team": "美國",
+      "away_team": "澳洲",
+      "home_score": 2,
+      "away_score": 0,
+      "recorded_at": "2026-06-20T05:00:07.488623"
+    },
+    {
+      "match_id": 30,
+      "date": "2026-06-20",
+      "stage": "小組賽",
+      "group": "C",
+      "home_team": "蘇格蘭",
+      "away_team": "摩洛哥",
+      "home_score": 0,
+      "away_score": 1,
+      "recorded_at": "2026-06-20T08:00:01.747421"
+    },
+    {
+      "match_id": 31,
+      "date": "2026-06-20",
+      "stage": "小組賽",
+      "group": "C",
+      "home_team": "巴西",
+      "away_team": "海地",
+      "home_score": 3,
+      "away_score": 0,
+      "recorded_at": "2026-06-20T11:00:01.684033"
+    },
+    {
+      "match_id": 32,
+      "date": "2026-06-20",
+      "stage": "小組賽",
+      "group": "D",
+      "home_team": "土耳其",
+      "away_team": "巴拉圭",
+      "home_score": 0,
+      "away_score": 1,
+      "recorded_at": "2026-06-20T14:00:01.512377"
+    },
+    {
+      "match_id": 33,
+      "date": "2026-06-21",
+      "stage": "小組賽",
+      "group": "F",
+      "home_team": "荷蘭",
+      "away_team": "瑞典",
+      "home_score": 5,
+      "away_score": 1,
+      "recorded_at": "2026-06-21T06:38:15.298166"
+    },
+    {
+      "match_id": 36,
+      "date": "2026-06-21",
+      "stage": "小組賽",
+      "group": "F",
+      "home_team": "突尼西亞",
+      "away_team": "日本",
+      "home_score": 0,
+      "away_score": 2,
+      "recorded_at": "2026-06-21T14:45:58.128670"
     }
   ],
   "stage_predictions": {
@@ -1709,5 +1786,5 @@
       }
     }
   },
-  "last_updated": "2026-06-19T09:35:31.072164"
+  "last_updated": "2026-06-21T14:45:58.129175"
 }

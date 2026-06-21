@@ -151,11 +151,13 @@ def _extract_all_scores(html_or_text: str) -> dict:
         if len(cells) < 3:
             continue
         score_text = cells[1].get_text(" ", strip=True)
-        if not re.match(r"\d+[\u2013\-]\d+", score_text):
+        # 從分數文字中提取第一組 數字-數字 格式，忽略註解/圖片 alt 等雜訊
+        score_match = re.search(r"(\d+)\s*[\u2013\-]\s*(\d+)", score_text)
+        if not score_match:
             continue
+        hs, as_ = score_match.group(1), score_match.group(2)
         home = _normalize_team_name(cells[0].get_text(" ", strip=True))
         away = _normalize_team_name(cells[2].get_text(" ", strip=True))
-        hs, as_ = re.split(r"[\u2013\-]", score_text)
         results[(home, away)] = {
             "date": "",
             "time_utc": "",

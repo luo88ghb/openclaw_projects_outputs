@@ -192,12 +192,55 @@ class WorldCupEngine:
         return match["prediction"]
 
     def check_prediction(self, match_id: int) -> dict | None:
+        """
+        統一計分邏輯：以預測機率最高的結果為權威預測，不需要命中比分。
+        - 主勝 / 和局 / 客勝 三種預測機率取最高者為預測結果。
+        - 實際結果與預測結果一致 -> hit=True, score=+1
+        - 不一致 -> hit=False, score=-1
+        比數預測僅供參考，不納入計分。
+        """
         match = self.get_match(match_id)
         pred = match.get("prediction")
         if not pred or match.get("home_score") is None:
             return None
-        hit = (pred["home_score_pred"] == match["home_score"]) and (pred["away_score_pred"] == match["away_score"])
+        actual_hs = int(match["home_score"])
+        actual_aw = int(match["away_score"])
+
+        # 預測結果：機率最高者
+        probs = {
+            "home": float(pred.get("home_win_prob", 0)),
+            "draw": float(pred.get("draw_prob", 0)),
+            "away": float(pred.get("away_win_prob", 0)),
+        }
+        # 若機率全為 0，回退到比數預測判斷勝方
+        if sum(probs.values()) == 0:
+            hs = pred.get("home_score_pred") if pred.get("home_score_pred") is not None else pred.get("predicted_home_score")
+            aw = pred.get("away_score_pred") if pred.get("away_score_pred") is not None else pred.get("predicted_away_score")
+            if hs is not None and aw is not None:
+                if hs > aw:
+                    probs["home"] = 1
+                elif aw > hs:
+                    probs["away"] = 1
+                else:
+                    probs["draw"] = 1
+        predicted_outcome = max(probs, key=probs.get)
+
+        # 實際結果
+        if actual_hs > actual_aw:
+            actual_outcome = "home"
+        elif actual_hs == actual_aw:
+            actual_outcome = "draw"
+        else:
+            actual_outcome = "away"
+
+        hit = predicted_outcome == actual_outcome
+        score = 1 if hit else -1
+
         pred["hit"] = hit
+        pred["score"] = score
+        pred["predicted_outcome"] = predicted_outcome
+        pred["actual_outcome"] = actual_outcome
+        match["hit"] = hit
         self._save_matches()
         return pred
 

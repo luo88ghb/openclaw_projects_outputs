@@ -11,7 +11,7 @@
   <header>
     <h1>🏆 2026 世界盃足球賽 台灣時間儀表板</h1>
     <p>Asia/Taipei UTC+8｜104 場完整賽程｜轉播：Hami Video / ELTA.tv</p>
-    <p id="version-info">版本: <span id="version">v2.2.1</span>｜最後更新: <span id="last-update">2026-06-19 01:45（台北時間）</span></p>
+    <p id="version-info">版本: <span id="version">v2.2.5</span>｜最後更新: <span id="last-update">2026-06-21 08:10（台北時間）</span>｜<a href="predictions_history.html" style="color: #4fc3f7;">📊 預測歷史紀錄</a></p>
   </header>
 
   <main>
@@ -68,7 +68,10 @@
     </section>
 
     <section>
-      <h2>📅 完整賽程</h2>
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.5rem;">
+        <h2 style="margin:0;">📅 完整賽程</h2>
+        <button id="jump-to-latest" class="stage-tab">⬇️ 跳到最近賽局</button>
+      </div>
       <div id="match-table-container">
         <table id="match-table">
           <thead>
@@ -101,5 +104,16 @@
   </footer>
 
   <script src="js/app.js"></script>
+  <div id="prediction-history-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="prediction-history-title">預測歷史</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div id="prediction-history-body">
+        <p>載入中...</p>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

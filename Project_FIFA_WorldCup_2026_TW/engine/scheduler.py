@@ -8,8 +8,9 @@ On trigger:
   2. Scrape Wikipedia for the match result.
   3. If no score yet, retry every 5 minutes up to 60 minutes.
   4. Update matches_104.json with score/status.
-  5. Mark match with a `scrape_checked` flag so historic backfill can skip it.
-  6. Check prediction hit.
+  5. Mark match with a `scrape_checked` flag ONLY when score was found,
+     so missed scores can be retried by future backfills.
+  6. Check prediction hit using probability-based outcome.
   7. Notify dashboard via SSE and Telegram.
   8. Compute next trigger from the next upcoming match + 120 minutes.
 
@@ -31,12 +32,20 @@ ENGINE_DIR = BASE_DIR / "engine"
 sys.path.insert(0, str(ENGINE_DIR))
 
 from worldcup_engine import WorldCupEngine
-from telegram_notifier import notify_match_result, notify_upcoming
+from telegram_notifier import (
+    notify_match_result,
+    notify_upcoming,
+    notify_daily_pre_match,
+    notify_daily_post_match,
+)
 from wiki_scraper import get_match_result
 
 DATA_DIR = BASE_DIR / "data"
 PREDICTIONS_DIR = BASE_DIR / "predictions"
 SSE_CLIENTS_FILE = PREDICTIONS_DIR / "sse_clients.json"
+
+DAILY_PRE_NOTIFY = os.environ.get("DAILY_PRE_NOTIFY", "1") == "1"
+DAILY_POST_NOTIFY = os.environ.get("DAILY_POST_NOTIFY", "1") == "1"
 
 # SSE notification endpoint URL
 SSE_NOTIFY_URL = "http://localhost:8765/notify-update"
@@ -90,19 +99,26 @@ def _is_score_present(result: dict) -> bool:
     return result is not None and result.get("home_score") is not None and result.get("away_score") is not None
 
 
+def _is_match_pending(m: dict) -> bool:
+    """True if the match still needs result scraping/prediction checking."""
+    if m.get("status") == "finished":
+        return False
+    if m.get("home_score") is not None and m.get("away_score") is not None:
+        return False
+    if m.get("scrape_checked"):
+        return False
+    return True
+
+
 def find_next_trigger(matches: list) -> tuple[dict | None, datetime | None]:
     """
-    Find the next match that has not finished and whose trigger time is in the future.
+    Find the next match that still needs scraping and whose trigger time is in the future.
     Returns (match, trigger_time). If none, returns (None, None).
     """
     now = taipei_now()
     candidates = []
     for m in matches:
-        if m.get("status") == "finished":
-            continue
-        if m.get("home_score") is not None and m.get("away_score") is not None:
-            continue
-        if m.get("scrape_checked"):
+        if not _is_match_pending(m):
             continue
         t = trigger_time(m)
         if t > now:
@@ -115,17 +131,13 @@ def find_next_trigger(matches: list) -> tuple[dict | None, datetime | None]:
 
 def find_backfill_matches(matches: list) -> list[dict]:
     """
-    Return all matches whose trigger time has passed, are not finished,
-    and have not been scrape-checked yet. Sorted by kickoff time ascending.
+    Return all matches that still need scraping and whose trigger time has passed.
+    Sorted by kickoff time ascending.
     """
     now = taipei_now()
     result = []
     for m in matches:
-        if m.get("status") == "finished":
-            continue
-        if m.get("home_score") is not None and m.get("away_score") is not None:
-            continue
-        if m.get("scrape_checked"):
+        if not _is_match_pending(m):
             continue
         t = trigger_time(m)
         if t <= now:
@@ -156,10 +168,26 @@ def process_match(engine: WorldCupEngine, m: dict, retry_until_score: bool = Tru
     """
     match_id = m["match_id"]
 
-    # 1. Ensure pre-match prediction exists
+    # 1. Ensure pre-match prediction exists (finished matches may also lack one)
     if not m.get("prediction"):
         engine.set_prediction(match_id)
         print(f"[Scheduler] Generated pre-match prediction for match {match_id}", flush=True)
+
+    # 1b. If match already has a score but is not marked finished (e.g. manual
+    # data fix), just re-check prediction without scraping.
+    if m.get("home_score") is not None and m.get("away_score") is not None:
+        pred = engine.check_prediction(match_id)
+        hit_text = ""
+        if pred:
+            hit = pred.get("hit")
+            hit_text = f" {'命中' if hit else '未命中'}"
+        # Do not mark scrape_checked; leave it for the backfill path to handle
+        # once the result has actually been verified from the source.
+        return {
+            "match_id": match_id,
+            "updated": True,
+            "message": f"Match {match_id}: 已有比分 {m['home_team']} {m['home_score']}-{m['away_score']} {m['away_team']}{hit_text}（等待來源驗證後再標記 checked）",
+        }
 
     # 2. Scrape Wikipedia
     result = get_match_result(
@@ -180,17 +208,35 @@ def process_match(engine: WorldCupEngine, m: dict, retry_until_score: bool = Tru
                 m["home_team"], m["away_team"], m["date"], m["time_taiwan"]
             )
 
-    # 4. Mark checked regardless of whether score was found.
-    set_match_checked(engine, m)
+    # 4. Only mark checked when score was found OR when explicitly skipping (backfill).
+    # If score not present, leave it unchecked so backfill/retries keep trying later.
+    if _is_score_present(result):
+        set_match_checked(engine, m)
+    elif not retry_until_score:
+        # Backfill mode: avoid hammering the same match in one session, but still
+        # allow future backfills to retry because scrape_checked remains False.
+        pass
+    else:
+        # Real-time trigger with no score after retries - do NOT mark checked
+        # so the next scheduler cycle / backfill will retry.
+        print(
+            f"[Scheduler] Match {match_id}: 比賽結束後 {MAX_RETRY_MINUTES} 分鐘仍未取得比分，暫時不標記 checked，等待下次補抓。",
+            flush=True,
+        )
+        return {
+            "match_id": match_id,
+            "updated": False,
+            "message": f"Match {match_id}: 維基百科尚未公布比分，暫時不標記為檢查過，稍後補抓。",
+        }
 
     if not _is_score_present(result):
         return {
             "match_id": match_id,
             "updated": False,
-            "message": f"Match {match_id}: 維基百科尚未公布比分，已標記為檢查過。",
+            "message": f"Match {match_id}: 維基百科尚未公布比分，已保留補抓機會。",
         }
 
-    # 5. Update score and check prediction
+    # 5. Update score and check prediction (probability-based outcome)
     engine.update_score(match_id, result["home_score"], result["away_score"])
     pred = engine.check_prediction(match_id)
 
@@ -199,9 +245,9 @@ def process_match(engine: WorldCupEngine, m: dict, retry_until_score: bool = Tru
         hit = pred.get("hit")
         hit_text = f" {'命中' if hit else '未命中'}"
 
-    # 6. Telegram notification
+    # 6. Telegram notification with fresh match data
     try:
-        notify_match_result(m)
+        notify_match_result(engine.get_match(match_id))
     except Exception as e:
         print(f"[Scheduler] Telegram send failed: {e}", flush=True)
 
@@ -298,7 +344,10 @@ def run_kickoff_notifier():
                         f"[KickoffNotifier] Match {m['match_id']} starting within 30 min, sending notification...",
                         flush=True,
                     )
-                    notify_upcoming(minutes_ahead=30, match_id=m["match_id"])
+                    try:
+                        notify_upcoming(minutes_ahead=30, match_id=m["match_id"])
+                    except Exception as e:
+                        print(f"[KickoffNotifier] Telegram send failed: {e}", flush=True)
                     notified.add(m["match_id"])
                     save_notified(notified)
 
@@ -308,6 +357,88 @@ def run_kickoff_notifier():
                 time.sleep(60)
 
     thread = threading.Thread(target=notifier_loop, daemon=True)
+    thread.start()
+    return thread
+
+
+def run_daily_notifier():
+    """
+    Background thread that sends daily pre-match and post-match summaries.
+    - Pre-match: once when the first match of the day is within 30 minutes.
+    - Post-match: once after the last match of the day has finished.
+    Controlled by environment variables DAILY_PRE_NOTIFY / DAILY_POST_NOTIFY.
+    """
+    import threading
+
+    state_file = BASE_DIR / "predictions" / "daily_notify_state.json"
+
+    def load_state() -> dict:
+        try:
+            with open(state_file, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return {"pre_sent": "", "post_sent": ""}
+
+    def save_state(state: dict):
+        try:
+            with open(state_file, "w", encoding="utf-8") as f:
+                json.dump(state, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            print(f"[DailyNotifier] Failed to save state: {e}", flush=True)
+
+    def daily_loop():
+        state = load_state()
+        while True:
+            try:
+                now = taipei_now()
+                today = now.strftime("%Y-%m-%d")
+                matches = load_matches_data()["matches"]
+
+                if DAILY_PRE_NOTIFY and state.get("pre_sent") != today:
+                    today_matches = [
+                        m for m in matches
+                        if m["date"] == today and m.get("status") != "finished"
+                    ]
+                    if today_matches:
+                        today_matches.sort(key=lambda m: m["time_taiwan"])
+                        first = today_matches[0]
+                        first_dt = datetime.strptime(
+                            f"{first['date']} {first['time_taiwan']}", "%Y-%m-%d %H:%M"
+                        ).replace(tzinfo=_local_tz)
+                        minutes_until = (first_dt - now).total_seconds() / 60
+                        if 0 <= minutes_until <= 30:
+                            print(
+                                f"[DailyNotifier] First match of {today} starts in {minutes_until:.0f} min; sending pre-match summary...",
+                                flush=True,
+                            )
+                            try:
+                                notify_daily_pre_match()
+                            except Exception as e:
+                                print(f"[DailyNotifier] Telegram send failed: {e}", flush=True)
+                            state["pre_sent"] = today
+                            save_state(state)
+
+                if DAILY_POST_NOTIFY and state.get("post_sent") != today:
+                    today_matches = [m for m in matches if m["date"] == today]
+                    finished = [m for m in today_matches if m.get("status") == "finished"]
+                    if today_matches and len(finished) == len(today_matches):
+                        print(
+                            f"[DailyNotifier] All {len(finished)} matches of {today} finished; sending post-match summary...",
+                            flush=True,
+                        )
+                        try:
+                            notify_daily_post_match()
+                        except Exception as e:
+                            print(f"[DailyNotifier] Telegram send failed: {e}", flush=True)
+                        state["post_sent"] = today
+                        save_state(state)
+
+                time.sleep(600)  # Check every 10 minutes
+            except Exception as e:
+                print(f"[DailyNotifier] Error: {e}", flush=True)
+                time.sleep(600)
+
+    thread = threading.Thread(target=daily_loop, daemon=True)
     thread.start()
     return thread
 
@@ -322,9 +453,25 @@ def run_scheduler():
     # Start kickoff notifier in background
     notifier_thread = run_kickoff_notifier()
 
+    # Start daily pre/post match summary notifier in background
+    daily_notifier_thread = run_daily_notifier()
+
     while True:
         engine = WorldCupEngine()  # reload data each cycle
         matches = engine.matches
+
+        # First, try to backfill any matches that are already overdue.
+        # This runs every cycle so that transient failures are recovered
+        # as soon as Wikipedia has data, without waiting for the next
+        # real-time trigger.
+        backfill = find_backfill_matches(matches)
+        if backfill:
+            print(f"[Scheduler] Cyclic backfill: {len(backfill)} past match(es) pending.", flush=True)
+            for m in backfill:
+                summary = process_match(engine, m, retry_until_score=False)
+                print(f"[Scheduler] {summary['message']}", flush=True)
+            engine = WorldCupEngine()  # reload after potential updates
+            matches = engine.matches
 
         next_match, next_t = find_next_trigger(matches)
         if next_match is None or next_t is None:

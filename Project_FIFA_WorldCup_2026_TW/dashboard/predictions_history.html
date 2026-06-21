@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>預測歷史紀錄 - 2026 世界盃</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #e0e0e0;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 30px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #4fc3f7;
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-top: 5px;
+    }
+    .match-list {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .match-row {
+      display: grid;
+      grid-template-columns: 50px 110px 1fr 80px 120px 100px;
+      align-items: center;
+      padding: 12px 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .match-row:nth-child(odd) {
+      background: rgba(255,255,255,0.03);
+    }
+    .match-row:hover {
+      background: rgba(255,255,255,0.08);
+    }
+    .hit-true {
+      color: #4caf50;
+    }
+    .hit-false {
+      color: #f44336;
+    }
+    .score-3 {
+      background: linear-gradient(135deg, #ffd700, #ffaa00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
+    .header-row {
+      background: rgba(255,255,255,0.15) !important;
+      font-weight: bold;
+      color: #fff;
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #4fc3f7;
+      text-decoration: none;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">← 返回儀表板</a>
+    <h1>🔮 預測歷史紀錄</h1>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value" id="stat-finished">0</div>
+        <div class="stat-label">已結束場次</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-total-score">0</div>
+        <div class="stat-label">總得分</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-hit-rate">0%</div>
+        <div class="stat-label">命中勝負方向率</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-exact">0</div>
+        <div class="stat-label">🎯 命中比數</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-direction">0</div>
+        <div class="stat-label">✅ 命中方向</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-miss">0</div>
+        <div class="stat-label">❌ 未命中</div>
+      </div>
+    </div>
+
+    <div class="match-list" id="match-list">
+      <div class="match-row header-row">
+        <div>場次</div>
+        <div>日期</div>
+        <div>對戰</div>
+        <div>比分</div>
+        <div>預測</div>
+        <div>結果</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function formatDate(dateStr) {
+      const m = dateStr.match(/\d{2}-(\d{2})-(\d{2})/);
+      return m ? `${m[1]}-${m[2]}` : dateStr;
+    }
+
+    function winnerFromPrediction(p) {
+      if (!p) return null;
+      const probs = {
+        主勝: p.home_win_prob || 0,
+        和局: p.draw_prob || 0,
+        客勝: p.away_win_prob || 0,
+      };
+      if (Object.values(probs).some(v => v > 0)) {
+        return Object.entries(probs).sort((a, b) => b[1] - a[1])[0][0];
+      }
+      const hs = p.home_score_pred !== undefined ? p.home_score_pred : p.predicted_home_score;
+      const aw = p.away_score_pred !== undefined ? p.away_score_pred : p.away_score_pred;
+      if (hs == null || aw == null) return null;
+      if (hs > aw) return '主勝';
+      if (aw > hs) return '客勝';
+      return '和局';
+    }
+
+    function scorePredictionHit(p, homeScore, awayScore) {
+      const hs = p.home_score_pred !== undefined ? p.home_score_pred : p.predicted_home_score;
+      const aw = p.away_score_pred !== undefined ? p.away_score_pred : p.away_score_pred;
+      if (hs != null && aw != null && Number(hs) === Number(homeScore) && Number(aw) === Number(awayScore)) {
+        return { hit: true, score: 3.0, label: '🎯 命中比數' };
+      }
+      const predWinner = winnerFromPrediction(p);
+      let actual;
+      if (homeScore > awayScore) actual = '主勝';
+      else if (awayScore > homeScore) actual = '客勝';
+      else actual = '和局';
+      if (predWinner === actual) {
+        return { hit: true, score: 1.0, label: '✅ 命中方向' };
+      }
+      return { hit: false, score: -1.0, label: '❌ 未命中' };
+    }
+
+    async function loadData() {
+      const res = await fetch('data/matches_104.json');
+      const data = await res.json();
+      const matches = data.matches || [];
+      const finished = matches.filter(m => m.status === 'finished' && m.prediction);
+
+      let totalScore = 0;
+      let exact = 0;
+      let direction = 0;
+      let miss = 0;
+      const rows = [];
+
+      finished.forEach(m => {
+        const p = m.prediction;
+        const result = scorePredictionHit(p, m.home_score, m.away_score);
+        totalScore += result.score;
+        if (result.score === 3.0) exact++;
+        else if (result.score === 1.0) direction++;
+        else miss++;
+
+        const hs = p.home_score_pred !== undefined ? p.home_score_pred : p.predicted_home_score;
+        const aw = p.away_score_pred !== undefined ? p.away_score_pred : p.predicted_away_score;
+        rows.push(`
+          <div class="match-row">
+            <div>#${m.match_id}</div>
+            <div>${formatDate(m.date)}</div>
+            <div>${m.home_team} vs ${m.away_team}</div>
+            <div>${m.home_score} - ${m.away_score}</div>
+            <div>${hs ?? '-'} - ${aw ?? '-'}</div>
+            <div class="${result.hit ? 'hit-true' : 'hit-false'} ${result.score === 3.0 ? 'score-3' : ''}">${result.label} (${result.score > 0 ? '+' : ''}${result.score.toFixed(1)})</div>
+          </div>
+        `);
+      });
+
+      document.getElementById('stat-finished').textContent = finished.length;
+      document.getElementById('stat-total-score').textContent = (totalScore >= 0 ? '+' : '') + totalScore.toFixed(1);
+      document.getElementById('stat-hit-rate').textContent = finished.length ? ((exact + direction) / finished.length * 100).toFixed(1) + '%' : '0%';
+      document.getElementById('stat-exact').textContent = exact;
+      document.getElementById('stat-direction').textContent = direction;
+      document.getElementById('stat-miss').textContent = miss;
+
+      const list = document.getElementById('match-list');
+      list.insertAdjacentHTML('beforeend', rows.join(''));
+    }
+
+    loadData().catch(err => {
+      console.error(err);
+      document.getElementById('match-list').insertAdjacentHTML('beforeend', '<div class="match-row"><div colspan="6">載入失敗</div></div>');
+    });
+  </script>
+</body>
+</html>

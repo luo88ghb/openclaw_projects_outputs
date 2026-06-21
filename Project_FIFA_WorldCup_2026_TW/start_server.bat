@@ -5,6 +5,10 @@ REM 一鍵啟動 2026 世界盃儀表板（會先自動殺掉舊程序）
 set TELEGRAM_BOT_TOKEN=8237046348:AAFQuJavHmL_dWu_ot3hciym6UiP7_UTneA
 set TELEGRAM_CHAT_ID=8257517978
 
+:: Daily summary notifications (1 = on, 0 = off)
+set DAILY_PRE_NOTIFY=1
+set DAILY_POST_NOTIFY=1
+
 cd /d "C:\Users\danny\.openclaw\workspace\projects\Project_FIFA_WorldCup_2026_TW"
 
 echo [Start] 檢查並關閉既有 server...

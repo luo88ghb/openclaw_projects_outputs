@@ -7,6 +7,33 @@
   margin-right: 0.3em;
 }
 
+.pred-detail-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: inherit;
+  text-align: left;
+}
+
+.pred-detail-btn:hover .pred-hit,
+.pred-detail-btn:hover .pred-pre {
+  text-decoration: underline;
+}
+
+.pred-detail {
+  font-size: 0.82em;
+  color: var(--muted);
+  margin-top: 0.25em;
+  padding: 0.25em 0.5em;
+  background: rgba(0,0,0,0.04);
+  border-radius: 4px;
+}
+
+.pred-detail.hidden {
+  display: none;
+}
+
 .pred-hit {
   color: #22c55e;
   font-weight: 600;
@@ -17,107 +44,165 @@
   font-weight: 600;
 }
 
-.pred-pre {
+/* 賽事焦點卡片 */
+.match-info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.04);
+  margin-bottom: 0.5rem;
+}
+
+.match-info-row.compact {
+  padding: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.match-info-meta {
+  font-size: 0.85em;
   color: var(--muted);
+}
+
+.match-info-teams {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.match-info-score {
+  font-size: 1.2em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.live-score {
+  color: #ef4444;
+  animation: blink 1.5s infinite;
+}
+
+.live-badge {
+  color: #ef4444;
+  font-size: 0.75em;
+  margin-left: 0.5rem;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.match-info-section-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.match-info.finished .match-info-row {
+  opacity: 0.75;
+}
+
+/* 預測歷史 modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  border-radius: 12px;
+  width: min(900px, 92vw);
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 1.25rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
   font-size: 0.9em;
 }
 
-.pred-pre-home {
-  color: #4dabf7;
+.history-table th,
+.history-table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+}
+
+.history-table th {
+  color: var(--muted, #9aa3ad);
   font-weight: 600;
 }
 
-.pred-pre-draw {
-  color: #ffd43b;
+.history-table .hit-true {
+  color: #22c55e;
   font-weight: 600;
 }
 
-.pred-pre-away {
-  color: #ff922b;
-  font-weight: 600;
-}
-
-/* Next Match Card: last finished + upcoming */
-.next-match-card .match-info {
-  padding: 0.8rem 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.next-match-card .match-info:last-child {
-  border-bottom: none;
-}
-
-.next-match-card .match-info.next {
-  margin-top: 0.6rem;
-  padding-top: 1rem;
-}
-
-.next-match-card .match-info.live .match-info-section-title {
+.history-table .hit-false {
   color: #ef4444;
-}
-
-.next-match-card .match-info-section-title {
-  font-size: 0.85rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
-  text-align: left;
 }
 
-.next-match-card .match-info.last .match-info-section-title {
-  color: var(--accent2);
+#match-table tbody tr[data-match-id] td.prediction,
+#match-table tbody tr[data-match-id] td:first-child {
+  cursor: pointer;
+  position: relative;
 }
 
-.next-match-card .match-info.next .match-info-section-title {
-  color: var(--accent);
-}
-
-.next-match-card .match-info-row {
-  margin-bottom: 0.6rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px dashed var(--border);
-}
-
-.next-match-card .match-info-row:last-child {
-  margin-bottom: 0;
-  border-bottom: none;
-}
-
-.next-match-card .match-info-row.compact .match-info-teams {
-  font-size: 0.95rem;
-}
-
-.next-match-card .match-info-row.compact .match-info-meta {
-  font-size: 0.75rem;
-}
-
-.next-match-card .match-info-row.finished .match-info-score strong {
-  color: var(--accent2);
-}
-
-.next-match-card .match-info-row.live .match-info-score {
-  color: #ef4444;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.2rem;
-}
-
-.next-match-card .match-info-row.live .live-score {
-  color: #ef4444;
-}
-
-.next-match-card .match-info-row.live .live-badge {
+#match-table tbody tr[data-match-id] td.prediction::after,
+#match-table tbody tr[data-match-id] td:first-child::after {
+  content: '🔍';
   font-size: 0.7rem;
-  color: #ef4444;
-  animation: pulse 1.5s infinite;
+  margin-left: 0.35rem;
+  opacity: 0.4;
 }
 
-@keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
+#match-table tbody tr[data-match-id]:hover td.prediction,
+#match-table tbody tr[data-match-id]:hover td:first-child {
+  text-decoration: underline;
 }
 
-.next-match-card .match-info-row.scheduled .match-info-score span {
-  color: var(--muted);
+#match-table tbody tr[data-match-id]:hover td.prediction::after,
+#match-table tbody tr[data-match-id]:hover td:first-child::after {
+  opacity: 0.8;
+}
+
+/* 跳到最近賽局 高亮動畫 */
+.highlight-pulse,
+.highlight-row {
+  animation: pulse-row 2s ease-out;
+}
+
+@keyframes pulse-row {
+  0% { background-color: rgba(79, 195, 247, 0.35); }
+  100% { background-color: transparent; }
 }
