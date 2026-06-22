@@ -433,9 +433,6 @@ function setupPredictionActions() {
       URL.revokeObjectURL(url);
     }, 0);
   });
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  });
 }
 
 function computeGroupPredictions() {
@@ -649,6 +646,7 @@ function formatPredictionCell(m) {
 
   const scoreText = p.score !== undefined ? `(${p.score > 0 ? '+' : ''}${p.score}分)` : '';
   const preHtml = `<span class="${spanClass}">${summary} ${scoreText}</span>`;
+  const btnHtml = `<button class="pred-detail-btn" data-match-id="${m.match_id}">${preHtml}</button>`;
   const details = [];
   if (p.home_win_prob !== undefined && p.away_win_prob !== undefined && p.draw_prob !== undefined) {
     details.push(`主 ${p.home_win_prob}% / 和 ${p.draw_prob}% / 客 ${p.away_win_prob}%`);
@@ -657,7 +655,7 @@ function formatPredictionCell(m) {
     details.push(`比數預測 ${homePred} - ${awayPred}`);
   }
   if (p.reason) details.push(p.reason);
-  return `<button class="pred-detail-btn" data-match-id="${m.match_id}">${preHtml}</button>` +
+  return btnHtml +
     (details.length ? `<div class="pred-detail hidden">${details.join('<br>')}</div>` : '');
 }
 

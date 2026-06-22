@@ -1,3 +1,4 @@
+<!-- 下載時間: 2026-06-22 18:30:01 Asia/Taipei | 版本: v2.2.7 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -65,8 +66,16 @@
     }
     .hit-true {
       color: #4caf50;
+      font-weight: 600;
     }
     .hit-false {
+      color: #f44336;
+      font-weight: 600;
+    }
+    .pred-pre {
+      color: #ffeb3b;
+    }
+    .pred-miss {
       color: #f44336;
     }
     .header-row {
@@ -119,8 +128,8 @@
         <div>日期</div>
         <div>對戰</div>
         <div>比分</div>
-        <div>預測</div>
-        <div>結果</div>
+        <div>命中狀態</div>
+        <div>預測比數</div>
       </div>
     </div>
   </div>
@@ -188,8 +197,8 @@
             <div>${formatDate(m.date)}</div>
             <div>${m.home_team} vs ${m.away_team}</div>
             <div>${m.home_score} - ${m.away_score}</div>
-            <div>${hs ?? '-'} - ${aw ?? '-'}</div>
             <div class="${result.hit ? 'hit-true' : 'hit-false'}">${result.label} (${result.score > 0 ? '+' : ''}${result.score.toFixed(1)})</div>
+            <div>${hs ?? '-'} - ${aw ?? '-'}</div>
           </div>
         `);
       });

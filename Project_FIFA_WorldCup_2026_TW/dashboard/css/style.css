@@ -197,6 +197,48 @@ th {
   color: var(--finished);
 }
 
+/* 預測按鈕與結果色彩不可被行樣式覆蓋 */
+#match-tbody td.prediction {
+  color: var(--text);
+}
+
+#match-tbody td.prediction .pred-detail-btn {
+  color: inherit;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+#match-tbody td.prediction .pred-detail-btn:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+#match-tbody td.prediction .pred-pre {
+  color: #facc15;
+}
+
+#match-tbody td.prediction .pred-hit {
+  color: #22c55e;
+}
+
+#match-tbody td.prediction .pred-miss {
+  color: #ef4444;
+}
+
+#match-tbody tr.finished td.prediction .pred-detail-btn {
+  border-color: rgba(100, 116, 139, 0.5);
+}
+
+#match-tbody tr.finished td.prediction .pred-pre {
+  color: #facc15;
+}
+
+#match-tbody tr.finished td.prediction .pred-hit {
+  color: #22c55e;
+}
+
+#match-tbody tr.finished td.prediction .pred-miss {
+  color: #ef4444;
+}
+
 .score {
   font-weight: bold;
   color: var(--accent2);
@@ -235,7 +277,60 @@ th {
 
 .prediction {
   font-size: 0.85rem;
-  color: var(--muted);
+  color: var(--text);
+}
+
+.prediction .pred-pre {
+  color: #facc15;
+}
+
+.prediction .pred-hit {
+  color: #22c55e;
+}
+
+.prediction .pred-miss {
+  color: #ef4444;
+}
+
+#match-tbody td.prediction {
+  color: var(--text);
+}
+
+#match-tbody td.prediction .pred-detail-btn {
+  color: inherit;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+#match-tbody td.prediction .pred-detail-btn:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+#match-tbody td.prediction .pred-pre {
+  color: #facc15;
+}
+
+#match-tbody td.prediction .pred-hit {
+  color: #22c55e;
+}
+
+#match-tbody td.prediction .pred-miss {
+  color: #ef4444;
+}
+
+#match-tbody tr.finished td.prediction .pred-detail-btn {
+  border-color: rgba(100, 116, 139, 0.5);
+}
+
+#match-tbody tr.finished td.prediction .pred-pre {
+  color: #facc15;
+}
+
+#match-tbody tr.finished td.prediction .pred-hit {
+  color: #22c55e;
+}
+
+#match-tbody tr.finished td.prediction .pred-miss {
+  color: #ef4444;
 }
 
 .prediction-bar {
