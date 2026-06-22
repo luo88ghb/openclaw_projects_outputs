@@ -85,12 +85,20 @@ def notify_upcoming(minutes_ahead: int = 30, match_id: int = None):
         return
 
     for m, _ in upcoming:
+        pred = _get_prediction_for_match(m["match_id"])
         pred_text = ""
-        if m.get("prediction"):
-            pred = m["prediction"]
-            winner = m["home_team"] if pred["home_win_prob"] >= pred["away_win_prob"] else m["away_team"]
-            winner_prob = max(pred["home_win_prob"], pred["away_win_prob"])
-            pred_text = f"\n🔮 預測：{winner} 勝 {winner_prob}%"
+        if pred:
+            pred_winner = _winner_from_prediction(pred)
+            if pred_winner == "主勝":
+                winner_team = m["home_team"]
+                winner_prob = float(pred.get("home_win_prob", 0) or 0)
+            elif pred_winner == "客勝":
+                winner_team = m["away_team"]
+                winner_prob = float(pred.get("away_win_prob", 0) or 0)
+            else:
+                winner_team = "和局"
+                winner_prob = float(pred.get("draw_prob", 0) or 0)
+            pred_text = f"\n🔮 預測：{winner_team} {pred_winner} {winner_prob}%"
         msg = (
             f"⚽ <b>2026 世界盃開賽提醒</b>\n"
             f"場次：#{m['match_id']} {m['stage']}{' ' + m['group'] + '組' if m['group'] else ''}\n"

@@ -21,26 +21,22 @@ def parse_wiki_datetime(date_text: str, time_text: str) -> tuple:
     date = date_iso.group(1)
 
     # time: "13:00UTC−6" or "13:00 UTC−6"
-    m = re.search(r"(\d{1,2}:\d{2})\s*(UTC[\u002b\u2212+-]?\d{1,2})", time_text)
+    m = re.search(r"(\d{1,2}:\d{2})\s*UTC([\u002b\u2212+-]?)\s*(\d{1,2})", time_text)
     if not m:
         raise ValueError(f"Cannot parse time: {time_text}")
-    t, tz = m.group(1), m.group(2)
+    t, sign_in, val = m.group(1), m.group(2), m.group(3)
     # normalize unicode minus sign
-    sign = tz[3]
+    sign = sign_in
     if sign == "\u2212":
         sign = "-"
-        val = tz[4:]
-    elif sign == "+":
-        val = tz[4:]
-    elif sign == "-":
-        val = tz[4:]
-    else:
+    elif sign == "":
         # e.g. UTC6 means +6
         sign = "+"
-        val = tz[3:]
     offset = int(f"{sign}{val}")
     dt = datetime.strptime(f"{date} {t}", "%Y-%m-%d %H:%M")
-    dt_utc = dt - timedelta(hours=offset)
+    # local = UTC + offset  =>  UTC = local - offset
+    dt_utc = (dt - timedelta(hours=offset)).replace(tzinfo=timezone.utc)
+    # Taipei = UTC + 8
     dt_tw = dt_utc.astimezone(timezone(timedelta(hours=8)))
     return dt_tw.strftime("%Y-%m-%d"), dt_tw.strftime("%H:%M")
 
@@ -59,7 +55,30 @@ def team_alias(name: str) -> str:
         "古拉索": "庫拉索",
         "伊朗": "伊朗",
     }
-    return aliases.get(name, name)
+    name = aliases.get(name, name)
+    # 淘汰賽佔位符對應：維基 "X組首名/次名/第三位" / "賽事 N 勝方/負方"
+    name = name.replace("首名", "第一名")
+    name = name.replace("次名", "第二名")
+    name = name.replace("第三位", "第三名")
+    name = name.replace("負方", "敗方")
+    # 維基 "賽事 73 勝方" → 我們 "第73場勝方"
+    import re
+    name = re.sub(r"賽事\s+(\d+)\s+(勝方|敗方)", r"第\1場\2", name)
+    # 淘汰賽佔位符：維基用 "A/B/C/D/F組第三名"，我們用 "A/B/C/D/F組第三名" (A/B/C/D/F vs A/B/C/D/F)
+    # 以及維基 "C/E/F/H/I組第三位" → "C/E/F/H/I組第三名"
+    # 但主隊不同導致無法用 frozenset 配對；用模糊配對：若交集相同則視為同一占位符
+    return name
+
+
+def placeholder_match(name_a: str, name_b: str) -> bool:
+    """對於 "A/B/X組第三名" 形式的佔位符，忽略組別順序比對。"""
+    import re
+    pat = re.compile(r"^([A-L/]+)組第三名$")
+    ma = pat.match(name_a)
+    mb = pat.match(name_b)
+    if ma and mb:
+        return set(ma.group(1).split("/")) == set(mb.group(1).split("/"))
+    return name_a == name_b
 
 
 def main():
@@ -71,11 +90,27 @@ def main():
 
     matches = data["matches"]
 
-    # Build index by (home_alias, away_alias, wiki_date)
+    # Build indices for flexible matching
     by_key = {}
+    by_team_pair = {}
     for m in matches:
-        key = (team_alias(m["home_team"]), team_alias(m["away_team"]), m["date"])
-        by_key[key] = m
+        h = team_alias(m["home_team"])
+        a = team_alias(m["away_team"])
+        by_key[(h, a, m["date"])] = m
+        pair = frozenset([h, a])
+        by_team_pair.setdefault(pair, []).append(m)
+
+    def team_pair_match(pair_a: frozenset, pair_b: frozenset) -> bool:
+        """對比兩個隊伍集合；若雙方有一方是佔位符，用組別集合比對。"""
+        if pair_a == pair_b:
+            return True
+        # 逐一比對元素
+        a_list = list(pair_a)
+        b_list = list(pair_b)
+        if len(a_list) != 2 or len(b_list) != 2:
+            return False
+        return (placeholder_match(a_list[0], b_list[0]) and placeholder_match(a_list[1], b_list[1])) or \
+               (placeholder_match(a_list[0], b_list[1]) and placeholder_match(a_list[1], b_list[0]))
 
     updated = 0
     not_found = []
@@ -87,12 +122,32 @@ def main():
             print(f"parse fail {b.get('home')} vs {b.get('away')}: {e}")
             traceback.print_exc()
             continue
-        key = (team_alias(b["home"]), team_alias(b["away"]), new_date)
-        m = by_key.get(key)
+        h = team_alias(b["home"])
+        a = team_alias(b["away"])
+        # 1. exact (home, away, new_date)
+        m = by_key.get((h, a, new_date))
+        # 2. same order ignoring date
         if m is None:
-            # try without date constraint
-            for (h, a, d), cand in by_key.items():
-                if h == team_alias(b["home"]) and a == team_alias(b["away"]):
+            for (hh, aa, d), cand in by_key.items():
+                if hh == h and aa == a:
+                    m = cand
+                    break
+        # 3. reverse order ignoring date
+        if m is None:
+            for (hh, aa, d), cand in by_key.items():
+                if hh == a and aa == h:
+                    m = cand
+                    break
+        # 4. flexible team pair with placeholder matching
+        if m is None:
+            pair_b = frozenset([h, a])
+            cands_sorted = sorted(
+                matches,
+                key=lambda c: abs((datetime.strptime(c["date"], "%Y-%m-%d") - datetime.strptime(new_date, "%Y-%m-%d")).days),
+            )
+            for cand in cands_sorted:
+                pair_c = frozenset([team_alias(cand["home_team"]), team_alias(cand["away_team"])])
+                if team_pair_match(pair_b, pair_c):
                     m = cand
                     break
         if m is None:

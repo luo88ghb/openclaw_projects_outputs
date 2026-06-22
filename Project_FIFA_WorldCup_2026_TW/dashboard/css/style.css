@@ -184,8 +184,8 @@ th {
   background: rgba(255, 255, 255, 0.06);
 }
 
-/* 已賽場次字體顏色 */
-#match-tbody tr.finished td {
+/* 已賽場次字體顏色（排除預測欄，保留命中/未命中色彩） */
+#match-tbody tr.finished td:not(.prediction) {
   color: var(--finished);
 }
 

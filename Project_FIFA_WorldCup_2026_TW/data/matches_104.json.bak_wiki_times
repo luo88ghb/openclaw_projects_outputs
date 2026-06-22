@@ -22,8 +22,8 @@
   "matches": [
     {
       "match_id": 1,
-      "date": "2026-06-11",
-      "time_taiwan": "19:00",
+      "date": "2026-06-12",
+      "time_taiwan": "03:00",
       "stage": "小組賽",
       "group": "A",
       "home_team": "墨西哥",
@@ -40,13 +40,18 @@
         "away_win_prob": 16,
         "reason": "基於 FIFA 排名(15 vs 58) 與累積向量(73.7 vs 45.2)",
         "hit": true,
-        "score": 1.0
-      }
+        "score": 1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "home"
+      },
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 2,
       "date": "2026-06-12",
-      "time_taiwan": "02:00",
+      "time_taiwan": "10:00",
       "stage": "小組賽",
       "group": "A",
       "home_team": "南韓",
@@ -63,15 +68,18 @@
         "away_win_prob": 23,
         "reason": "基於 FIFA 排名(23 vs 42) 與累積向量(57.7 vs 47.2)",
         "hit": true,
-        "score": 1,
+        "score": 1.0,
         "predicted_outcome": "home",
         "actual_outcome": "home"
-      }
+      },
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 3,
-      "date": "2026-06-12",
-      "time_taiwan": "19:00",
+      "date": "2026-06-13",
+      "time_taiwan": "03:00",
       "stage": "小組賽",
       "group": "B",
       "home_team": "加拿大",
@@ -88,13 +96,18 @@
         "away_win_prob": 17,
         "reason": "基於 FIFA 排名(31 vs 74) 與累積向量(56.7 vs 45.7)",
         "hit": false,
-        "score": -1
-      }
+        "score": -1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "draw"
+      },
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 4,
       "date": "2026-06-13",
-      "time_taiwan": "01:00",
+      "time_taiwan": "09:00",
       "stage": "小組賽",
       "group": "D",
       "home_team": "美國",
@@ -111,13 +124,18 @@
         "away_win_prob": 16,
         "reason": "基於 FIFA 排名(11 vs 53) 與累積向量(72.7 vs 43.7)",
         "hit": true,
-        "score": 1
-      }
+        "score": 1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "home"
+      },
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 5,
-      "date": "2026-06-13",
-      "time_taiwan": "19:00",
+      "date": "2026-06-14",
+      "time_taiwan": "03:00",
       "stage": "小組賽",
       "group": "B",
       "home_team": "卡達",
@@ -134,15 +152,18 @@
         "away_win_prob": 55,
         "reason": "基於 FIFA 排名(58 vs 19) 與累積向量(45.7 vs 55.2)",
         "hit": false,
-        "score": -1,
+        "score": -1.0,
         "predicted_outcome": "away",
         "actual_outcome": "draw"
-      }
+      },
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 6,
-      "date": "2026-06-13",
-      "time_taiwan": "22:00",
+      "date": "2026-06-14",
+      "time_taiwan": "06:00",
       "stage": "小組賽",
       "group": "C",
       "home_team": "巴西",
@@ -159,13 +180,18 @@
         "away_win_prob": 33,
         "reason": "基於 FIFA 排名(5 vs 13) 與累積向量(48.2 vs 48.2)",
         "hit": false,
-        "score": -1.0
-      }
+        "score": -1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "draw"
+      },
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 7,
       "date": "2026-06-14",
-      "time_taiwan": "01:00",
+      "time_taiwan": "09:00",
       "stage": "小組賽",
       "group": "C",
       "home_team": "海地",
@@ -182,15 +208,18 @@
         "away_win_prob": 64,
         "reason": "基於 FIFA 排名(85 vs 44) 與累積向量(46.7 vs 69.7)",
         "hit": true,
-        "score": 1,
+        "score": 1.0,
         "predicted_outcome": "away",
         "actual_outcome": "away"
-      }
+      },
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 8,
       "date": "2026-06-14",
-      "time_taiwan": "04:00",
+      "time_taiwan": "12:00",
       "stage": "小組賽",
       "group": "D",
       "home_team": "澳洲",
@@ -207,15 +236,18 @@
         "away_win_prob": 19,
         "reason": "基於 FIFA 排名(24 vs 28) 與累積向量(71.2 vs 45.7)",
         "hit": true,
-        "score": 1,
+        "score": 1.0,
         "predicted_outcome": "home",
         "actual_outcome": "home"
-      }
+      },
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 9,
-      "date": "2026-06-14",
-      "time_taiwan": "17:00",
+      "date": "2026-06-15",
+      "time_taiwan": "01:00",
       "stage": "小組賽",
       "group": "E",
       "home_team": "德國",
@@ -232,13 +264,18 @@
         "away_win_prob": 14,
         "reason": "基於 FIFA 排名(16 vs 79) 與累積向量(77.2 vs 39.2)",
         "hit": true,
-        "score": 1
-      }
+        "score": 1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "home"
+      },
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 10,
-      "date": "2026-06-14",
-      "time_taiwan": "20:00",
+      "date": "2026-06-15",
+      "time_taiwan": "04:00",
       "stage": "小組賽",
       "group": "F",
       "home_team": "荷蘭",
@@ -255,13 +292,18 @@
         "away_win_prob": 32,
         "reason": "基於 FIFA 排名(7 vs 18) 與累積向量(48.2 vs 48.2)",
         "hit": false,
-        "score": -1.0
-      }
+        "score": -1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "draw"
+      },
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 11,
-      "date": "2026-06-14",
-      "time_taiwan": "23:00",
+      "date": "2026-06-15",
+      "time_taiwan": "07:00",
       "stage": "小組賽",
       "group": "E",
       "home_team": "象牙海岸",
@@ -278,15 +320,18 @@
         "away_win_prob": 31,
         "reason": "基於 FIFA 排名(50 vs 24) 與累積向量(69.7 vs 46.7)",
         "hit": true,
-        "score": 1,
+        "score": 1.0,
         "predicted_outcome": "home",
         "actual_outcome": "home"
-      }
+      },
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 12,
       "date": "2026-06-15",
-      "time_taiwan": "02:00",
+      "time_taiwan": "10:00",
       "stage": "小組賽",
       "group": "F",
       "home_team": "瑞典",
@@ -303,15 +348,18 @@
         "away_win_prob": 17,
         "reason": "基於 FIFA 排名(27 vs 41) 與累積向量(71.7 vs 42.2)",
         "hit": true,
-        "score": 1,
+        "score": 1.0,
         "predicted_outcome": "home",
         "actual_outcome": "home"
-      }
+      },
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 13,
-      "date": "2026-06-15",
-      "time_taiwan": "16:00",
+      "date": "2026-06-16",
+      "time_taiwan": "00:00",
       "stage": "小組賽",
       "group": "H",
       "home_team": "西班牙",
@@ -328,13 +376,18 @@
         "away_win_prob": 17,
         "reason": "基於 FIFA 排名(1 vs 65) 與累積向量(48.2 vs 48.2)",
         "hit": false,
-        "score": -1
-      }
+        "score": -1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "draw"
+      },
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 14,
-      "date": "2026-06-15",
-      "time_taiwan": "19:00",
+      "date": "2026-06-16",
+      "time_taiwan": "03:00",
       "stage": "小組賽",
       "group": "G",
       "home_team": "比利時",
@@ -351,8 +404,13 @@
         "away_win_prob": 26,
         "reason": "基於 FIFA 排名(8 vs 36) 與累積向量(48.2 vs 48.2)",
         "hit": false,
-        "score": -1
-      }
+        "score": -1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "draw"
+      },
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 15,
@@ -374,8 +432,13 @@
         "away_win_prob": 32,
         "reason": "基於 FIFA 排名(14 vs 59) 與累積向量(47.2 vs 67.2)",
         "hit": false,
-        "score": -1.0
-      }
+        "score": -1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "draw"
+      },
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 16,
@@ -397,13 +460,18 @@
         "away_win_prob": 66,
         "reason": "基於 FIFA 排名(94 vs 20) 與累積向量(46.7 vs 58.7)",
         "hit": false,
-        "score": -1
-      }
+        "score": -1.0,
+        "predicted_outcome": "away",
+        "actual_outcome": "draw"
+      },
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 17,
-      "date": "2026-06-16",
-      "time_taiwan": "19:00",
+      "date": "2026-06-17",
+      "time_taiwan": "03:00",
       "stage": "小組賽",
       "group": "I",
       "home_team": "法國",
@@ -420,14 +488,18 @@
         "away_win_prob": 30,
         "reason": "基於 FIFA 排名(2 vs 17) 與累積向量(50 vs 50)",
         "hit": true,
-        "score": 1.0
+        "score": 1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "home"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 18,
-      "date": "2026-06-16",
-      "time_taiwan": "22:00",
+      "date": "2026-06-17",
+      "time_taiwan": "06:00",
       "stage": "小組賽",
       "group": "I",
       "home_team": "伊拉克",
@@ -444,14 +516,18 @@
         "away_win_prob": 40,
         "reason": "基於 FIFA 排名(55 vs 43) 與累積向量(50 vs 50)",
         "hit": false,
-        "score": -1
+        "score": -1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "away"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 19,
       "date": "2026-06-17",
-      "time_taiwan": "01:00",
+      "time_taiwan": "09:00",
       "stage": "小組賽",
       "group": "J",
       "home_team": "阿根廷",
@@ -468,14 +544,18 @@
         "away_win_prob": 17,
         "reason": "基於 FIFA 排名(1 vs 57) 與累積向量(50 vs 50)",
         "hit": true,
-        "score": 1
+        "score": 1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "home"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 20,
       "date": "2026-06-17",
-      "time_taiwan": "04:00",
+      "time_taiwan": "12:00",
       "stage": "小組賽",
       "group": "J",
       "home_team": "奧地利",
@@ -492,14 +572,18 @@
         "away_win_prob": 19,
         "reason": "基於 FIFA 排名(22 vs 70) 與累積向量(50 vs 50)",
         "hit": true,
-        "score": 1
+        "score": 1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "home"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 21,
-      "date": "2026-06-17",
-      "time_taiwan": "17:00",
+      "date": "2026-06-18",
+      "time_taiwan": "01:00",
       "stage": "小組賽",
       "group": "K",
       "home_team": "葡萄牙",
@@ -516,14 +600,18 @@
         "away_win_prob": 17,
         "reason": "基於 FIFA 排名(6 vs 63) 與累積向量(50 vs 50)",
         "hit": false,
-        "score": -1
+        "score": -1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "draw"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 22,
-      "date": "2026-06-17",
-      "time_taiwan": "20:00",
+      "date": "2026-06-18",
+      "time_taiwan": "04:00",
       "stage": "小組賽",
       "group": "L",
       "home_team": "英格蘭",
@@ -540,16 +628,18 @@
         "away_win_prob": 34,
         "reason": "基於 FIFA 排名(4 vs 10) 與累積向量(50 vs 50)",
         "hit": true,
-        "score": 1,
+        "score": 1.0,
         "predicted_outcome": "home",
         "actual_outcome": "home"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 23,
-      "date": "2026-06-17",
-      "time_taiwan": "23:00",
+      "date": "2026-06-18",
+      "time_taiwan": "07:00",
       "stage": "小組賽",
       "group": "L",
       "home_team": "迦納",
@@ -566,16 +656,18 @@
         "away_win_prob": 32,
         "reason": "基於 FIFA 排名(68 vs 78) 與累積向量(50 vs 50)",
         "hit": true,
-        "score": 1,
+        "score": 1.0,
         "predicted_outcome": "home",
         "actual_outcome": "home"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 24,
       "date": "2026-06-18",
-      "time_taiwan": "02:00",
+      "time_taiwan": "10:00",
       "stage": "小組賽",
       "group": "K",
       "home_team": "烏茲別克",
@@ -592,14 +684,18 @@
         "away_win_prob": 54,
         "reason": "基於 FIFA 排名(60 vs 9) 與累積向量(50 vs 50)",
         "hit": true,
-        "score": 1
+        "score": 1.0,
+        "predicted_outcome": "away",
+        "actual_outcome": "away"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 25,
-      "date": "2026-06-18",
-      "time_taiwan": "16:00",
+      "date": "2026-06-19",
+      "time_taiwan": "00:00",
       "stage": "小組賽",
       "group": "A",
       "home_team": "捷克",
@@ -616,16 +712,18 @@
         "away_win_prob": 29,
         "reason": "基於 FIFA 排名(42 vs 58) 與累積向量(46.7 vs 44.7)",
         "hit": false,
-        "score": -1,
+        "score": -1.0,
         "predicted_outcome": "home",
         "actual_outcome": "draw"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 26,
-      "date": "2026-06-18",
-      "time_taiwan": "19:00",
+      "date": "2026-06-19",
+      "time_taiwan": "03:00",
       "stage": "小組賽",
       "group": "B",
       "home_team": "瑞士",
@@ -642,14 +740,18 @@
         "away_win_prob": 18,
         "reason": "基於 FIFA 排名(19 vs 74) 與累積向量(48.2 vs 50)",
         "hit": true,
-        "score": 1
+        "score": 1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "home"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 27,
-      "date": "2026-06-18",
-      "time_taiwan": "22:00",
+      "date": "2026-06-19",
+      "time_taiwan": "06:00",
       "stage": "小組賽",
       "group": "B",
       "home_team": "加拿大",
@@ -666,14 +768,18 @@
         "away_win_prob": 26,
         "reason": "基於 FIFA 排名(31 vs 58) 與累積向量(48.2 vs 48.2)",
         "hit": true,
-        "score": 1
+        "score": 1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "home"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 28,
       "date": "2026-06-19",
-      "time_taiwan": "01:00",
+      "time_taiwan": "09:00",
       "stage": "小組賽",
       "group": "A",
       "home_team": "墨西哥",
@@ -690,14 +796,18 @@
         "away_win_prob": 30,
         "reason": "基於 FIFA 排名(15 vs 23) 與累積向量(72.7 vs 67.7)",
         "hit": true,
-        "score": 1.0
+        "score": 1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "home"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 29,
-      "date": "2026-06-19",
-      "time_taiwan": "19:00",
+      "date": "2026-06-20",
+      "time_taiwan": "03:00",
       "stage": "小組賽",
       "group": "D",
       "home_team": "美國",
@@ -714,15 +824,18 @@
         "away_win_prob": 30,
         "reason": "基於 FIFA 排名(11 vs 24) 與累積向量(72.7 vs 71.2)",
         "hit": true,
-        "score": 1.0
+        "score": 1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "home"
       },
       "scrape_checked": true,
-      "hit": false
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 30,
-      "date": "2026-06-19",
-      "time_taiwan": "22:00",
+      "date": "2026-06-20",
+      "time_taiwan": "06:00",
       "stage": "小組賽",
       "group": "C",
       "home_team": "蘇格蘭",
@@ -739,14 +852,18 @@
         "away_win_prob": 34,
         "reason": "基於 FIFA 排名(44 vs 13) 與累積向量(69.7 vs 48.2)",
         "hit": false,
-        "score": -1
+        "score": -1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "away"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 31,
       "date": "2026-06-20",
-      "time_taiwan": "00:30",
+      "time_taiwan": "08:30",
       "stage": "小組賽",
       "group": "C",
       "home_team": "巴西",
@@ -763,14 +880,18 @@
         "away_win_prob": 16,
         "reason": "基於 FIFA 排名(5 vs 85) 與累積向量(48.2 vs 46.7)",
         "hit": true,
-        "score": 1
+        "score": 1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "home"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 32,
       "date": "2026-06-20",
-      "time_taiwan": "03:00",
+      "time_taiwan": "11:00",
       "stage": "小組賽",
       "group": "D",
       "home_team": "土耳其",
@@ -787,16 +908,18 @@
         "away_win_prob": 26,
         "reason": "基於 FIFA 排名(28 vs 53) 與累積向量(45.7 vs 43.7)",
         "hit": false,
-        "score": -1,
+        "score": -1.0,
         "predicted_outcome": "home",
         "actual_outcome": "away"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 33,
-      "date": "2026-06-20",
-      "time_taiwan": "17:00",
+      "date": "2026-06-21",
+      "time_taiwan": "01:00",
       "stage": "小組賽",
       "group": "F",
       "home_team": "荷蘭",
@@ -813,24 +936,26 @@
         "away_win_prob": 43,
         "reason": "基於 FIFA 排名(7 vs 27) 與累積向量(48.2 vs 71.7)",
         "hit": false,
-        "score": -1,
+        "score": -1.0,
         "predicted_outcome": "away",
         "actual_outcome": "home"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 34,
-      "date": "2026-06-20",
-      "time_taiwan": "20:00",
+      "date": "2026-06-21",
+      "time_taiwan": "04:00",
       "stage": "小組賽",
       "group": "E",
       "home_team": "德國",
       "away_team": "象牙海岸",
       "city": "多倫多",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 2,
+      "away_score": 1,
+      "status": "finished",
       "prediction": {
         "home_score_pred": 2,
         "away_score_pred": 1,
@@ -838,21 +963,27 @@
         "draw_prob": 18,
         "away_win_prob": 19,
         "reason": "基於 FIFA 排名(16 vs 50) 與累積向量(77.2 vs 69.7)",
-        "hit": null
-      }
+        "hit": true,
+        "score": 1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "home"
+      },
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 35,
       "date": "2026-06-21",
-      "time_taiwan": "00:00",
+      "time_taiwan": "08:00",
       "stage": "小組賽",
       "group": "E",
       "home_team": "厄瓜多",
       "away_team": "庫拉索",
       "city": "堪薩斯城",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "finished",
       "prediction": {
         "home_score_pred": 2,
         "away_score_pred": 1,
@@ -860,14 +991,19 @@
         "draw_prob": 17,
         "away_win_prob": 17,
         "reason": "基於 FIFA 排名(24 vs 79) 與累積向量(46.7 vs 39.2)",
-        "hit": null
+        "hit": false,
+        "score": -1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "draw"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 36,
       "date": "2026-06-21",
-      "time_taiwan": "04:00",
+      "time_taiwan": "12:00",
       "stage": "小組賽",
       "group": "F",
       "home_team": "突尼西亞",
@@ -884,24 +1020,26 @@
         "away_win_prob": 48,
         "reason": "基於 FIFA 排名(41 vs 18) 與累積向量(42.2 vs 48.2)",
         "hit": true,
-        "score": 1,
+        "score": 1.0,
         "predicted_outcome": "away",
         "actual_outcome": "away"
       },
-      "scrape_checked": true
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 37,
-      "date": "2026-06-21",
-      "time_taiwan": "16:00",
+      "date": "2026-06-22",
+      "time_taiwan": "00:00",
       "stage": "小組賽",
       "group": "H",
       "home_team": "西班牙",
       "away_team": "沙烏地阿拉伯",
       "city": "亞特蘭大",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 4,
+      "away_score": 0,
+      "status": "finished",
       "prediction": {
         "home_score_pred": 2,
         "away_score_pred": 1,
@@ -909,21 +1047,27 @@
         "draw_prob": 18,
         "away_win_prob": 26,
         "reason": "基於 FIFA 排名(1 vs 59) 與累積向量(48.2 vs 67.2)",
-        "hit": null
-      }
+        "hit": true,
+        "score": 1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "home"
+      },
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 38,
-      "date": "2026-06-21",
-      "time_taiwan": "19:00",
+      "date": "2026-06-22",
+      "time_taiwan": "03:00",
       "stage": "小組賽",
       "group": "G",
       "home_team": "比利時",
       "away_team": "伊朗",
       "city": "洛杉磯",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "finished",
       "prediction": {
         "home_score_pred": 2,
         "away_score_pred": 1,
@@ -931,21 +1075,26 @@
         "draw_prob": 18,
         "away_win_prob": 38,
         "reason": "基於 FIFA 排名(8 vs 20) 與累積向量(48.2 vs 58.7)",
-        "hit": null
-      }
+        "hit": false,
+        "score": -1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "draw"
+      },
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 39,
-      "date": "2026-06-21",
-      "time_taiwan": "22:00",
+      "date": "2026-06-22",
+      "time_taiwan": "06:00",
       "stage": "小組賽",
       "group": "H",
       "home_team": "烏拉圭",
       "away_team": "維德角",
       "city": "邁阿密",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 2,
+      "away_score": 2,
+      "status": "finished",
       "prediction": {
         "home_score_pred": 2,
         "away_score_pred": 1,
@@ -953,21 +1102,26 @@
         "draw_prob": 18,
         "away_win_prob": 18,
         "reason": "基於 FIFA 排名(14 vs 65) 與累積向量(47.2 vs 48.2)",
-        "hit": null
-      }
+        "hit": false,
+        "score": -1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "draw"
+      },
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 40,
       "date": "2026-06-22",
-      "time_taiwan": "01:00",
+      "time_taiwan": "09:00",
       "stage": "小組賽",
       "group": "G",
       "home_team": "紐西蘭",
       "away_team": "埃及",
       "city": "溫哥華",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 1,
+      "away_score": 3,
+      "status": "finished",
       "prediction": {
         "home_score_pred": 1,
         "away_score_pred": 2,
@@ -975,13 +1129,19 @@
         "draw_prob": 18,
         "away_win_prob": 57,
         "reason": "基於 FIFA 排名(94 vs 36) 與累積向量(46.7 vs 48.2)",
-        "hit": null
-      }
+        "hit": true,
+        "score": 1.0,
+        "predicted_outcome": "away",
+        "actual_outcome": "away"
+      },
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 41,
-      "date": "2026-06-22",
-      "time_taiwan": "17:00",
+      "date": "2026-06-23",
+      "time_taiwan": "01:00",
       "stage": "小組賽",
       "group": "J",
       "home_team": "阿根廷",
@@ -1002,8 +1162,8 @@
     },
     {
       "match_id": 42,
-      "date": "2026-06-22",
-      "time_taiwan": "21:00",
+      "date": "2026-06-23",
+      "time_taiwan": "05:00",
       "stage": "小組賽",
       "group": "I",
       "home_team": "法國",
@@ -1025,7 +1185,7 @@
     {
       "match_id": 43,
       "date": "2026-06-23",
-      "time_taiwan": "00:00",
+      "time_taiwan": "08:00",
       "stage": "小組賽",
       "group": "I",
       "home_team": "挪威",
@@ -1047,7 +1207,7 @@
     {
       "match_id": 44,
       "date": "2026-06-23",
-      "time_taiwan": "03:00",
+      "time_taiwan": "11:00",
       "stage": "小組賽",
       "group": "J",
       "home_team": "約旦",
@@ -1068,8 +1228,8 @@
     },
     {
       "match_id": 45,
-      "date": "2026-06-23",
-      "time_taiwan": "17:00",
+      "date": "2026-06-24",
+      "time_taiwan": "01:00",
       "stage": "小組賽",
       "group": "K",
       "home_team": "葡萄牙",
@@ -1090,8 +1250,8 @@
     },
     {
       "match_id": 46,
-      "date": "2026-06-23",
-      "time_taiwan": "20:00",
+      "date": "2026-06-24",
+      "time_taiwan": "04:00",
       "stage": "小組賽",
       "group": "L",
       "home_team": "英格蘭",
@@ -1112,8 +1272,8 @@
     },
     {
       "match_id": 47,
-      "date": "2026-06-23",
-      "time_taiwan": "23:00",
+      "date": "2026-06-24",
+      "time_taiwan": "07:00",
       "stage": "小組賽",
       "group": "L",
       "home_team": "巴拿馬",
@@ -1135,7 +1295,7 @@
     {
       "match_id": 48,
       "date": "2026-06-24",
-      "time_taiwan": "02:00",
+      "time_taiwan": "10:00",
       "stage": "小組賽",
       "group": "K",
       "home_team": "哥倫比亞",
@@ -1156,8 +1316,8 @@
     },
     {
       "match_id": 49,
-      "date": "2026-06-24",
-      "time_taiwan": "19:00",
+      "date": "2026-06-25",
+      "time_taiwan": "03:00",
       "stage": "小組賽",
       "group": "B",
       "home_team": "瑞士",
@@ -1178,8 +1338,8 @@
     },
     {
       "match_id": 50,
-      "date": "2026-06-24",
-      "time_taiwan": "19:00",
+      "date": "2026-06-25",
+      "time_taiwan": "03:00",
       "stage": "小組賽",
       "group": "B",
       "home_team": "波赫",
@@ -1200,8 +1360,8 @@
     },
     {
       "match_id": 51,
-      "date": "2026-06-24",
-      "time_taiwan": "22:00",
+      "date": "2026-06-25",
+      "time_taiwan": "06:00",
       "stage": "小組賽",
       "group": "C",
       "home_team": "蘇格蘭",
@@ -1222,8 +1382,8 @@
     },
     {
       "match_id": 52,
-      "date": "2026-06-24",
-      "time_taiwan": "22:00",
+      "date": "2026-06-25",
+      "time_taiwan": "06:00",
       "stage": "小組賽",
       "group": "C",
       "home_team": "摩洛哥",
@@ -1245,7 +1405,7 @@
     {
       "match_id": 53,
       "date": "2026-06-25",
-      "time_taiwan": "01:00",
+      "time_taiwan": "09:00",
       "stage": "小組賽",
       "group": "A",
       "home_team": "南非",
@@ -1267,7 +1427,7 @@
     {
       "match_id": 54,
       "date": "2026-06-25",
-      "time_taiwan": "01:00",
+      "time_taiwan": "09:00",
       "stage": "小組賽",
       "group": "A",
       "home_team": "捷克",
@@ -1288,8 +1448,8 @@
     },
     {
       "match_id": 55,
-      "date": "2026-06-25",
-      "time_taiwan": "20:00",
+      "date": "2026-06-26",
+      "time_taiwan": "04:00",
       "stage": "小組賽",
       "group": "E",
       "home_team": "庫拉索",
@@ -1310,8 +1470,8 @@
     },
     {
       "match_id": 56,
-      "date": "2026-06-25",
-      "time_taiwan": "20:00",
+      "date": "2026-06-26",
+      "time_taiwan": "04:00",
       "stage": "小組賽",
       "group": "E",
       "home_team": "厄瓜多",
@@ -1332,8 +1492,8 @@
     },
     {
       "match_id": 57,
-      "date": "2026-06-25",
-      "time_taiwan": "23:00",
+      "date": "2026-06-26",
+      "time_taiwan": "07:00",
       "stage": "小組賽",
       "group": "F",
       "home_team": "突尼西亞",
@@ -1354,8 +1514,8 @@
     },
     {
       "match_id": 58,
-      "date": "2026-06-25",
-      "time_taiwan": "23:00",
+      "date": "2026-06-26",
+      "time_taiwan": "07:00",
       "stage": "小組賽",
       "group": "F",
       "home_team": "日本",
@@ -1377,7 +1537,7 @@
     {
       "match_id": 59,
       "date": "2026-06-26",
-      "time_taiwan": "02:00",
+      "time_taiwan": "10:00",
       "stage": "小組賽",
       "group": "D",
       "home_team": "土耳其",
@@ -1399,7 +1559,7 @@
     {
       "match_id": 60,
       "date": "2026-06-26",
-      "time_taiwan": "02:00",
+      "time_taiwan": "10:00",
       "stage": "小組賽",
       "group": "D",
       "home_team": "巴拉圭",
@@ -1420,8 +1580,8 @@
     },
     {
       "match_id": 61,
-      "date": "2026-06-26",
-      "time_taiwan": "19:00",
+      "date": "2026-06-27",
+      "time_taiwan": "03:00",
       "stage": "小組賽",
       "group": "I",
       "home_team": "挪威",
@@ -1442,8 +1602,8 @@
     },
     {
       "match_id": 62,
-      "date": "2026-06-26",
-      "time_taiwan": "19:00",
+      "date": "2026-06-27",
+      "time_taiwan": "03:00",
       "stage": "小組賽",
       "group": "I",
       "home_team": "塞內加爾",
@@ -1465,7 +1625,7 @@
     {
       "match_id": 63,
       "date": "2026-06-27",
-      "time_taiwan": "00:00",
+      "time_taiwan": "08:00",
       "stage": "小組賽",
       "group": "H",
       "home_team": "烏拉圭",
@@ -1487,7 +1647,7 @@
     {
       "match_id": 64,
       "date": "2026-06-27",
-      "time_taiwan": "00:00",
+      "time_taiwan": "08:00",
       "stage": "小組賽",
       "group": "H",
       "home_team": "維德角",
@@ -1509,7 +1669,7 @@
     {
       "match_id": 65,
       "date": "2026-06-27",
-      "time_taiwan": "03:00",
+      "time_taiwan": "11:00",
       "stage": "小組賽",
       "group": "G",
       "home_team": "紐西蘭",
@@ -1531,7 +1691,7 @@
     {
       "match_id": 66,
       "date": "2026-06-27",
-      "time_taiwan": "03:00",
+      "time_taiwan": "11:00",
       "stage": "小組賽",
       "group": "G",
       "home_team": "埃及",
@@ -1552,8 +1712,8 @@
     },
     {
       "match_id": 67,
-      "date": "2026-06-27",
-      "time_taiwan": "21:00",
+      "date": "2026-06-28",
+      "time_taiwan": "05:00",
       "stage": "小組賽",
       "group": "L",
       "home_team": "巴拿馬",
@@ -1574,8 +1734,8 @@
     },
     {
       "match_id": 68,
-      "date": "2026-06-27",
-      "time_taiwan": "21:00",
+      "date": "2026-06-28",
+      "time_taiwan": "05:00",
       "stage": "小組賽",
       "group": "L",
       "home_team": "克羅埃西亞",
@@ -1596,8 +1756,8 @@
     },
     {
       "match_id": 69,
-      "date": "2026-06-27",
-      "time_taiwan": "23:30",
+      "date": "2026-06-28",
+      "time_taiwan": "07:30",
       "stage": "小組賽",
       "group": "K",
       "home_team": "哥倫比亞",
@@ -1618,8 +1778,8 @@
     },
     {
       "match_id": 70,
-      "date": "2026-06-27",
-      "time_taiwan": "23:30",
+      "date": "2026-06-28",
+      "time_taiwan": "07:30",
       "stage": "小組賽",
       "group": "K",
       "home_team": "剛果民主共和國",
@@ -1641,7 +1801,7 @@
     {
       "match_id": 71,
       "date": "2026-06-28",
-      "time_taiwan": "02:00",
+      "time_taiwan": "10:00",
       "stage": "小組賽",
       "group": "J",
       "home_team": "阿爾及利亞",
@@ -1663,7 +1823,7 @@
     {
       "match_id": 72,
       "date": "2026-06-28",
-      "time_taiwan": "02:00",
+      "time_taiwan": "10:00",
       "stage": "小組賽",
       "group": "J",
       "home_team": "約旦",
@@ -1729,7 +1889,7 @@
     {
       "match_id": 75,
       "date": "2026-06-30",
-      "time_taiwan": "04:30",
+      "time_taiwan": "08:30",
       "stage": "32強",
       "group": null,
       "home_team": "E組第一名",

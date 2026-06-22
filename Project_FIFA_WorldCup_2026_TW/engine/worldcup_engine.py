@@ -85,7 +85,7 @@ class WorldCupEngine:
             "away_team": match["away_team"],
             "home_score": match["home_score"],
             "away_score": match["away_score"],
-            "recorded_at": datetime.now().isoformat()
+            "recorded_at": datetime.now().astimezone().isoformat()
         }
         # 避免重複寫入
         db["match_results"] = [r for r in db["match_results"] if r["match_id"] != match["match_id"]]
@@ -206,11 +206,11 @@ class WorldCupEngine:
         actual_hs = int(match["home_score"])
         actual_aw = int(match["away_score"])
 
-        # 預測結果：機率最高者
+        # 預測結果：機率最高者（回退到比數預測勝方）
         probs = {
-            "home": float(pred.get("home_win_prob", 0)),
-            "draw": float(pred.get("draw_prob", 0)),
-            "away": float(pred.get("away_win_prob", 0)),
+            "home": float(pred.get("home_win_prob", 0) or 0),
+            "draw": float(pred.get("draw_prob", 0) or 0),
+            "away": float(pred.get("away_win_prob", 0) or 0),
         }
         # 若機率全為 0，回退到比數預測判斷勝方
         if sum(probs.values()) == 0:
@@ -234,15 +234,40 @@ class WorldCupEngine:
             actual_outcome = "away"
 
         hit = predicted_outcome == actual_outcome
-        score = 1 if hit else -1
+        score = 1.0 if hit else -1.0
 
         pred["hit"] = hit
         pred["score"] = score
         pred["predicted_outcome"] = predicted_outcome
         pred["actual_outcome"] = actual_outcome
         match["hit"] = hit
+        match["score"] = score
         self._save_matches()
         return pred
+
+    def check_all_finished_predictions(self) -> dict:
+        """對所有已結束且尚未正確計分的場次重新執行 check_prediction。"""
+        updated = 0
+        for m in self.matches:
+            if m.get("status") != "finished":
+                continue
+            if m.get("home_score") is None or m.get("away_score") is None:
+                continue
+            pred = m.get("prediction")
+            if not pred:
+                continue
+            # 如果已經有完整且一致的計分結果則跳過
+            if (
+                pred.get("hit") is not None
+                and pred.get("score") is not None
+                and pred.get("predicted_outcome") is not None
+                and pred.get("actual_outcome") is not None
+            ):
+                continue
+            self.check_prediction(m["match_id"])
+            updated += 1
+        self._save_matches()
+        return {"updated": updated}
 
     def generate_stage_predictions(self, stage: str) -> dict:
         """產生各階段預測，寫入 predictions_db。"""
@@ -391,4 +416,8 @@ class WorldCupEngine:
 if __name__ == "__main__":
     engine = WorldCupEngine()
     print("總場次:", len(engine.matches))
+    # 啟動時校正所有已結束場次計分
+    result = engine.check_all_finished_predictions()
+    if result.get("updated"):
+        print("已重新校正場次:", result["updated"])
     print("下一場內即將開賽:", engine.upcoming_matches(48))

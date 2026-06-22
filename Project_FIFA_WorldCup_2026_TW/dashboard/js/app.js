@@ -36,14 +36,8 @@ function setupJumpToLatest() {
   const btn = document.getElementById('jump-to-latest');
   if (!btn) return;
   btn.addEventListener('click', () => {
-    const { centerMatch } = getMatchWindowCenter();
-    if (!centerMatch) return;
-    const row = document.querySelector(`tr[data-match-id="${centerMatch.match_id}"]`);
-    if (row) {
-      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      row.classList.add('highlight-row');
-      setTimeout(() => row.classList.remove('highlight-row'), 2000);
-    }
+    const matchId = findLatestMatchId();
+    scrollToMatch(matchId);
   });
 }
 
@@ -169,9 +163,36 @@ async function loadData() {
   setupPredictionTabs();
   setupPredictionActions();
   setupFilters();
-  setupPredictionDetailButtons();
   setupJumpToLatest();
+  setupPredictionDetailButtons();
   setupPredictionHistoryModal();
+}
+
+function setupPredictionDetailButtons() {
+  const container = document.getElementById('match-table-container');
+  if (!container) return;
+  container.addEventListener('click', (e) => {
+    // 點選場次編號或預測欄位時，開啟預測歷史 modal
+    const cell = e.target.closest('td.prediction, td:first-child');
+    if (cell) {
+      const row = cell.closest('tr');
+      if (row) {
+        const matchId = Number(row.dataset.matchId);
+        if (matchId) {
+          showPredictionHistory(matchId);
+          return;
+        }
+      }
+    }
+    // 原有的預測細節按鈕切換
+    const btn = e.target.closest('.pred-detail-btn');
+    if (!btn) return;
+    const row = btn.closest('tr');
+    const detail = row ? row.querySelector('.pred-detail') : null;
+    if (detail) {
+      detail.classList.toggle('hidden');
+    }
+  });
 }
 
 function getTeam(name) {
@@ -188,7 +209,15 @@ function getFlagHTML(team) {
 }
 
 function taiwanDateTime(dateStr, timeStr) {
+  // Always interpret date/time as Asia/Taipei regardless of client locale.
   return new Date(`${dateStr}T${timeStr}:00+08:00`);
+}
+
+function nowTaiwan() {
+  // Get current time in Asia/Taipei explicitly.
+  const d = new Date();
+  const s = d.toLocaleString('en-US', { timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+  return new Date(s);
 }
 
 function formatDateTime(dateStr, timeStr) {
@@ -210,7 +239,7 @@ function isMatchFinished(m) {
 }
 
 function isMatchLive(m) {
-  const now = new Date();
+  const now = nowTaiwan();
   const kickoff = taiwanDateTime(m.date, m.time_taiwan);
   const end = new Date(kickoff.getTime() + 2 * 60 * 60 * 1000); // 約 2 小時後結束
   return now >= kickoff && now <= end && !isMatchFinished(m);
@@ -250,7 +279,7 @@ function renderMatchInfo(m, options = {}) {
 }
 
 function getMatchWindowCenter() {
-  const now = new Date();
+  const now = nowTaiwan();
 
   // 比賽中場次：最優先作為視窗中心
   const liveMatches = matches
@@ -604,7 +633,7 @@ function renderMatches() {
     const rowClass = (index % 2 === 0 ? 'odd' : 'even') + (finished ? ' finished' : '') + (live ? ' live' : '');
 
     return `
-      <tr class="${rowClass}" data-match-id="${m.match_id}">
+      <tr class="${rowClass}" data-match-id="${m.match_id}" id="match-row-${m.match_id}">
         <td title="點擊查看預測歷史">${m.match_id}</td>
         <td>${m.date}</td>
         <td>${m.time_taiwan}</td>
@@ -619,6 +648,43 @@ function renderMatches() {
     `;
   }).join('');
 }
+
+function findLatestMatchId() {
+  const now = nowTaiwan();
+  // 找到最接近目前時間的一場：若已結束取最後一場已結束，否則取下一場即將開賽
+  const sorted = [...matches].sort((a, b) => {
+    const da = taiwanDateTime(a.date, a.time_taiwan);
+    const db = taiwanDateTime(b.date, b.time_taiwan);
+    return da - db;
+  });
+  let closest = null;
+  let minDiff = Infinity;
+  for (const m of sorted) {
+    const dt = taiwanDateTime(m.date, m.time_taiwan);
+    const diff = Math.abs(dt - now);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closest = m;
+    }
+  }
+  return closest ? closest.match_id : null;
+}
+
+function scrollToMatch(matchId) {
+  if (!matchId) return;
+  const row = document.getElementById(`match-row-${matchId}`);
+  if (!row) return;
+  row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  row.classList.add('highlight-row');
+  setTimeout(() => row.classList.remove('highlight-row'), 2500);
+}
+
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.id === 'jump-to-latest') {
+    const matchId = findLatestMatchId();
+    scrollToMatch(matchId);
+  }
+});
 
 function renderStandings() {
   const groups = {};

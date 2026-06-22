@@ -101,10 +101,13 @@ def _is_score_present(result: dict) -> bool:
 
 def _is_match_pending(m: dict) -> bool:
     """True if the match still needs result scraping/prediction checking."""
+    # 已結束就是完成
     if m.get("status") == "finished":
         return False
+    # 有比分但仍未標 finished 的仍須處理（來源驗證）
     if m.get("home_score") is not None and m.get("away_score") is not None:
-        return False
+        return True
+    # 已經標記檢查過就跳過
     if m.get("scrape_checked"):
         return False
     return True
@@ -181,12 +184,12 @@ def process_match(engine: WorldCupEngine, m: dict, retry_until_score: bool = Tru
         if pred:
             hit = pred.get("hit")
             hit_text = f" {'命中' if hit else '未命中'}"
-        # Do not mark scrape_checked; leave it for the backfill path to handle
-        # once the result has actually been verified from the source.
+        # 標記 checked，避免反覆觸發
+        set_match_checked(engine, m)
         return {
             "match_id": match_id,
             "updated": True,
-            "message": f"Match {match_id}: 已有比分 {m['home_team']} {m['home_score']}-{m['away_score']} {m['away_team']}{hit_text}（等待來源驗證後再標記 checked）",
+            "message": f"Match {match_id}: 已有比分 {m['home_team']} {m['home_score']}-{m['away_score']} {m['away_team']}{hit_text}，已標記 checked。",
         }
 
     # 2. Scrape Wikipedia
