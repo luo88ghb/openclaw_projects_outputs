@@ -10,6 +10,8 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+from .elo_model import predict_by_name
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
 PREDICTIONS_DIR = BASE_DIR / "predictions"
@@ -131,11 +133,37 @@ class WorldCupEngine:
             vec["form_score"] = 40 + win_rate * 60
             vec["overall"] = round((vec["attack_score"] + vec["defense_score"] + vec["form_score"]) / 3, 1)
 
-    def predict_match(self, match_id: int) -> dict:
-        """賽前基礎預測：根據 FIFA 排名 + 隊伍向量 + 主場優勢。"""
+    def predict_match(self, match_id: int, model: str = "l1") -> dict:
+        """賽前預測。model='l1' 使用 FIFA 排名模型；model='l2' 使用 Elo 模型。"""
         match = self.get_match(match_id)
         home_name = match["home_team"]
         away_name = match["away_team"]
+
+        if model == "l2":
+            elo_probs = predict_by_name(home_name, away_name)
+            if elo_probs:
+                home_rank = self.teams.get(home_name, {}).get("fifa_ranking", 100)
+                away_rank = self.teams.get(away_name, {}).get("fifa_ranking", 100)
+                home_expected = max(0.5, 1.0 + (100 - home_rank) * 0.02 + elo_probs["home"] * 1.5 - 0.75)
+                away_expected = max(0.5, 1.0 + (100 - away_rank) * 0.02 + elo_probs["away"] * 1.5 - 0.75)
+                home_score_pred = round(home_expected)
+                away_score_pred = round(away_expected)
+                home_win_prob = round(elo_probs["home"] * 100)
+                draw_prob = round(elo_probs["draw"] * 100)
+                away_win_prob = round(elo_probs["away"] * 100)
+                return {
+                    "match_id": match_id,
+                    "home_team": home_name,
+                    "away_team": away_name,
+                    "home_score_pred": home_score_pred,
+                    "away_score_pred": away_score_pred,
+                    "home_win_prob": home_win_prob,
+                    "draw_prob": draw_prob,
+                    "away_win_prob": away_win_prob,
+                    "reason": f"L2 Elo 模型 ({home_name} vs {away_name})"
+                }
+            # fallthrough to l1 if Elo data missing
+
         home = self.teams.get(home_name, {})
         away = self.teams.get(away_name, {})
         home_vec = self.predictions_db["team_vectors"].get(home_name, {"overall": 50, "attack_score": 50, "defense_score": 50})
@@ -172,9 +200,9 @@ class WorldCupEngine:
             "reason": f"基於 FIFA 排名({home_rank} vs {away_rank}) 與累積向量({home_vec['overall']} vs {away_vec['overall']})"
         }
 
-    def set_prediction(self, match_id: int, home_pred: int = None, away_pred: int = None, reason: str = "") -> dict:
+    def set_prediction(self, match_id: int, home_pred: int = None, away_pred: int = None, reason: str = "", model: str = "l1") -> dict:
         if home_pred is None or away_pred is None:
-            pred = self.predict_match(match_id)
+            pred = self.predict_match(match_id, model=model)
             home_pred = pred["home_score_pred"]
             away_pred = pred["away_score_pred"]
             reason = pred["reason"]
@@ -186,6 +214,7 @@ class WorldCupEngine:
             "draw_prob": pred.get("draw_prob", 0),
             "away_win_prob": pred.get("away_win_prob", 0),
             "reason": reason,
+            "model": model,
             "hit": None
         }
         self._save_matches()

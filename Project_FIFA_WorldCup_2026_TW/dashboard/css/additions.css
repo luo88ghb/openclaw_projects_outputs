@@ -35,8 +35,8 @@
 }
 
 .pred-pre {
-  color: var(--text);
-  font-weight: 500;
+  color: #facc15;
+  font-weight: 600;
 }
 
 .pred-hit {
@@ -47,6 +47,32 @@
 .pred-miss {
   color: #ef4444;
   font-weight: 600;
+}
+
+.model-tab {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--text);
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-right: 0.25rem;
+}
+
+.model-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #111;
+  font-weight: 600;
+}
+
+.model-tab:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.model-tab.active:hover {
+  background: var(--accent);
 }
 
 /* 賽事焦點卡片 */

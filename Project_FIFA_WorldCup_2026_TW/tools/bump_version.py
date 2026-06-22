@@ -217,6 +217,10 @@ def main() -> int:
         "CHANGELOG.md",
         "predictions/Advanced_Prediction_Report.md",
         "data/WorldCup2026_預測_32強.txt",
+        "data/WorldCup2026_預測_16強.txt",
+        "data/WorldCup2026_預測_8強.txt",
+        "data/WorldCup2026_預測_4強.txt",
+        "data/WorldCup2026_預測_冠亞季軍.txt",
     ]:
         path = PROJECT_ROOT / report
         if path.exists():

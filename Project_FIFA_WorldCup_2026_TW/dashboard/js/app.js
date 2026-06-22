@@ -1,6 +1,7 @@
 let matches = [];
 let teams = [];
 let stagePredictions = {};
+let activeModel = 'l1'; // 'l1' FIFA ranking model, 'l2' Elo model
 
 function setupSSE() {
   try {
@@ -156,11 +157,25 @@ async function loadData() {
   const teamsData = await teamsRes.json();
   matches = matchesData.matches;
   teams = teamsData.teams;
+  // 載入 Elo 評分並合併到 teams
+  try {
+    const eloRes = await fetch('/api/elo_ratings');
+    if (eloRes.ok) {
+      const eloData = await eloRes.json();
+      teams.forEach(t => {
+        const rating = eloData[t.name_zh] || eloData[t.name_en];
+        if (rating) t.elo_rating = rating;
+      });
+    }
+  } catch (e) {
+    console.error('Failed to load Elo ratings', e);
+  }
   renderNextMatch();
   renderPredictions('小組賽');
   renderMatches();
   renderStandings();
   setupPredictionTabs();
+  setupModelTabs();
   setupPredictionActions();
   setupFilters();
   setupJumpToLatest();
@@ -365,6 +380,21 @@ function renderNextMatch() {
   container.innerHTML = html || '所有賽事已結束';
 }
 
+function setupModelTabs() {
+  const tabs = document.querySelectorAll('.model-tab');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      activeModel = tab.dataset.model;
+      // refresh visible predictions
+      const activeStageTab = document.querySelector('.stage-tab.active');
+      const stage = activeStageTab ? activeStageTab.dataset.stage : '小組賽';
+      renderPredictions(stage);
+    });
+  });
+}
+
 function setupPredictionTabs() {
   const tabs = document.querySelectorAll('.stage-tab');
   tabs.forEach(tab => {
@@ -384,21 +414,41 @@ function setupPredictionActions() {
   document.getElementById('download-prediction').addEventListener('click', () => {
     const activeTab = document.querySelector('.stage-tab.active');
     const stage = activeTab ? activeTab.dataset.stage : '預測';
+    const activeModelTab = document.querySelector('.model-tab.active');
+    const modelLabel = activeModelTab ? activeModelTab.textContent.trim() : activeModel.toUpperCase();
+    const version = document.getElementById('version')?.textContent?.trim() || '';
+    const lastUpdate = document.getElementById('last-update')?.textContent?.trim() || '';
+    const nowStr = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }).replace(/\//g, '-');
+    const header = `下載時間: ${nowStr} Asia/Taipei | 版本: ${version} | 模型: ${modelLabel} | 最後更新: ${lastUpdate}\n`;
     const content = document.getElementById('prediction-content').innerText;
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const blob = new Blob([header + '\n' + content], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `WorldCup2026_預測_${stage}.txt`;
+    a.download = `WorldCup2026_預測_${stage}_${activeModel.toUpperCase()}.txt`;
     document.body.appendChild(a);
     a.click();
+    setTimeout(() => {
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 0);
+  });
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   });
 }
 
 function computeGroupPredictions() {
-  // 簡單版：根據 FIFA 排名 + 已賽成績預測小組晉級機率
+  // 根據活躍模型計算球隊強度
+  const strengthFor = (teamName) => {
+    const team = getTeam(teamName);
+    const rankStrength = 100 - (team.fifa_ranking || 999);
+    if (activeModel !== 'l2') return rankStrength;
+    // L2: 混合 Elo 強度（透過 server endpoint 取得預測強度）
+    const rating = team.elo_rating || team.fifa_ranking || 999;
+    return Math.max(0, 2400 - rating) / 6; // normalize roughly 0-100
+  };
+
   const groups = {};
   matches.filter(m => m.group).forEach(m => {
     if (!groups[m.group]) groups[m.group] = [];
@@ -439,20 +489,19 @@ function computeGroupPredictions() {
       }
     });
 
-    // 剩餘場次模擬：排名越高贏面越大
+    // 剩餘場次模擬：依活躍模型強度
     groups[g].filter(m => !isMatchFinished(m)).forEach(m => {
-      const home = standings[m.home_team];
-      const away = standings[m.away_team];
-      const homeStrength = 100 - home.rank;
-      const awayStrength = 100 - away.rank;
+      const homeStrength = strengthFor(m.home_team);
+      const awayStrength = strengthFor(m.away_team);
       const total = homeStrength + awayStrength;
-      const homeWinProb = homeStrength / total;
-      const awayWinProb = awayStrength / total;
+      const homeWinProb = total ? homeStrength / total : 0.5;
+      const awayWinProb = total ? awayStrength / total : 0.5;
       const drawProb = 0.25;
       const normalizedHome = homeWinProb * (1 - drawProb);
       const normalizedAway = awayWinProb * (1 - drawProb);
 
-      // 預期積分
+      const home = standings[m.home_team];
+      const away = standings[m.away_team];
       home.pts += normalizedHome * 3 + drawProb * 1;
       away.pts += normalizedAway * 3 + drawProb * 1;
       home.p += 1;
@@ -505,17 +554,20 @@ function generateBracketPrediction(stage) {
     '4強': '4 強對戰預測',
     '冠亞季軍': '冠軍 / 亞軍 / 季軍預測'
   };
+  const modelLabel = activeModel === 'l2' ? 'L2 Elo' : 'L1 FIFA';
+  const rankField = activeModel === 'l2' ? 'elo_rating' : 'fifa_ranking';
 
-  // 簡單邏輯：取各組前兩名，依 FIFA 排名晉級
+  // 簡單邏輯：取各組前兩名，依模型排名晉級
   const groups = computeGroupPredictions();
   const qualified = groups.flatMap(g => g.rows.slice(0, 2).map((r, idx) => ({
     ...r,
-    seed: idx === 0 ? `${g.group}1` : `${g.group}2`
+    seed: idx === 0 ? `${g.group}1` : `${g.group}2`,
+    modelRank: r[rankField] || 999
   })));
 
-  const pickByRank = (list, count) => list.sort((a, b) => a.rank - b.rank).slice(0, count);
+  const pickByRank = (list, count) => list.sort((a, b) => a.modelRank - b.modelRank).slice(0, count);
 
-  let content = `<div class="prediction-stage-title">🔮 ${titles[stage]}</div>`;
+  let content = `<div class="prediction-stage-title">🔮 ${titles[stage]} <span style="color:var(--muted);font-size:0.85rem;">(${modelLabel})</span></div>`;
 
   if (stage === '32強') {
     content += renderMatchList(qualified);
@@ -530,19 +582,21 @@ function generateBracketPrediction(stage) {
     const champion = top4[0];
     const runnerUp = top4[1];
     const third = top4[2];
+    const rankField = activeModel === 'l2' ? 'elo_rating' : 'fifa_ranking';
+    const baseProb = activeModel === 'l2' ? 100 : 100;
     content += `
       <div class="prediction-bracket">
         <div class="prediction-row" style="border-left:4px solid gold;">
-          <div class="prediction-team">${getFlagHTML({flag_img: '', flag: champion.flag, name_zh: champion.team})}🏆 冠軍：${champion.team}</div>
-          <div class="prediction-prob">${Math.round(100 - champion.rank)}%</div>
+          <div class="prediction-team">${getFlagHTML({flag_img: '', flag: champion.flag, name_zh: champion.team})}🏆 冠軍：${champion.team} <span style="color:var(--muted);font-size:0.8rem;">(${rankField === 'elo_rating' ? 'Elo' : 'FIFA'} ${champion[rankField] || champion.rank})</span></div>
+          <div class="prediction-prob">${Math.round(baseProb - (champion[rankField] || champion.rank) * 0.25)}%</div>
         </div>
         <div class="prediction-row" style="border-left:4px solid silver;">
-          <div class="prediction-team">${getFlagHTML({flag_img: '', flag: runnerUp.flag, name_zh: runnerUp.team})}🥈 亞軍：${runnerUp.team}</div>
-          <div class="prediction-prob">${Math.round(90 - runnerUp.rank)}%</div>
+          <div class="prediction-team">${getFlagHTML({flag_img: '', flag: runnerUp.flag, name_zh: runnerUp.team})}🥈 亞軍：${runnerUp.team} <span style="color:var(--muted);font-size:0.8rem;">(${rankField === 'elo_rating' ? 'Elo' : 'FIFA'} ${runnerUp[rankField] || runnerUp.rank})</span></div>
+          <div class="prediction-prob">${Math.round((baseProb - 10) - (runnerUp[rankField] || runnerUp.rank) * 0.25)}%</div>
         </div>
         <div class="prediction-row" style="border-left:4px solid #cd7f32;">
-          <div class="prediction-team">${getFlagHTML({flag_img: '', flag: third.flag, name_zh: third.team})}🥉 季軍：${third.team}</div>
-          <div class="prediction-prob">${Math.round(80 - third.rank)}%</div>
+          <div class="prediction-team">${getFlagHTML({flag_img: '', flag: third.flag, name_zh: third.team})}🥉 季軍：${third.team} <span style="color:var(--muted);font-size:0.8rem;">(${rankField === 'elo_rating' ? 'Elo' : 'FIFA'} ${third[rankField] || third.rank})</span></div>
+          <div class="prediction-prob">${Math.round((baseProb - 20) - (third[rankField] || third.rank) * 0.25)}%</div>
         </div>
       </div>
     `;
@@ -553,12 +607,14 @@ function generateBracketPrediction(stage) {
 
 function renderMatchList(teamsList) {
   if (!teamsList.length) return '<p>尚無資料</p>';
+  const rankField = activeModel === 'l2' ? 'elo_rating' : 'fifa_ranking';
+  const rankLabel = activeModel === 'l2' ? 'Elo' : 'FIFA';
   return `
     <div class="prediction-list">
       ${teamsList.map((t, i) => `
         <div class="prediction-row">
-          <div class="prediction-team">${getFlagHTML({flag_img: '', flag: t.flag, name_zh: t.team})}${i + 1}. ${t.team} <span style="color:var(--muted);font-size:0.8rem;">(FIFA ${t.rank})</span></div>
-          <div class="prediction-prob">${Math.max(10, Math.round(100 - t.rank))}%</div>
+          <div class="prediction-team">${getFlagHTML({flag_img: '', flag: t.flag, name_zh: t.team})}${i + 1}. ${t.team} <span style="color:var(--muted);font-size:0.8rem;">(${rankLabel} ${t[rankField] || t.rank})</span></div>
+          <div class="prediction-prob">${Math.max(10, Math.round(100 - (t[rankField] || t.rank)))}%</div>
         </div>
       `).join('')}
     </div>

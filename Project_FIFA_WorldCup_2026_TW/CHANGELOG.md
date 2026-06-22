@@ -1,4 +1,4 @@
-<!-- 下載時間: 2026-06-22 16:45:18 Asia/Taipei | 版本: v2.2.7 -->
+<!-- 下載時間: 2026-06-22 18:09:32 Asia/Taipei | 版本: v2.2.7 -->
 # Changelog
 
 所有版本迭代與重要變更都記錄於此。格式基於 [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/)。
