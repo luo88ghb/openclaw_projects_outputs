@@ -216,6 +216,7 @@ def main() -> int:
         "README.md",
         "CHANGELOG.md",
         "predictions/Advanced_Prediction_Report.md",
+        "data/WorldCup2026_預測_32強.txt",
     ]:
         path = PROJECT_ROOT / report
         if path.exists():
