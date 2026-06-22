@@ -71,7 +71,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         status = {
             "running": True,
             "port": PORT,
-            "version": "v2.2.1",
+            "version": "v2.2.7",
             "pid": os.getpid(),
             "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
         }

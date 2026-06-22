@@ -582,15 +582,17 @@ function formatPredictionCell(m) {
   const probValue = probs[predicted];
 
   let summary = '';
+  let spanClass = 'pred-pre';
   if (m.status === 'finished') {
     const isHit = p.hit === true || m.hit === true;
     summary = isHit ? `✅ 命中 (${predictedLabel} ${probValue}%)` : `❌ 未命中`;
+    spanClass = isHit ? 'pred-hit' : 'pred-miss';
   } else {
     summary = `🔮 ${predictedLabel} ${probValue}%`;
   }
 
   const scoreText = p.score !== undefined ? `(${p.score > 0 ? '+' : ''}${p.score}分)` : '';
-  const preHtml = `<span class="pred-pre">${summary} ${scoreText}</span>`;
+  const preHtml = `<span class="${spanClass}">${summary} ${scoreText}</span>`;
   const details = [];
   if (p.home_win_prob !== undefined && p.away_win_prob !== undefined && p.draw_prob !== undefined) {
     details.push(`主 ${p.home_win_prob}% / 和 ${p.draw_prob}% / 客 ${p.away_win_prob}%`);

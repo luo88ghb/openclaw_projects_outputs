@@ -1,7 +1,8 @@
+<!-- 下載時間: 2026-06-22 16:45:18 Asia/Taipei | 版本: v2.2.7 -->
 # 2026 世界盃足球賽 台灣時間儀表板 — 技術文件
 
-**版本**: v2.2.1  
-**日期**: 2026-06-19  
+**版本**: v2.2.7  
+**日期**: 2026-06-22  
 **作者**: Zeni (OpenClaw Agent)  
 **專案路徑**: `C:\Users\danny\.openclaw\workspace\projects\Project_FIFA_WorldCup_2026_TW`
 
