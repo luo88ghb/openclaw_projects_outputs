@@ -407,41 +407,33 @@ class WorldCupScraper:
             wiki = sources.get("wikipedia")
             fifa = sources.get("fifa_tw")
 
-            if wiki and fifa:
-                if wiki["home_score"] == fifa["home_score"] and wiki["away_score"] == fifa["away_score"]:
-                    merged[mid] = {
-                        "home_score": wiki["home_score"],
-                        "away_score": wiki["away_score"],
-                        "source": "wikipedia+fifa_tw",
-                        "verified": True,
-                    }
-                else:
-                    # Conflict: prefer Wikipedia but flag it
-                    merged[mid] = {
-                        "home_score": wiki["home_score"],
-                        "away_score": wiki["away_score"],
-                        "source": "wikipedia",
-                        "verified": False,
-                        "conflict": {
-                            "wikipedia": f"{wiki['home_score']}-{wiki['away_score']}",
-                            "fifa_tw": f"{fifa['home_score']}-{fifa['away_score']}",
-                        },
-                    }
-                    self._warn("score_conflict", f"Match {mid}: Wikipedia and FIFA-TW disagree", merged[mid]["conflict"])
-            elif wiki:
+            def _score_tuple(src):
+                return (src["home_score"], src["away_score"])
+
+            scores = {_score_tuple(src) for src in sources.values()}
+            if len(scores) == 1:
+                home_score, away_score = scores.pop()
+                verified = len(sources) > 1
                 merged[mid] = {
-                    "home_score": wiki["home_score"],
-                    "away_score": wiki["away_score"],
-                    "source": "wikipedia",
-                    "verified": False,
+                    "home_score": home_score,
+                    "away_score": away_score,
+                    "source": "+".join(sorted(sources.keys())),
+                    "verified": verified,
                 }
-            elif fifa:
+            else:
+                # Conflict: keep the score from the highest-priority source, flag it
+                priority = ["wikipedia", "fifa_tw"]
+                chosen_src = next((s for s in priority if s in sources), list(sources.keys())[0])
+                chosen = sources[chosen_src]
+                conflict = {src: f"{v['home_score']}-{v['away_score']}" for src, v in sources.items()}
                 merged[mid] = {
-                    "home_score": fifa["home_score"],
-                    "away_score": fifa["away_score"],
-                    "source": "fifa_tw",
+                    "home_score": chosen["home_score"],
+                    "away_score": chosen["away_score"],
+                    "source": chosen_src,
                     "verified": False,
+                    "conflict": conflict,
                 }
+                self._warn("score_conflict", f"Match {mid}: sources disagree", conflict)
 
         return {
             "collected_at": datetime.now().isoformat(),

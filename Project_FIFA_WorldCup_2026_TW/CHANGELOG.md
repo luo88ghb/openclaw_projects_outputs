@@ -1,11 +1,38 @@
-<!-- 下載時間: 2026-06-22 18:30:01 Asia/Taipei | 版本: v2.2.7 -->
+<!-- 下載時間: 2026-06-23 03:19:30 Asia/Taipei | 版本: v2.2.7 -->
 # Changelog
+## 2026-06-23 v2.2.8
+### Fixed
+- `engine/scraper.py`:
+  - `find_match_id()` now also accepts swapped home/away pairings; some public sources (e.g., FIFA-TW) list teams in the opposite order from our internal schedule.
+  - Result merging is now source-count-agnostic and flags score conflicts across all active sources instead of hardcoding Wikipedia/FIFA-TW comparison.
+- `engine/worldcup_engine.py`:
+  - Added relative-import fallback so the module can be executed both via `python -m engine.scorer` and directly.
+- `engine/score_updater.py`:
+  - Reverted to absolute import so direct CLI usage works alongside module execution.
+- `engine/__init__.py`:
+  - Added empty `__init__.py` to make `engine` a package, enabling `python -m engine.*` invocations.
+- Updated data:
+  - Match #41 阿根廷 vs 奧地利 now has final score 2-0 and prediction hit=true.
+  - Regenerated all stage predictions and saved updated `predictions_db.json` / `scraped_results.json`.
 
 所有版本迭代與重要變更都記錄於此。格式基於 [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/)。
 
 ---
 
+## [2.2.7] - 2026-06-23
+
+### 雜項
+- 統一版本標記與下載時間戳。
+
 ## [2.2.7] - 2026-06-22
+
+### 新增
+- **預測審查評語（Strict Reviewer / 教練風格）**：
+  - 不再只判斷「模型一致 / 分歧」，而是像嚴格教練對 L1、L2 兩位選手逐場打分（A/B/C/D）與評語。
+  - 評估面向：預測穩定性、機率合理性、和局機率是否被壓抑、比分預測是否離譜、是否過度自信。
+  - 顯示逐模型「值得鼓勵」與「需要檢討」的具體評語。
+  - 若比賽已結束，直接比較哪個模型命中、哪個失準，並點名過擬合或保守問題。
+  - 底部給出教練總評，提供可操作的參考建議。
 
 ### 修正
 - **儀表板預測文字顏色修正**：主表單與預測歷史頁面的命中/未命中/未開賽狀態使用高對比色（黃/綠/紅），避免被已完成場次的灰色字樣覆蓋。
