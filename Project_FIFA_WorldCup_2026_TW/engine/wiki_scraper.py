@@ -151,8 +151,12 @@ def _extract_all_scores(html_or_text: str) -> dict:
         if len(cells) < 3:
             continue
         score_text = cells[1].get_text(" ", strip=True)
-        # 從分數文字中提取第一組 數字-數字 格式，忽略註解/圖片 alt 等雜訊
-        score_match = re.search(r"(\d+)\s*[\u2013\-]\s*(\d+)", score_text)
+        # 從分數文字中提取第一組 數字-數字 格式，後面若是狀態文字（如「進行中」、「比賽結束」）則接受；
+        # 若是其他雜訊（如「進行中」前面還有數字）則拒絕，避免 "1 進行中" 被誤判。
+        score_match = re.search(
+            r"^(\d+)\s*[\u2013\-]\s*(\d+)\s*(進行中|比賽結束|半場|完場|Finished|FT|HT)?$",
+            score_text,
+        )
         if not score_match:
             continue
         hs, as_ = score_match.group(1), score_match.group(2)
