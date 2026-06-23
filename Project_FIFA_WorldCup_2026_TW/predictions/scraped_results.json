@@ -1,5 +1,275 @@
 {
-  "collected_at": "2026-06-16T18:02:32.558149",
-  "results": {},
-  "count": 0
+  "collected_at": "2026-06-23T17:48:55.268180",
+  "results": {
+    "1": {
+      "home_score": 2,
+      "away_score": 0,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "2": {
+      "home_score": 2,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "25": {
+      "home_score": 1,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "28": {
+      "home_score": 1,
+      "away_score": 0,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "3": {
+      "home_score": 1,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "5": {
+      "home_score": 1,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "26": {
+      "home_score": 4,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "27": {
+      "home_score": 6,
+      "away_score": 0,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "6": {
+      "home_score": 1,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "7": {
+      "home_score": 0,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "30": {
+      "home_score": 0,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "31": {
+      "home_score": 3,
+      "away_score": 0,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "4": {
+      "home_score": 4,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "8": {
+      "home_score": 2,
+      "away_score": 0,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "29": {
+      "home_score": 2,
+      "away_score": 0,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "32": {
+      "home_score": 0,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "9": {
+      "home_score": 7,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "11": {
+      "home_score": 1,
+      "away_score": 0,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "34": {
+      "home_score": 2,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "35": {
+      "home_score": 0,
+      "away_score": 0,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "10": {
+      "home_score": 2,
+      "away_score": 2,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "12": {
+      "home_score": 5,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "33": {
+      "home_score": 5,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "36": {
+      "home_score": 0,
+      "away_score": 4,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "14": {
+      "home_score": 1,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "16": {
+      "home_score": 2,
+      "away_score": 2,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "38": {
+      "home_score": 0,
+      "away_score": 0,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "40": {
+      "home_score": 1,
+      "away_score": 3,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "13": {
+      "home_score": 0,
+      "away_score": 0,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "15": {
+      "home_score": 1,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "37": {
+      "home_score": 4,
+      "away_score": 0,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "39": {
+      "home_score": 2,
+      "away_score": 2,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "17": {
+      "home_score": 3,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "18": {
+      "home_score": 1,
+      "away_score": 4,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "42": {
+      "home_score": 3,
+      "away_score": 0,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "43": {
+      "home_score": 3,
+      "away_score": 2,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "19": {
+      "home_score": 3,
+      "away_score": 0,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "20": {
+      "home_score": 3,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "41": {
+      "home_score": 2,
+      "away_score": 0,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "44": {
+      "home_score": 1,
+      "away_score": 2,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "21": {
+      "home_score": 1,
+      "away_score": 1,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "24": {
+      "home_score": 1,
+      "away_score": 3,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "22": {
+      "home_score": 4,
+      "away_score": 2,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    },
+    "23": {
+      "home_score": 1,
+      "away_score": 0,
+      "source": "wikipedia+fifa_tw",
+      "verified": true
+    }
+  },
+  "count": 44,
+  "source_counts": {
+    "wikipedia": 44,
+    "fifa_tw": 44
+  },
+  "warnings": []
 }

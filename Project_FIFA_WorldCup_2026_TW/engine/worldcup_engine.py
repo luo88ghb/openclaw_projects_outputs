@@ -10,7 +10,10 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-from .elo_model import predict_by_name
+try:
+    from .elo_model import predict_by_name
+except ImportError:
+    from elo_model import predict_by_name
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"

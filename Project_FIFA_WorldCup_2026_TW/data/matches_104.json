@@ -1010,7 +1010,7 @@
       "away_team": "日本",
       "city": "瓜達盧佩",
       "home_score": 0,
-      "away_score": 2,
+      "away_score": 4,
       "status": "finished",
       "prediction": {
         "home_score_pred": 1,
@@ -1147,9 +1147,9 @@
       "home_team": "阿根廷",
       "away_team": "奧地利",
       "city": "阿靈頓",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 2,
+      "away_score": 0,
+      "status": "finished",
       "prediction": {
         "home_score_pred": 2,
         "away_score_pred": 1,
@@ -1157,8 +1157,9 @@
         "draw_prob": 18,
         "away_win_prob": 28,
         "reason": "基於 FIFA 排名(1 vs 22) 與累積向量(68.7 vs 68.2)",
-        "hit": null
-      }
+        "hit": true
+      },
+      "scrape_checked": true
     },
     {
       "match_id": 42,
@@ -1169,9 +1170,9 @@
       "home_team": "法國",
       "away_team": "伊拉克",
       "city": "費城",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 3,
+      "away_score": 0,
+      "status": "finished",
       "prediction": {
         "home_score_pred": 2,
         "away_score_pred": 1,
@@ -1179,8 +1180,9 @@
         "draw_prob": 15,
         "away_win_prob": 16,
         "reason": "基於 FIFA 排名(2 vs 55) 與累積向量(68.2 vs 45.7)",
-        "hit": null
-      }
+        "hit": false
+      },
+      "scrape_checked": true
     },
     {
       "match_id": 43,
@@ -1191,9 +1193,9 @@
       "home_team": "挪威",
       "away_team": "塞內加爾",
       "city": "多倫多",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 3,
+      "away_score": 2,
+      "status": "finished",
       "prediction": {
         "home_score_pred": 1,
         "away_score_pred": 1,
@@ -1201,8 +1203,9 @@
         "draw_prob": 17,
         "away_win_prob": 32,
         "reason": "基於 FIFA 排名(43 vs 17) 與累積向量(68.7 vs 46.2)",
-        "hit": null
-      }
+        "hit": false
+      },
+      "scrape_checked": true
     },
     {
       "match_id": 44,
@@ -1213,9 +1216,9 @@
       "home_team": "約旦",
       "away_team": "阿爾及利亞",
       "city": "聖塔克拉拉",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 1,
+      "away_score": 2,
+      "status": "finished",
       "prediction": {
         "home_score_pred": 1,
         "away_score_pred": 1,
@@ -1223,8 +1226,9 @@
         "draw_prob": 18,
         "away_win_prob": 40,
         "reason": "基於 FIFA 排名(70 vs 57) 與累積向量(46.2 vs 45.7)",
-        "hit": null
-      }
+        "hit": false
+      },
+      "scrape_checked": true
     },
     {
       "match_id": 45,
