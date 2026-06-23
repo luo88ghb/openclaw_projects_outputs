@@ -1,5 +1,14 @@
 <!-- 下載時間: 2026-06-23 03:19:30 Asia/Taipei | 版本: v2.2.7 -->
 # Changelog
+## 2026-06-24 v2.2.9
+### 新增
+- **用戶反饋模型機制（User Model Feedback）**：
+  - 儀表板預測歷史 modal 中新增 L1 / L2 模型反饋面板，用戶可針對每場次給予 +1 / +0.5 / -0.5 / -1 的獎懲評分。
+  - 前端：`dashboard/index.html` modal 擴充反饋區；`dashboard/css/additions.css` 新增反饋面板樣式；`dashboard/js/app.js` 負責載入、渲染與送出。
+  - 後端：`engine/api_server.py` 新增 `POST /api/feedback` 與 `GET /api/feedback?match_id=`，儲存於 `data/user_model_feedback.json`。
+  - 預測引擎：`engine/worldcup_engine.py` 載入反饋權重，正/負反饋會微調對應模型的預期進球（±0.5 球 / ±0.25 球）。
+  - 資料：`data/user_model_feedback.json` 採用 v1 schema，記錄 `match_id`、`model`、`feedback`、`timestamp`。
+
 ## 2026-06-23 v2.2.8
 ### Fixed
 - `engine/scraper.py`:
