@@ -1,4 +1,4 @@
-<!-- 下載時間: 2026-06-22 18:30:01 Asia/Taipei | 版本: v2.2.7 -->
+<!-- 下載時間: 2026-06-23 03:19:30 Asia/Taipei | 版本: v2.2.7 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -12,7 +12,7 @@
   <header>
     <h1>🏆 2026 世界盃足球賽 台灣時間儀表板</h1>
     <p>Asia/Taipei UTC+8｜104 場完整賽程｜轉播：Hami Video / ELTA.tv</p>
-    <p id="version-info">版本: <span id="version">v2.2.7</span>｜最後更新: <span id="last-update">2026-06-22 18:30:01（台北時間）</span>｜<a href="predictions_history.html" style="color: #4fc3f7;">📊 預測歷史紀錄</a></p>
+    <p id="version-info">版本: <span id="version">v2.2.7</span>｜最後更新: <span id="last-update">2026-06-23 03:19:30（台北時間）</span>｜<a href="predictions_history.html" style="color: #4fc3f7;">📊 預測歷史紀錄</a></p>
   </header>
 
   <main>
@@ -117,6 +117,34 @@
       </div>
       <div id="prediction-history-body">
         <p>載入中...</p>
+      </div>
+      <div id="user-feedback-panel" class="user-feedback-panel hidden">
+        <h4>👤 用戶反饋預測獎懲</h4>
+        <p class="feedback-desc">請針對此場次 L1 / L2 預測的準確度給予獎懲，分數將納入模型權重調整。</p>
+        <div class="feedback-row" id="feedback-row-l1">
+          <span class="feedback-label">L1 FIFA 排名</span>
+          <select class="feedback-select" data-model="l1">
+            <option value="">選擇獎懲</option>
+            <option value="1">+1 表現優秀</option>
+            <option value="0.5">+0.5 略有幫助</option>
+            <option value="-0.5">-0.5 略有失準</option>
+            <option value="-1">-1 表現糟糕</option>
+          </select>
+          <button class="feedback-submit" data-model="l1">送出</button>
+          <span class="feedback-status" data-model="l1"></span>
+        </div>
+        <div class="feedback-row" id="feedback-row-l2">
+          <span class="feedback-label">L2 Elo 評分</span>
+          <select class="feedback-select" data-model="l2">
+            <option value="">選擇獎懲</option>
+            <option value="1">+1 表現優秀</option>
+            <option value="0.5">+0.5 略有幫助</option>
+            <option value="-0.5">-0.5 略有失準</option>
+            <option value="-1">-1 表現糟糕</option>
+          </select>
+          <button class="feedback-submit" data-model="l2">送出</button>
+          <span class="feedback-status" data-model="l2"></span>
+        </div>
       </div>
     </div>
   </div>

@@ -2,6 +2,8 @@ let matches = [];
 let teams = [];
 let stagePredictions = {};
 let activeModel = 'l1'; // 'l1' FIFA ranking model, 'l2' Elo model
+let currentFeedbackMatchId = null;
+let currentFeedbackMap = {};
 
 function setupSSE() {
   try {
@@ -69,6 +71,282 @@ function setupPredictionDetailButtons() {
   });
 }
 
+function getModelPrediction(match, model = 'l1') {
+  const home = getTeam(match.home_team);
+  const away = getTeam(match.away_team);
+  const homeRank = home.fifa_ranking ?? 999;
+  const awayRank = away.fifa_ranking ?? 999;
+
+  if (model === 'l2' && (home.elo_rating || away.elo_rating)) {
+    const homeElo = home.elo_rating || 1500;
+    const awayElo = away.elo_rating || 1500;
+    const diff = homeElo - awayElo + 100; // home advantage
+    const winProb = 1.0 / (1.0 + 10 ** (-diff / 400.0));
+    const drawProb = 0.25;
+    const adj = 1.0 - drawProb;
+    const probs = {
+      home: Math.round(winProb * adj * 100),
+      draw: Math.round(drawProb * 100),
+      away: Math.round((1.0 - winProb) * adj * 100)
+    };
+    const predicted = Object.keys(probs).reduce((a, b) => probs[a] > probs[b] ? a : b);
+    return {
+      predicted,
+      probs,
+      reason: `L2 Elo 模型 (主隊 ${homeElo} vs 客隊 ${awayElo})`,
+      score: { home: 0, away: 0 } // L2 only gives outcome, not score
+    };
+  }
+
+  // L1: FIFA ranking + rolling vector simplified to match backend formula
+  const homeVec = { overall: 50 };
+  const awayVec = { overall: 50 };
+  const rankFactor = (awayRank - homeRank) * 0.3;
+  const vectorFactor = (homeVec.overall - awayVec.overall) * 0.5;
+  const homeAdvantage = 3.0;
+  const homeExpected = Math.max(0.5, 1.2 + (rankFactor + vectorFactor + homeAdvantage) / 30);
+  const awayExpected = Math.max(0.5, 1.0 + (-rankFactor - vectorFactor) / 30);
+  const total = homeExpected + awayExpected + 0.5;
+  const probs = {
+    home: Math.round(homeExpected / total * 100),
+    draw: Math.max(0, 100 - Math.round(homeExpected / total * 100) - Math.round(awayExpected / total * 100)),
+    away: Math.round(awayExpected / total * 100)
+  };
+  const predicted = Object.keys(probs).reduce((a, b) => probs[a] > probs[b] ? a : b);
+  return {
+    predicted,
+    probs,
+    reason: `L1 FIFA 排名模型 (主隊排名 ${homeRank} vs 客隊排名 ${awayRank})`,
+    score: { home: Math.round(homeExpected), away: Math.round(awayExpected) }
+  };
+}
+
+function evaluateModel(model, pred, match) {
+  const label = { home: '主勝', draw: '和局', away: '客勝' };
+  const probs = pred.probs;
+  const maxProb = Math.max(probs.home, probs.draw, probs.away);
+  const runnerUp = Math.max(...Object.values(probs).filter(v => v !== maxProb));
+  const margin = maxProb - runnerUp;
+  const predictedOutcome = pred.predicted;
+
+  // stability score 0-100: penalize extreme (>80), very low confidence (<40), or weird draw suppression
+  let stability = 70;
+  const drawProb = probs.draw;
+
+  if (maxProb > 85) stability -= 20; // overconfident
+  else if (maxProb > 75) stability -= 10;
+  else if (maxProb < 40) stability -= 15; // too weak
+
+  if (margin < 10) stability -= 15; // tossup
+  else if (margin > 40) stability -= 10; // overconfident gap
+
+  if (drawProb < 10) stability -= 15; // unrealistic draw suppression
+  else if (drawProb > 40) stability -= 5; // too draw-heavy
+
+  // score prediction sanity
+  if (pred.score && (pred.score.home > 4 || pred.score.away > 4)) stability -= 10;
+
+  stability = Math.max(0, Math.min(100, stability));
+
+  // coach comments
+  let praise = [];
+  let critique = [];
+
+  if (model === 'l1') {
+    if (maxProb >= 50 && maxProb <= 75) praise.push('機率區間務實，沒有過度膨脹。');
+    if (drawProb >= 15 && drawProb <= 30) praise.push('和局機率給得合理，尊重足球比賽的不確定性。');
+    if (margin >= 15) praise.push('預測立場清楚，不會讓人模稜兩可。');
+
+    if (maxProb < 40) critique.push('信心偏弱，像是在猜硬幣。');
+    if (margin < 10) critique.push('勝負機率太接近，幾乎沒有判斷力。');
+    if (drawProb < 12) critique.push('和局機率壓太低，容易忽略勢均力敵的比賽。');
+  } else if (model === 'l2') {
+    if (maxProb >= 55 && maxProb <= 80) praise.push('Elo 評分轉換成機率後，判斷果斷但不狂妄。');
+    if (drawProb >= 20) praise.push('和局機率有保持，沒有過度傾向單邊。');
+    if (margin >= 20 && margin <= 45) praise.push('勝負差異適度，模型差異化明顯。');
+
+    if (maxProb > 85) critique.push('機率過高，可能過度相信 Elo 評分而忽略場上狀態。');
+    if (drawProb < 15) critique.push('和局機率被壓縮，這是 Elo 常見的過擬合徵兆。');
+    if (margin > 50) critique.push('勝負差距拉太大，現實足球很難這麼單純。');
+  }
+
+  // actual result feedback (if finished)
+  const actual = isMatchFinished(match)
+    ? (match.home_score > match.away_score ? 'home' : match.home_score === match.away_score ? 'draw' : 'away')
+    : null;
+  let resultComment = '';
+  if (actual !== null) {
+    if (predictedOutcome === actual) {
+      resultComment = `✅ 結果驗證：預測「${label[predictedOutcome]}」命中實際結果。`;
+      if (maxProb < 45) resultComment += ' 雖然命中，但信心偏低，帶點運氣成分。';
+    } else {
+      resultComment = `❌ 結果驗證：預測「${label[predictedOutcome]}」與實際「${label[actual]}」不符。`;
+      if (maxProb > 75) resultComment += ' 這次太過自信，反而錯得離譜。';
+    }
+  }
+
+  // grade
+  let grade = 'B';
+  if (stability >= 80) grade = 'A';
+  else if (stability >= 65) grade = 'B';
+  else if (stability >= 50) grade = 'C';
+  else grade = 'D';
+
+  return {
+    name: model === 'l1' ? 'L1 FIFA 排名' : 'L2 Elo 評分',
+    outcome: label[predictedOutcome],
+    probs,
+    reason: pred.reason,
+    score: pred.score,
+    stability,
+    grade,
+    praise,
+    critique,
+    resultComment,
+    maxProb,
+    margin
+  };
+}
+
+function generateCoachVerdict(l1Eval, l2Eval, match) {
+  const lines = [];
+  const finished = isMatchFinished(match);
+
+  // opening: who is better today
+  if (l1Eval.grade > l2Eval.grade) {
+    lines.push(`今天 L1 表現更穩，給出 ${l1Eval.grade}；L2 只有 ${l2Eval.grade}，需要檢討。`);
+  } else if (l2Eval.grade > l1Eval.grade) {
+    lines.push(`這場 L2 更值得期待，評分 ${l2Eval.grade}；L1 只有 ${l1Eval.grade}，略顯保守。`);
+  } else {
+    lines.push(`兩個模型今天都拿到 ${l1Eval.grade}，水準接近。`);
+  }
+
+  // specific model comments
+  [l1Eval, l2Eval].forEach(ev => {
+    const parts = [];
+    if (ev.praise.length) parts.push(...ev.praise.slice(0, 2));
+    if (ev.critique.length) parts.push(...ev.critique.slice(0, 2));
+    if (parts.length) {
+      lines.push(`▸ ${ev.name}：${parts.join(' ')}`);
+    }
+  });
+
+  // result comparison if finished
+  if (finished) {
+    const l1Hit = l1Eval.resultComment.startsWith('✅');
+    const l2Hit = l2Eval.resultComment.startsWith('✅');
+    if (l1Hit && l2Hit) {
+      lines.push('兩人都命中結果，但今天勝負差距誰估得更準，還要看機率分布。');
+    } else if (l1Hit && !l2Hit) {
+      lines.push('L1 命中、L2 失準：有時候簡單模型反而比複雜模型可靠，這就是過擬合的教訓。');
+    } else if (!l1Hit && l2Hit) {
+      lines.push('L2 命中、L1 失準：進階參數在這場發揮了價值。');
+    } else {
+      lines.push('兩人都沒命中，這場賽果確實難料，別急著全盤否定模型。');
+    }
+  }
+
+  // final coaching note
+  if (l1Eval.outcome === l2Eval.outcome) {
+    if (l1Eval.grade === 'A' || l2Eval.grade === 'A') {
+      lines.push('教練總評：兩人意見一致且品質不錯，這個預測可以拿出手。');
+    } else if (l1Eval.grade === 'D' || l2Eval.grade === 'D') {
+      lines.push('教練總評：雖然意見一致，但雙方品質都偏低，建議當參考就好。');
+    } else {
+      lines.push('教練總評：意見一致，中規中矩，可以信任但不值得重注。');
+    }
+  } else {
+    lines.push('教練總評：兩人意見分歧，代表這場比賽本質難判，建議交叉比對近期狀態與傷停資訊。');
+  }
+
+  return lines;
+}
+
+function computePredictionReview(match) {
+  const l1 = getModelPrediction(match, 'l1');
+  const l2 = getModelPrediction(match, 'l2');
+  const p = match.prediction || {};
+
+  const activeLabel = { home: '主勝', draw: '和局', away: '客勝' };
+  const agreement = l1.predicted === l2.predicted;
+
+  const l1Eval = evaluateModel('l1', l1, match);
+  const l2Eval = evaluateModel('l2', l2, match);
+  const coachVerdict = generateCoachVerdict(l1Eval, l2Eval, match);
+
+  // Overall confidence = average of stability weighted by max probability
+  const confidence = Math.round((l1Eval.maxProb + l2Eval.maxProb) / 2);
+
+  let verdict = '審查中';
+  let verdictClass = 'review-neutral';
+  if (!agreement) {
+    verdict = '⚠️ 模型分歧';
+    verdictClass = 'review-warning';
+  } else if (l1Eval.grade === 'D' || l2Eval.grade === 'D') {
+    verdict = '⚠️ 品質堪慮';
+    verdictClass = 'review-warning';
+  } else if (l1Eval.grade === 'A' || l2Eval.grade === 'A') {
+    verdict = '✅ 品質優良';
+    verdictClass = 'review-ok';
+  } else {
+    verdict = agreement ? '✅ 意見一致' : '⚠️ 意見分歧';
+    verdictClass = agreement ? 'review-ok' : 'review-warning';
+  }
+
+  // backtest current saved prediction if finished
+  const actual = isMatchFinished(match)
+    ? (match.home_score > match.away_score ? 'home' : match.home_score === match.away_score ? 'draw' : 'away')
+    : null;
+  let backtest = null;
+  if (actual && p.home_win_prob !== undefined) {
+    const savedProbs = { home: p.home_win_prob || 0, draw: p.draw_prob || 0, away: p.away_win_prob || 0 };
+    const savedPred = Object.keys(savedProbs).reduce((a, b) => savedProbs[a] > savedProbs[b] ? a : b);
+    backtest = {
+      predicted: activeLabel[savedPred],
+      actual: activeLabel[actual],
+      hit: savedPred === actual,
+      prob: savedProbs[savedPred]
+    };
+  }
+
+  return { l1Eval, l2Eval, agreement, confidence, verdict, verdictClass, coachVerdict, backtest, actual };
+}
+
+function renderPredictionBar(probs, activeLabel) {
+  const colors = { home: '#3b82f6', draw: '#94a3b8', away: '#ef4444' };
+  const total = Math.max(1, probs.home + probs.draw + probs.away);
+  return `
+    <div class="prediction-review-bar">
+      ${['home','draw','away'].map(k => `
+        <div class="review-bar-segment" style="width:${probs[k]/total*100}%;background:${colors[k]}" title="${activeLabel[k]} ${probs[k]}%"></div>
+      `).join('')}
+    </div>
+    <div class="prediction-review-legend">
+      ${['home','draw','away'].map(k => `<span><span class="review-dot" style="background:${colors[k]}"></span>${activeLabel[k]} ${probs[k]}%</span>`).join(' · ')}
+    </div>
+  `;
+}
+
+function renderModelEvalCard(ev, activeLabel) {
+  const gradeClass = ev.grade === 'A' ? 'grade-a' : ev.grade === 'B' ? 'grade-b' : ev.grade === 'C' ? 'grade-c' : 'grade-d';
+  const comments = [...ev.praise, ...ev.critique].slice(0, 3);
+  return `
+    <div class="review-model-card">
+      <div class="review-model-header">
+        <strong>${ev.name}</strong>
+        <span class="review-grade ${gradeClass}">${ev.grade}</span>
+      </div>
+      <div class="review-outcome">${ev.outcome}</div>
+      ${renderPredictionBar(ev.probs, activeLabel)}
+      <div class="review-note">${ev.reason}</div>
+      ${ev.score && (ev.score.home || ev.score.away) ? `<div class="review-note">比數預測 ${ev.score.home}-${ev.score.away}</div>` : ''}
+      <div class="review-stability">穩定度 ${ev.stability}/100 · 領先幅度 ${ev.margin}%</div>
+      ${comments.length ? `<ul class="model-comments">${comments.map(c => `<li>${c}</li>`).join('')}</ul>` : ''}
+      ${ev.resultComment ? `<div class="model-result ${ev.resultComment.startsWith('✅') ? 'hit' : 'miss'}">${ev.resultComment}</div>` : ''}
+    </div>
+  `;
+}
+
 async function showPredictionHistory(matchId) {
   const modal = document.getElementById('prediction-history-modal');
   const title = document.getElementById('prediction-history-title');
@@ -112,30 +390,64 @@ async function showPredictionHistory(matchId) {
     console.error('Failed to load predictions_db.json', e);
   }
 
+  // 3. Coach-style strict reviewer
+  const review = computePredictionReview(match);
+  const activeLabel = { home: '主勝', draw: '和局', away: '客勝' };
+
   const rows = [...historyRows, ...currentRows];
+
+  let html = '';
+
+  // Reviewer panel
+  html += `
+    <div class="prediction-review-panel">
+      <h4>🔍 預測審查評語（L1 FIFA vs L2 Elo）</h4>
+      <div class="review-verdict ${review.verdictClass}">${review.verdict}</div>
+      <div class="review-coach-box">
+        ${review.coachVerdict.map(line => `<p>${line}</p>`).join('')}
+      </div>
+      <div class="review-summary">
+        ${renderModelEvalCard(review.l1Eval, activeLabel)}
+        ${renderModelEvalCard(review.l2Eval, activeLabel)}
+      </div>
+      ${review.backtest ? `
+        <div class="review-backtest ${review.backtest.hit ? 'hit' : 'miss'}">
+          <strong>實際結果驗證：</strong>
+          預測 ${review.backtest.predicted}（${review.backtest.prob}%）
+          vs 實際 ${review.backtest.actual} → ${review.backtest.hit ? '✅ 命中' : '❌ 未命中'}
+        </div>
+      ` : (isMatchFinished(match) ? '<div class="review-note">此場已結束但沒有機率預測資料，無法驗證。</div>' : '<div class="review-note">比賽尚未結束，賽後將顯示實際結果驗證。</div>')}
+    </div>
+  `;
+
   if (!rows.length) {
-    body.innerHTML = '<p>尚無預測記錄。</p>';
-    return;
+    html += '<p>尚無預測記錄。</p>';
+  } else {
+    html += `
+      <table class="history-table">
+        <thead>
+          <tr><th>時間</th><th>來源</th><th>預測比數</th><th>預測結果機率</th><th>命中</th></tr>
+        </thead>
+        <tbody>
+          ${rows.map(r => `
+            <tr>
+              <td>${r.time}</td>
+              <td>${r.source}</td>
+              <td>${r.prediction}</td>
+              <td>${r.outcome}</td>
+              <td>${r.hit}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
   }
 
-  body.innerHTML = `
-    <table class="history-table">
-      <thead>
-        <tr><th>時間</th><th>來源</th><th>預測比數</th><th>預測結果機率</th><th>命中</th></tr>
-      </thead>
-      <tbody>
-        ${rows.map(r => `
-          <tr>
-            <td>${r.time}</td>
-            <td>${r.source}</td>
-            <td>${r.prediction}</td>
-            <td>${r.outcome}</td>
-            <td>${r.hit}</td>
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>
-  `;
+  body.innerHTML = html;
+
+  // 載入並顯示用戶反饋面板
+  const feedbackMap = await loadFeedbackForMatch(matchId);
+  renderFeedbackPanel(matchId, feedbackMap);
 }
 
 function setupPredictionHistoryModal() {
@@ -144,6 +456,88 @@ function setupPredictionHistoryModal() {
   modal.addEventListener('click', (e) => {
     if (e.target === modal || e.target.closest('.modal-close')) {
       modal.classList.add('hidden');
+    }
+  });
+
+  // 用戶反饋送出按鈕
+  const feedbackPanel = document.getElementById('user-feedback-panel');
+  if (!feedbackPanel) return;
+  feedbackPanel.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.feedback-submit');
+    if (!btn) return;
+    const model = btn.dataset.model;
+    const row = btn.closest('.feedback-row');
+    const select = row ? row.querySelector('.feedback-select') : null;
+    const status = row ? row.querySelector('.feedback-status') : null;
+    if (!select || !status || !currentFeedbackMatchId) return;
+    const value = parseFloat(select.value);
+    if (Number.isNaN(value)) {
+      status.textContent = '請先選擇獎懲分數';
+      status.className = 'feedback-status err';
+      return;
+    }
+    btn.disabled = true;
+    status.textContent = '送出中...';
+    status.className = 'feedback-status';
+    try {
+      const res = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ match_id: currentFeedbackMatchId, model, feedback: value })
+      });
+      const result = await res.json();
+      if (res.ok && result.ok) {
+        status.textContent = `已記錄 ${value > 0 ? '+' : ''}${value}`;
+        status.className = 'feedback-status ok';
+        currentFeedbackMap[model] = value;
+      } else {
+        status.textContent = `失敗：${result.error || 'unknown'}`;
+        status.className = 'feedback-status err';
+      }
+    } catch (err) {
+      status.textContent = `網路錯誤：${err.message}`;
+      status.className = 'feedback-status err';
+    } finally {
+      btn.disabled = false;
+    }
+  });
+}
+
+let currentFeedbackMatchId = null;
+let currentFeedbackMap = {};
+
+async function loadFeedbackForMatch(matchId) {
+  try {
+    const res = await fetch(`/api/feedback?match_id=${encodeURIComponent(matchId)}`);
+    if (!res.ok) return {};
+    return await res.json();
+  } catch (e) {
+    console.error('loadFeedbackForMatch failed', e);
+    return {};
+  }
+}
+
+function renderFeedbackPanel(matchId, feedbackMap) {
+  currentFeedbackMatchId = matchId;
+  currentFeedbackMap = feedbackMap || {};
+  const panel = document.getElementById('user-feedback-panel');
+  if (!panel) return;
+  panel.classList.remove('hidden');
+  ['l1', 'l2'].forEach(model => {
+    const row = panel.querySelector(`#feedback-row-${model}`);
+    if (!row) return;
+    const select = row.querySelector('.feedback-select');
+    const status = row.querySelector('.feedback-status');
+    const existing = currentFeedbackMap[model];
+    if (select) select.value = existing !== undefined ? String(existing) : '';
+    if (status) {
+      if (existing !== undefined) {
+        status.textContent = `已記錄 ${existing > 0 ? '+' : ''}${existing}`;
+        status.className = 'feedback-status ok';
+      } else {
+        status.textContent = '';
+        status.className = 'feedback-status';
+      }
     }
   });
 }

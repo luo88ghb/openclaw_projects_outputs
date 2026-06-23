@@ -203,6 +203,293 @@
   font-weight: 600;
 }
 
+/* 預測審查評審 panel */
+.prediction-review-panel {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(79, 195, 247, 0.25);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.25rem;
+}
+
+.prediction-review-panel h4 {
+  margin: 0 0 0.75rem 0;
+  color: var(--accent, #fbbf24);
+  font-size: 1.05rem;
+}
+
+.review-verdict {
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+.review-ok {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+
+.review-warning {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+.review-neutral {
+  background: rgba(148, 163, 184, 0.15);
+  color: #cbd5e1;
+}
+
+.review-coach-box {
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 4px solid var(--accent, #fbbf24);
+  border-radius: 0 10px 10px 0;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text, #e2e8f0);
+}
+
+.review-coach-box p {
+  margin: 0 0 0.45rem 0;
+}
+
+.review-coach-box p:last-child {
+  margin-bottom: 0;
+}
+
+.review-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.review-model-card {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  padding: 0.9rem;
+}
+
+.review-model-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.45rem;
+}
+
+.review-model-header strong {
+  color: var(--text, #e2e8f0);
+  font-size: 0.95rem;
+}
+
+.review-grade {
+  font-weight: 800;
+  font-size: 1.15rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 6px;
+}
+
+.grade-a { background: rgba(34, 197, 94, 0.18); color: #4ade80; }
+.grade-b { background: rgba(59, 130, 246, 0.18); color: #60a5fa; }
+.grade-c { background: rgba(251, 191, 36, 0.18); color: #fbbf24; }
+.grade-d { background: rgba(239, 68, 68, 0.18); color: #f87171; }
+
+.review-outcome {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #4fc3f7;
+  margin-bottom: 0.4rem;
+}
+
+.review-note {
+  font-size: 0.82rem;
+  color: var(--muted, #94a3b8);
+  margin-top: 0.35rem;
+  line-height: 1.4;
+}
+
+.review-stability {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin-top: 0.3rem;
+}
+
+.model-comments {
+  margin: 0.55rem 0 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.82rem;
+  color: #e2e8f0;
+}
+
+.model-comments li {
+  margin-bottom: 0.25rem;
+  line-height: 1.4;
+}
+
+.model-result {
+  margin-top: 0.55rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.model-result.hit {
+  background: rgba(34, 197, 94, 0.12);
+  color: #4ade80;
+}
+
+.model-result.miss {
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+}
+
+.prediction-review-bar {
+  display: flex;
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 0.3rem 0;
+}
+
+.review-bar-segment {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.prediction-review-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.9rem;
+  font-size: 0.78rem;
+  color: var(--muted, #94a3b8);
+  margin-top: 0.2rem;
+}
+
+.review-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 0.25rem;
+}
+
+/* 用戶反饋預測獎懲 panel */
+.user-feedback-panel {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+.user-feedback-panel.hidden {
+  display: none;
+}
+
+.user-feedback-panel h4 {
+  margin: 0 0 0.35rem 0;
+  color: #fbbf24;
+  font-size: 1rem;
+}
+
+.feedback-desc {
+  font-size: 0.82rem;
+  color: var(--muted, #94a3b8);
+  margin: 0 0 0.75rem 0;
+}
+
+.feedback-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.65rem;
+}
+
+.feedback-label {
+  min-width: 95px;
+  font-weight: 600;
+  color: var(--text, #e2e8f0);
+}
+
+.feedback-select {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  color: var(--text, #e2e8f0);
+  padding: 0.35rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+.feedback-select option {
+  background: #1f2937;
+  color: #e2e8f0;
+}
+
+.feedback-submit {
+  background: var(--accent, #4fc3f7);
+  border: none;
+  border-radius: 6px;
+  color: #111;
+  padding: 0.35rem 0.85rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.feedback-submit:hover {
+  background: #38bdf8;
+}
+
+.feedback-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.feedback-status {
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.feedback-status.ok {
+  color: #4ade80;
+}
+
+.feedback-status.err {
+  color: #f87171;
+}
+
+.review-issues {
+  margin: 0.75rem 0 0 0;
+  padding-left: 1.2rem;
+  color: #f87171;
+  font-size: 0.88rem;
+}
+
+.review-issues li {
+  margin-bottom: 0.25rem;
+}
+
+.review-backtest {
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.review-backtest.hit {
+  background: rgba(34, 197, 94, 0.12);
+  color: #4ade80;
+}
+
+.review-backtest.miss {
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+}
+
 #match-table tbody tr[data-match-id] td.prediction,
 #match-table tbody tr[data-match-id] td:first-child {
   cursor: pointer;

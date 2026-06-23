@@ -25,6 +25,33 @@ def load_json(filename: str) -> dict | list:
         return json.load(f)
 
 
+def load_feedback_weights() -> dict:
+    """載入用戶對 L1/L2 的反饋獎懲，回傳 {match_id: {l1: float, l2: float}}。"""
+    path = DATA_DIR / "user_model_feedback.json"
+    if not path.exists():
+        return {}
+    try:
+        data = load_json(str(path.relative_to(DATA_DIR)))
+    except Exception:
+        return {}
+    weights = {}
+    for entry in data.get("feedback", []):
+        mid = entry.get("match_id")
+        model = str(entry.get("model", "")).lower()
+        fb = entry.get("feedback")
+        if mid is None or model not in ("l1", "l2") or not isinstance(fb, (int, float)):
+            continue
+        weights.setdefault(mid, {})[model] = float(fb)
+    return weights
+
+
+def get_model_weight_for_match(match_id: int, model: str, weights: dict | None = None) -> float:
+    """取得指定場次與模型的用戶反饋權重；無反饋時返回 0.0。"""
+    if weights is None:
+        weights = load_feedback_weights()
+    return weights.get(match_id, {}).get(model, 0.0)
+
+
 def save_json(filename: str, data: Any) -> None:
     with open(DATA_DIR / filename, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
@@ -59,6 +86,7 @@ class WorldCupEngine:
         self.matches = self.matches_data["matches"]
         self.teams = {t["name_zh"]: t for t in self.teams_data["teams"]}
         self.predictions_db = load_predictions_db()
+        self.feedback_weights = load_feedback_weights()
 
     def get_match(self, match_id: int) -> dict:
         for m in self.matches:
@@ -137,10 +165,13 @@ class WorldCupEngine:
             vec["overall"] = round((vec["attack_score"] + vec["defense_score"] + vec["form_score"]) / 3, 1)
 
     def predict_match(self, match_id: int, model: str = "l1") -> dict:
-        """賽前預測。model='l1' 使用 FIFA 排名模型；model='l2' 使用 Elo 模型。"""
+        """賽前預測。model='l1' 使用 FIFA 排名模型；model='l2' 使用 Elo 模型。
+        若用戶對該場次有反饋，正/負反饋會微調最終比數預測（+1/-1 對應 ±0.5 球，+0.5/-0.5 對應 ±0.25 球）。"""
         match = self.get_match(match_id)
         home_name = match["home_team"]
         away_name = match["away_team"]
+        fb = get_model_weight_for_match(match_id, model, self.feedback_weights)
+        adjustment = fb * 0.5  # +1 -> +0.5 goals, -1 -> -0.5 goals
 
         if model == "l2":
             elo_probs = predict_by_name(home_name, away_name)
@@ -149,8 +180,8 @@ class WorldCupEngine:
                 away_rank = self.teams.get(away_name, {}).get("fifa_ranking", 100)
                 home_expected = max(0.5, 1.0 + (100 - home_rank) * 0.02 + elo_probs["home"] * 1.5 - 0.75)
                 away_expected = max(0.5, 1.0 + (100 - away_rank) * 0.02 + elo_probs["away"] * 1.5 - 0.75)
-                home_score_pred = round(home_expected)
-                away_score_pred = round(away_expected)
+                home_score_pred = round(home_expected + adjustment)
+                away_score_pred = round(away_expected - adjustment)
                 home_win_prob = round(elo_probs["home"] * 100)
                 draw_prob = round(elo_probs["draw"] * 100)
                 away_win_prob = round(elo_probs["away"] * 100)
@@ -182,8 +213,8 @@ class WorldCupEngine:
         home_expected = max(0.5, 1.2 + (rank_factor + vector_factor + home_advantage) / 30)
         away_expected = max(0.5, 1.0 + (-rank_factor - vector_factor) / 30)
 
-        home_score_pred = round(home_expected)
-        away_score_pred = round(away_expected)
+        home_score_pred = round(home_expected + adjustment)
+        away_score_pred = round(away_expected - adjustment)
 
         # 勝率估計
         total = home_expected + away_expected + 0.5
