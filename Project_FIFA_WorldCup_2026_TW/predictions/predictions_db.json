@@ -541,16 +541,16 @@
       "overall": 45.7
     },
     "葡萄牙": {
-      "matches_played": 2,
-      "wins": 0,
+      "matches_played": 4,
+      "wins": 2,
       "draws": 2,
       "losses": 0,
-      "goals_for": 2,
+      "goals_for": 10,
       "goals_against": 2,
-      "attack_score": 50.0,
-      "defense_score": 53.0,
-      "form_score": 40.0,
-      "overall": 47.7
+      "attack_score": 59.0,
+      "defense_score": 59.0,
+      "form_score": 70.0,
+      "overall": 62.7
     },
     "剛果民主共和國": {
       "matches_played": 2,
@@ -565,64 +565,64 @@
       "overall": 47.7
     },
     "英格蘭": {
-      "matches_played": 2,
+      "matches_played": 3,
       "wins": 2,
-      "draws": 0,
+      "draws": 1,
       "losses": 0,
       "goals_for": 8,
       "goals_against": 4,
-      "attack_score": 59.0,
-      "defense_score": 50.0,
-      "form_score": 100.0,
-      "overall": 69.7
+      "attack_score": 57.5,
+      "defense_score": 53.0,
+      "form_score": 80.0,
+      "overall": 63.5
     },
     "克羅埃西亞": {
-      "matches_played": 2,
-      "wins": 0,
+      "matches_played": 3,
+      "wins": 1,
       "draws": 0,
       "losses": 2,
-      "goals_for": 4,
+      "goals_for": 5,
       "goals_against": 8,
       "attack_score": 53.0,
-      "defense_score": 44.0,
-      "form_score": 40.0,
-      "overall": 45.7
+      "defense_score": 47.0,
+      "form_score": 60.0,
+      "overall": 53.3
     },
     "迦納": {
-      "matches_played": 2,
+      "matches_played": 3,
       "wins": 2,
-      "draws": 0,
+      "draws": 1,
       "losses": 0,
       "goals_for": 2,
       "goals_against": 0,
-      "attack_score": 50.0,
-      "defense_score": 56.0,
-      "form_score": 100.0,
-      "overall": 68.7
+      "attack_score": 48.5,
+      "defense_score": 59.0,
+      "form_score": 80.0,
+      "overall": 62.5
     },
     "巴拿馬": {
-      "matches_played": 2,
+      "matches_played": 3,
       "wins": 0,
       "draws": 0,
-      "losses": 2,
+      "losses": 3,
       "goals_for": 0,
-      "goals_against": 2,
-      "attack_score": 47.0,
-      "defense_score": 53.0,
+      "goals_against": 3,
+      "attack_score": 45.5,
+      "defense_score": 54.5,
       "form_score": 40.0,
       "overall": 46.7
     },
     "烏茲別克": {
-      "matches_played": 2,
+      "matches_played": 4,
       "wins": 0,
       "draws": 0,
-      "losses": 2,
+      "losses": 4,
       "goals_for": 2,
-      "goals_against": 6,
-      "attack_score": 50.0,
-      "defense_score": 47.0,
+      "goals_against": 14,
+      "attack_score": 47.0,
+      "defense_score": 41.0,
       "form_score": 40.0,
-      "overall": 45.7
+      "overall": 42.7
     },
     "哥倫比亞": {
       "matches_played": 2,
@@ -1134,6 +1134,39 @@
       "home_score": 1,
       "away_score": 0,
       "recorded_at": "2026-06-23T17:48:55.853263+08:00"
+    },
+    {
+      "match_id": 45,
+      "date": "2026-06-24",
+      "stage": "小組賽",
+      "group": "K",
+      "home_team": "葡萄牙",
+      "away_team": "烏茲別克",
+      "home_score": 5,
+      "away_score": 0,
+      "recorded_at": "2026-06-24T04:46:36.290690+08:00"
+    },
+    {
+      "match_id": 47,
+      "date": "2026-06-24",
+      "stage": "小組賽",
+      "group": "L",
+      "home_team": "巴拿馬",
+      "away_team": "克羅埃西亞",
+      "home_score": 0,
+      "away_score": 1,
+      "recorded_at": "2026-06-24T09:20:08.990281+08:00"
+    },
+    {
+      "match_id": 46,
+      "date": "2026-06-24",
+      "stage": "小組賽",
+      "group": "L",
+      "home_team": "英格蘭",
+      "away_team": "迦納",
+      "home_score": 0,
+      "away_score": 0,
+      "recorded_at": "2026-06-24T09:20:12.807541+08:00"
     }
   ],
   "stage_predictions": {
@@ -1896,5 +1929,5 @@
       }
     }
   },
-  "last_updated": "2026-06-23T17:48:55.890459"
+  "last_updated": "2026-06-24T09:20:12.808509"
 }

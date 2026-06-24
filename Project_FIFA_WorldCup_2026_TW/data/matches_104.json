@@ -1239,9 +1239,9 @@
       "home_team": "葡萄牙",
       "away_team": "烏茲別克",
       "city": "休士頓",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 5,
+      "away_score": 0,
+      "status": "finished",
       "prediction": {
         "home_score_pred": 2,
         "away_score_pred": 1,
@@ -1249,8 +1249,14 @@
         "draw_prob": 17,
         "away_win_prob": 18,
         "reason": "基於 FIFA 排名(6 vs 60) 與累積向量(47.2 vs 46.2)",
-        "hit": null
-      }
+        "hit": true,
+        "score": 1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "home"
+      },
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 46,
@@ -1261,9 +1267,9 @@
       "home_team": "英格蘭",
       "away_team": "迦納",
       "city": "福克斯堡",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "finished",
       "prediction": {
         "home_score_pred": 2,
         "away_score_pred": 1,
@@ -1271,8 +1277,14 @@
         "draw_prob": 17,
         "away_win_prob": 17,
         "reason": "基於 FIFA 排名(4 vs 68) 與累積向量(68.2 vs 67.7)",
-        "hit": null
-      }
+        "hit": false,
+        "score": -1.0,
+        "predicted_outcome": "home",
+        "actual_outcome": "draw"
+      },
+      "scrape_checked": true,
+      "hit": false,
+      "score": -1.0
     },
     {
       "match_id": 47,
@@ -1283,9 +1295,9 @@
       "home_team": "巴拿馬",
       "away_team": "克羅埃西亞",
       "city": "福克斯堡",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 0,
+      "away_score": 1,
+      "status": "finished",
       "prediction": {
         "home_score_pred": 1,
         "away_score_pred": 2,
@@ -1293,8 +1305,14 @@
         "draw_prob": 18,
         "away_win_prob": 60,
         "reason": "基於 FIFA 排名(78 vs 10) 與累積向量(46.7 vs 46.2)",
-        "hit": null
-      }
+        "hit": true,
+        "score": 1.0,
+        "predicted_outcome": "away",
+        "actual_outcome": "away"
+      },
+      "scrape_checked": true,
+      "hit": true,
+      "score": 1.0
     },
     {
       "match_id": 48,
