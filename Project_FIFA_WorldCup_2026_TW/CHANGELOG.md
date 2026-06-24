@@ -1,5 +1,11 @@
-<!-- 下載時間: 2026-06-23 03:19:30 Asia/Taipei | 版本: v2.2.7 -->
+<!-- 下載時間: 2026-06-24 11:27:02 Asia/Taipei | 版本: v2.2.10 -->
 # Changelog
+## 2026-06-24 v2.2.10
+### Fixed
+- **儀表板載入卡住**：`dashboard/js/app.js` 中 `let currentFeedbackMatchId` / `let currentFeedbackMap` 被重複宣告，導致 JS 語法錯誤、頁面卡在「載入中」。已移除重複宣告。
+- **反饋 API 路徑統一**：`engine/server.py`（port 8765）新增 `/api/*` 反向代理，將 `GET` / `POST` / `OPTIONS` 轉發至 `engine/api_server.py`（port 8766）。現在從 `http://localhost:8765/index.html` 送出用戶反饋時不再 404。
+- **調試信息增強**：`engine/api_server.py` 的 `do_POST` 在 500 錯誤時返回完整 traceback，方便定位問題。
+
 ## 2026-06-24 v2.2.9
 ### 新增
 - **用戶反饋模型機制（User Model Feedback）**：

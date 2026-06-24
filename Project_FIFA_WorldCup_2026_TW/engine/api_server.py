@@ -7,6 +7,7 @@ import os
 import socketserver
 import subprocess
 import sys
+import urllib.parse
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -29,29 +30,30 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
         return self.rfile.read(length).decode("utf-8")
 
     def do_GET(self):
-        import urllib.parse
         try:
-            if self.path.startswith("/api/predictions/"):
-                stage = urllib.parse.unquote(self.path.split("/")[-1])
-                path = PREDICTIONS_DIR / "predictions_db.json"
-                if not path.exists():
+            parsed = urllib.parse.urlparse(self.path)
+            path = parsed.path
+            if path.startswith("/api/predictions/"):
+                stage = urllib.parse.unquote(path.split("/")[-1])
+                pred_path = PREDICTIONS_DIR / "predictions_db.json"
+                if not pred_path.exists():
                     self._send_json({"error": "no predictions db"}, 404)
                     return
-                with open(path, "r", encoding="utf-8") as f:
+                with open(pred_path, "r", encoding="utf-8") as f:
                     db = json.load(f)
                 result = db.get("stage_predictions", {}).get(stage, {})
                 self._send_json({"stage": stage, "data": result})
                 return
-            elif self.path == "/api/teams":
+            elif path == "/api/teams":
                 with open(DATA_DIR / "teams.json", "r", encoding="utf-8") as f:
                     self._send_json(json.load(f))
                 return
-            elif self.path == "/api/matches":
+            elif path == "/api/matches":
                 with open(DATA_DIR / "matches_104.json", "r", encoding="utf-8") as f:
                     self._send_json(json.load(f))
                 return
-            elif self.path == "/api/feedback":
-                query = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            elif path == "/api/feedback":
+                query = urllib.parse.parse_qs(parsed.query)
                 match_id = query.get("match_id", [None])[0]
                 data = load_feedback(match_id)
                 self._send_json(data)
@@ -62,20 +64,22 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
 
     def do_POST(self):
         try:
-            if self.path == "/api/update":
+            parsed = urllib.parse.urlparse(self.path)
+            path = parsed.path
+            if path == "/api/update":
                 # Run auto_update.py in background
                 script = BASE_DIR / "engine" / "auto_update.py"
                 subprocess.Popen([sys.executable, str(script)], cwd=str(BASE_DIR))
                 self._send_json({"status": "update triggered"})
                 return
-            elif self.path.startswith("/api/predict_match/"):
-                match_id = int(self.path.split("/")[-1])
+            elif path.startswith("/api/predict_match/"):
+                match_id = int(path.split("/")[-1])
                 from worldcup_engine import WorldCupEngine
                 engine = WorldCupEngine()
                 pred = engine.predict_match(match_id)
                 self._send_json(pred)
                 return
-            elif self.path == "/api/feedback":
+            elif path == "/api/feedback":
                 body = self._read_body()
                 payload = json.loads(body) if body else {}
                 result = save_feedback(payload)
@@ -83,7 +87,16 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
                 return
             self._send_json({"error": "not found"}, 404)
         except Exception as e:
-            self._send_json({"error": str(e)}, 500)
+            import traceback
+            tb = traceback.format_exc()
+            self._send_json({"error": str(e), "traceback": tb}, 500)
+
+    def do_OPTIONS(self):
+        self.send_response(204)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.end_headers()
 
 
 def load_feedback(match_id=None):
@@ -151,4 +164,9 @@ def run():
 
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--port", type=int, default=PORT)
+    args = parser.parse_args()
+    PORT = args.port
     run()

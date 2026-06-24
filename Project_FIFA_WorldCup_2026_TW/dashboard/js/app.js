@@ -503,9 +503,6 @@ function setupPredictionHistoryModal() {
   });
 }
 
-let currentFeedbackMatchId = null;
-let currentFeedbackMap = {};
-
 async function loadFeedbackForMatch(matchId) {
   try {
     const res = await fetch(`/api/feedback?match_id=${encodeURIComponent(matchId)}`);

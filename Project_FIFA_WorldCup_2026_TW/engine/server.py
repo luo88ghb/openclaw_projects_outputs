@@ -11,6 +11,8 @@ import sys
 import threading
 import time
 import urllib.parse
+import urllib.request
+import urllib.error
 import json
 import re
 from pathlib import Path
@@ -133,6 +135,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
     def do_GET(self):
         parsed = urllib.parse.urlparse(self.path)
+        print(f"[do_GET] path={self.path}", flush=True, file=sys.stderr)
         if parsed.path == "/update-stream":
             self._serve_sse()
             return
@@ -152,24 +155,87 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(body)
             return
+        if parsed.path.startswith("/api/"):
+            self._proxy_to_api_server(method="GET")
+            return
         return super().do_GET()
 
     def do_POST(self):
         parsed = urllib.parse.urlparse(self.path)
+        print(f"[do_POST] path={self.path} parsed={parsed.path}", flush=True, file=sys.stderr)
         if parsed.path == "/notify-update":
             self._notify_update()
             return
         if parsed.path == "/api/shutdown":
             self._shutdown()
             return
+        if parsed.path.startswith("/api/"):
+            self._proxy_to_api_server(method="POST")
+            return
         self.send_response(404)
         self.end_headers()
+
+    def do_OPTIONS(self):
+        parsed = urllib.parse.urlparse(self.path)
+        if parsed.path.startswith("/api/"):
+            self.send_response(204)
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+            self.send_header("Access-Control-Allow-Headers", "Content-Type")
+            self.send_header("Access-Control-Max-Age", "86400")
+            self.end_headers()
+            return
+        self.send_response(404)
+        self.end_headers()
+
+    def _proxy_to_api_server(self, method="GET"):
+        """Forward any /api/* request to the api_server running on port 8766."""
+        API_PORT = 8766
+        target_url = f"http://127.0.0.1:{API_PORT}{self.path}"
+        try:
+            if method == "GET":
+                req = urllib.request.Request(target_url, method="GET")
+            else:
+                length = int(self.headers.get("Content-Length", 0))
+                body = self.rfile.read(length)
+                req = urllib.request.Request(
+                    target_url,
+                    data=body,
+                    method="POST",
+                    headers={"Content-Type": self.headers.get("Content-Type", "application/json")},
+                )
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                resp_body = resp.read()
+                self.send_response(resp.status)
+                for key, value in resp.headers.items():
+                    if key.lower() not in ("transfer-encoding", "content-length", "connection"):
+                        self.send_header(key, value)
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(resp_body)))
+                self.end_headers()
+                self.wfile.write(resp_body)
+        except urllib.error.HTTPError as e:
+            body = e.read()
+            self.send_response(e.code)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+        except Exception as e:
+            msg = json.dumps({"error": f"proxy error: {e}"}, ensure_ascii=False).encode("utf-8")
+            self.send_response(502)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Content-Length", str(len(msg)))
+            self.end_headers()
+            self.wfile.write(msg)
 
     def _serve_status(self):
         status = {
             "running": True,
             "port": PORT,
-            "version": "v2.2.7",
+            "version": "v2.2.10",
             "pid": os.getpid(),
             "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
         }
@@ -262,6 +328,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             return
         if parsed.path == "/api/shutdown":
             self._shutdown()
+            return
+        if parsed.path.startswith("/api/"):
+            self._proxy_to_api_server(method="POST")
             return
         self.send_response(404)
         self.end_headers()
